@@ -64,6 +64,10 @@ export const Posts: CollectionConfig = {
       required: true,
     },
     {
+      name: 'subhead',
+      type: 'text',
+    },
+    {
       type: 'tabs',
       tabs: [
         {
@@ -175,7 +179,7 @@ export const Posts: CollectionConfig = {
         position: 'sidebar',
       },
       hasMany: true,
-      relationTo: 'users',
+      relationTo: 'authors',
     },
     // This field is only used to populate the user data via the `populateAuthors` hook
     // This is because the `user` collection has access control locked to protect user privacy

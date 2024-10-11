@@ -4,18 +4,14 @@ import React from 'react'
 import { serializeLexical } from './serialize'
 
 type Props = {
-  className?: string
-  content: Record<string, any>
-  enableGutter?: boolean
-  enableProse?: boolean
-}
+  className?: string;
+  content: Record<string, any>;
+  font: "serif" | "sans";
+  size: "sm" | "md" | "lg";
+  black?: boolean;
+};
 
-const RichText: React.FC<Props> = ({
-  className,
-  content,
-  enableGutter = true,
-  enableProse = true,
-}) => {
+const RichText: React.FC<Props> = ({ className, content, font, size, black }) => {
   if (!content) {
     return null
   }
@@ -23,12 +19,20 @@ const RichText: React.FC<Props> = ({
   return (
     <div
       className={cn(
+        "prose w-full prose-a:text-sky-800 prose-p:leading-normal prose-p:tracking-normal prose-a:underline-offset-2 prose-a:decoration-sky-700",
         {
-          'container ': enableGutter,
-          'max-w-none': !enableGutter,
-          'mx-auto prose dark:prose-invert ': enableProse,
+          "font-serif": font === "serif",
+          "font-sans": font === "sans",
         },
-        className,
+        {
+          "prose-p:text-gray-900": black,
+        },
+        {
+          "prose-lg md:prose-xl": size === "lg",
+          "prose-base md:prose-lg": size === "md",
+          "prose-sm md:prose-base": size === "sm",
+        },
+        className
       )}
     >
       {content &&

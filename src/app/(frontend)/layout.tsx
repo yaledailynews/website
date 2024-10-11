@@ -34,10 +34,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             }}
           />
           <LivePreviewListener />
-
-          <Header />
-          {children}
-          <Footer />
+          <div className="md:px-6 lg:px-10 xl:px-16 max-w-7xl mx-auto flex flex-col gap-5 overflow-hidden">
+            <Header />
+            {children}
+            <Footer />
+          </div>
         </Providers>
       </body>
     </html>

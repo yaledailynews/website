@@ -29,13 +29,10 @@ export const Media: CollectionConfig = {
       required: true,
     },
     {
-      name: 'caption',
-      type: 'richText',
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
-          return [...rootFeatures, FixedToolbarFeature(), InlineToolbarFeature()]
-        },
-      }),
+      name: 'author',
+      type: 'relationship',
+      relationTo: 'authors',
+      hasMany: false,
     },
   ],
   upload: {
