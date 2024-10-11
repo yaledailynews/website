@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button'
 
 import { buildInitialFormState } from './buildInitialFormState'
 import { fields } from './fields'
+import { FormBlock as FormBlockProps } from '@/payload-types'
 
 export type Value = unknown
 
@@ -20,29 +21,28 @@ export interface Data {
   [key: string]: Property | Property[]
 }
 
-export type FormBlockType = {
-  blockName?: string
-  blockType?: 'formBlock'
-  enableIntro: boolean
-  form: FormType
-  introContent?: {
-    [k: string]: unknown
-  }[]
-}
+export const FormBlock: React.FC<FormBlockProps> = (props) => {
+  const { enableIntro, form: formFromProps, introContent } = props
 
-export const FormBlock: React.FC<
-  {
-    id?: string
-  } & FormBlockType
-> = (props) => {
+  if (typeof formFromProps === 'number') {
+    // TODO: fetch form from server
+    throw new Error('FormBlock: form fetching not implemented')
+  }
+
   const {
-    enableIntro,
-    form: formFromProps,
-    form: { id: formID, confirmationMessage, confirmationType, redirect, submitButtonLabel } = {},
-    introContent,
-  } = props
+    confirmationMessage,
+    confirmationType,
+    id: formID,
+    redirect,
+    submitButtonLabel,
+  } = formFromProps
+
+  if (!formFromProps.fields) {
+    throw new Error('FormBlock: form fields are required')
+  }
 
   const formMethods = useForm({
+    // @ts-expect-error
     defaultValues: buildInitialFormState(formFromProps.fields),
   })
   const {
@@ -125,44 +125,46 @@ export const FormBlock: React.FC<
   )
 
   return (
-    <div className="container lg:max-w-[48rem] pb-20">
+    <div className="container lg:max-w-[48rem] bg-gray-100 pt-6 pb-10 px-8 font-sans border border-gray-200">
       <FormProvider {...formMethods}>
         {enableIntro && introContent && !hasSubmitted && (
-          <RichText className="mb-8" content={introContent} enableGutter={false} />
+          <RichText className="mb-8" content={introContent} font="sans" size="lg" />
         )}
-        {!isLoading && hasSubmitted && confirmationType === 'message' && (
-          <RichText content={confirmationMessage} />
+        {!isLoading && hasSubmitted && confirmationMessage && confirmationType === 'message' && (
+          <RichText content={confirmationMessage} font="sans" size="lg" />
         )}
         {isLoading && !hasSubmitted && <p>Loading, please wait...</p>}
         {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
         {!hasSubmitted && (
-          <form id={formID} onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-4 last:mb-0">
-              {formFromProps &&
-                formFromProps.fields &&
-                formFromProps.fields?.map((field, index) => {
-                  const Field: React.FC<any> = fields?.[field.blockType]
-                  if (Field) {
-                    return (
-                      <div className="mb-6 last:mb-0" key={index}>
-                        <Field
-                          form={formFromProps}
-                          {...field}
-                          {...formMethods}
-                          control={control}
-                          errors={errors}
-                          register={register}
-                        />
-                      </div>
-                    )
-                  }
-                  return null
-                })}
-            </div>
+          <form id={formID.toString()} onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-3'>
+            {formFromProps &&
+              formFromProps.fields &&
+              formFromProps.fields?.map((field, index) => {
+                const Field: React.FC<any> = fields?.[field.blockType]
+                if (Field) {
+                  return (
+                    <div key={index}>
+                      <Field
+                        form={formFromProps}
+                        {...field}
+                        {...formMethods}
+                        control={control}
+                        errors={errors}
+                        register={register}
+                      />
+                    </div>
+                  )
+                }
+                return null
+              })}
 
-            <Button form={formID} type="submit" variant="default">
+            <button
+              form={formID.toString()}
+              type="submit"
+              className="bg-gray-900 text-white px-4 py-2 text-base mt-4"
+            >
               {submitButtonLabel}
-            </Button>
+            </button>
           </form>
         )}
       </FormProvider>

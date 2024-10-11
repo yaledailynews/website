@@ -5,7 +5,11 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import React, { Fragment, JSX } from 'react'
 import { CMSLink } from '@/components/Link'
 import { DefaultNodeTypes, SerializedBlockNode } from '@payloadcms/richtext-lexical'
-import type { BannerBlock as BannerBlockProps } from '@/payload-types'
+import type {
+  BannerBlock as BannerBlockProps,
+  MediaBlock as MediaBlockProps,
+  FormBlock as FormBlockProps,
+} from '@/payload-types'
 
 import {
   IS_BOLD,
@@ -16,16 +20,11 @@ import {
   IS_SUPERSCRIPT,
   IS_UNDERLINE,
 } from './nodeFormat'
-import type { Page } from '@/payload-types'
+import { FormBlock } from '@/blocks/Form/Component'
 
 export type NodeTypes =
   | DefaultNodeTypes
-  | SerializedBlockNode<
-      | Extract<Page['layout'][0], { blockType: 'cta' }>
-      | Extract<Page['layout'][0], { blockType: 'mediaBlock' }>
-      | BannerBlockProps
-      | CodeBlockProps
-    >
+  | SerializedBlockNode<FormBlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps>
 
 type Props = {
   nodes: NodeTypes[]
@@ -105,9 +104,13 @@ export function serializeLexical({ nodes }: Props): JSX.Element {
             return null
           }
 
+          if (typeof block === 'number') {
+            return null
+          }
+
           switch (blockType) {
-            case 'cta':
-              return <CallToActionBlock key={index} {...block} />
+            case 'formBlock':
+              return <FormBlock key={index} {...block} />
             case 'mediaBlock':
               return (
                 <MediaBlock
@@ -125,7 +128,7 @@ export function serializeLexical({ nodes }: Props): JSX.Element {
             case 'code':
               return <CodeBlock className="col-start-2" key={index} {...block} />
             default:
-              return null
+              return <div key={index}>Unsupported block</div>
           }
         } else {
           switch (node.type) {

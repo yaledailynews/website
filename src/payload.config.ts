@@ -28,7 +28,6 @@ import { Posts } from './collections/Posts'
 import Users from './collections/Users'
 import { Authors } from './collections/Authors'
 
-import { seedHandler } from './endpoints/seedHandler'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { revalidateRedirects } from './hooks/revalidateRedirects'
@@ -144,13 +143,13 @@ export default buildConfig({
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   endpoints: [
-    // The seed endpoint is used to populate the database with some example data
-    // You should delete this endpoint before deploying your site to production
-    {
-      handler: seedHandler,
-      method: 'get',
-      path: '/seed',
-    },
+    // // The seed endpoint is used to populate the database with some example data
+    // // You should delete this endpoint before deploying your site to production
+    // {
+    //   handler: seedHandler,
+    //   method: 'get',
+    //   path: '/seed',
+    // },
   ],
   globals: [Header, Footer],
   plugins: [
