@@ -14,8 +14,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         headline: [
-          // "adobe-kis-variable",
-          "source-serif-4",
+          "source-serif-4-subhead",
           "ui-serif",
           "Georgia",
           "Cambria",
@@ -24,7 +23,7 @@ const config: Config = {
           "serif",
         ],
         sans: [
-          // "var(--font-inter)",
+          // san francisco
           "ui-sans-serif",
           "system-ui",
           "sans-serif",

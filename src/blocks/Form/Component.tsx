@@ -128,7 +128,7 @@ export const FormBlock: React.FC<FormBlockProps> = (props) => {
     <div className="container lg:max-w-[48rem] bg-gray-100 pt-6 pb-10 px-8 font-sans border border-gray-200">
       <FormProvider {...formMethods}>
         {enableIntro && introContent && !hasSubmitted && (
-          <RichText className="mb-8" content={introContent} font="sans" size="lg" />
+          <RichText className="mb-6 mt-1" content={introContent} font="sans" size="lg" />
         )}
         {!isLoading && hasSubmitted && confirmationMessage && confirmationType === 'message' && (
           <RichText content={confirmationMessage} font="sans" size="lg" />
