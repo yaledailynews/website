@@ -112,7 +112,7 @@ export async function Header() {
             {header.navItems.map(({ link, id }) => (
               <li key={id}>
                 <CMSLink
-                  appearance="link"
+                  // appearance="link"
                   className="flex text-sm md:text-xs text-black hover:underline decoration-2 underline-offset-4 px-4 py-2 md:py-3.5 md:px-4"
                   {...link}
                 />

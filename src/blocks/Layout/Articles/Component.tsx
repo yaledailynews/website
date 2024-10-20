@@ -1,9 +1,13 @@
 import { ArticlesBlock as ArticlesBlockProps, Layout, Post } from '@/payload-types'
 import { templates } from './templates'
 
-export async function ArticlesBlock({ posts, block, layout }: {
+export async function ArticlesBlock({
+  posts,
+  block,
+  layout,
+}: {
   block: ArticlesBlockProps
-  layout: Layout,
+  layout: Layout
   posts?: Post[]
 }) {
   if (!posts) {
@@ -12,7 +16,5 @@ export async function ArticlesBlock({ posts, block, layout }: {
 
   const TemplateComponent = templates[block.template]
 
-  return (
-    <TemplateComponent block={block} posts={posts} />
-  );
+  return <TemplateComponent block={block} posts={posts} />
 }

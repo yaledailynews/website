@@ -8,10 +8,7 @@ import React, { cache } from 'react'
 
 import type { Page as PageType } from '@/payload-types'
 
-// import { RenderBlocks } from '@/blocks/RenderBlocks'
-// import { RenderHero } from '@/heros/RenderHero'
-// import { generateMeta } from '@/utilities/generateMeta'
-import { Media } from '@/components/Media'
+import { MediaFigure } from '@/components/MediaFigure'
 import RichText from '@/components/RichText'
 
 export async function generateStaticParams() {

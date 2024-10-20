@@ -21,7 +21,7 @@ export const Newsletter: Block = {
       ],
       admin: {
         readOnly: true,
-      }
+      },
     },
     {
       name: 'topDivider',

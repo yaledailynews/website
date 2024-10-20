@@ -5,8 +5,7 @@ import React from 'react'
 import RichText from '@/components/RichText'
 
 import type { Page, MediaBlock as MediaBlockProps } from '@/payload-types'
-
-import { Media } from '../../components/Media'
+import { MediaFigure } from '@/components/MediaFigure'
 
 type Props = MediaBlockProps & {
   breakout?: boolean
@@ -46,11 +45,11 @@ export const MediaBlock: React.FC<Props> = (props) => {
     >
       {position === 'fullscreen' && (
         <div className="relative">
-          <Media resource={media} src={staticImage} />
+          <MediaFigure media={media} src={staticImage} />
         </div>
       )}
       {position === 'default' && (
-        <Media imgClassName={cn('rounded', imgClassName)} resource={media} src={staticImage} />
+        <MediaFigure className={cn('rounded', imgClassName)} media={media} src={staticImage} />
       )}
       {/* {caption && (
         <div

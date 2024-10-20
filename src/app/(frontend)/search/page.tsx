@@ -1,12 +1,10 @@
 import type { Metadata } from 'next/types'
 
-import { CollectionArchive } from '@/components/CollectionArchive'
 import configPromise from '@payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import React from 'react'
 import { Post } from '@/payload-types'
 import { Search } from '@/search/Component'
-import PageClient from './page.client'
 
 type Args = {
   searchParams: Promise<{
@@ -53,7 +51,6 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
 
   return (
     <div className="pt-24 pb-24">
-      <PageClient />
       <div className="container mb-16">
         <div className="prose dark:prose-invert max-w-none">
           <h1 className="sr-only">Search</h1>
@@ -62,7 +59,8 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
       </div>
 
       {posts.totalDocs > 0 ? (
-        <CollectionArchive posts={posts.docs as unknown as Post[]} />
+        // <CollectionArchive posts={posts.docs as unknown as Post[]} />
+        <div className="container">TODO</div>
       ) : (
         <div className="container">No results found.</div>
       )}

@@ -1,11 +1,18 @@
 'use client'
 
-import { useFieldProps, useField, useForm, useFormFields, TextInput, FieldLabel } from '@payloadcms/ui';
+import {
+  useFieldProps,
+  useField,
+  useForm,
+  useFormFields,
+  TextInput,
+  FieldLabel,
+} from '@payloadcms/ui'
 import { FormState, SelectFieldClientProps } from 'payload'
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 
 function getPosition(state: FormState, path: string) {
-  const layoutTemplate = state["template"].value
+  const layoutTemplate = state['template'].value
   if (layoutTemplate === 'standard') {
     const pathSections = path.split('.')
     const [blocksFieldName, index] = pathSections
@@ -25,7 +32,7 @@ function getPosition(state: FormState, path: string) {
 
 export const AutomaticPositionComponent: React.FC<SelectFieldClientProps> = ({ field }) => {
   const { label, options } = field
-  const { path,  } = useFieldProps()
+  const { path } = useFieldProps()
   const { value, setValue } = useField<string>({ path })
 
   const targetFieldValue = useFormFields(([fields]) => {
@@ -39,13 +46,17 @@ export const AutomaticPositionComponent: React.FC<SelectFieldClientProps> = ({ f
     } else {
       if (value !== '') setValue('')
     }
-  }, [targetFieldValue, setValue, value])
+  }, [targetFieldValue, setValue, field, value])
 
   return (
-    <div className='field-type'>
+    <div className="field-type">
       <FieldLabel field={field} htmlFor={`field-${path}`} label={label} />
-      {/* @ts-ignore */}
-      <TextInput value={options.find(option => option.value === value)?.label} path={path} readOnly />
+      <TextInput
+        // @ts-expect-error
+        value={options.find((option) => option.value === value)?.label}
+        path={path}
+        readOnly
+      />
     </div>
-  );
+  )
 }

@@ -1,11 +1,11 @@
-import { ArticlesBlock, Post } from "@/payload-types";
-import { FeaturedPair } from "./FeaturedPair";
-import { TemplateName } from "../config";
-import React from "react";
+import { ArticlesBlock, Post } from '@/payload-types'
+import { FeaturedPair } from './FeaturedPair'
+import { TemplateName } from '../config'
+import React from 'react'
 
 export type TemplateProps = {
-  block: ArticlesBlock;
-  posts: Post[];
+  block: ArticlesBlock
+  posts: Post[]
 }
 
 export const templates: Record<TemplateName, React.FC<TemplateProps>> = {

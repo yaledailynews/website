@@ -12,13 +12,12 @@ import { enUS } from 'date-fns/locale'
 
 import type { Author, Post } from '@/payload-types'
 
-// import { generateMeta } from '@/utilities/generateMeta'
 import Link from 'next/link'
 import { IconMail, IconPlayerPlay, IconShare3 } from '@tabler/icons-react'
 import Image from 'next/image'
 import icon from '@/assets/icon.png'
-import { Media } from '@/components/Media'
 import { CMSLink } from '@/components/Link'
+import { MediaFigure } from '@/components/MediaFigure'
 
 export async function generateStaticParams() {
   const payload = await getPayloadHMR({ config: configPromise })
@@ -108,7 +107,7 @@ export default async function Post({ params: paramsPromise }: Args) {
             className={`flex flex-col items-end ${`max-w-screen-sm `} pt-9`}
             // TODO: can adaptively have different image sizes here
           >
-            <Media className="w-full h-auto" media={post.cover} />
+            <MediaFigure className="w-full h-auto" media={post.cover} />
           </div>
         )}
         <div className="max-w-screen-sm px-5 md:px-0 w-full flex flex-col pt-7 sm:pt-8 md:pt-9 lg:pt-10 gap-8 sm:gap-10 md:gap-12 lg:gap-14">

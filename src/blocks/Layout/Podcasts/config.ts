@@ -32,7 +32,7 @@ export const Podcasts: Block = {
       ],
       admin: {
         readOnly: true,
-      }
+      },
     },
     {
       name: 'topDivider',

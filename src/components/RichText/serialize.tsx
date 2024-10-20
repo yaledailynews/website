@@ -1,5 +1,4 @@
 import { BannerBlock } from '@/blocks/Banner/Component'
-import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import React, { Fragment, JSX } from 'react'
@@ -8,7 +7,6 @@ import { DefaultNodeTypes, SerializedBlockNode } from '@payloadcms/richtext-lexi
 import type {
   BannerBlock as BannerBlockProps,
   MediaBlock as MediaBlockProps,
-  FormBlock as FormBlockProps,
 } from '@/payload-types'
 
 import {
@@ -20,11 +18,11 @@ import {
   IS_SUPERSCRIPT,
   IS_UNDERLINE,
 } from './nodeFormat'
-import { FormBlock } from '@/blocks/Form/Component'
+// import { FormBlock } from '@/blocks/Form/Component'
 
 export type NodeTypes =
   | DefaultNodeTypes
-  | SerializedBlockNode<FormBlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps>
+  | SerializedBlockNode<MediaBlockProps | BannerBlockProps | CodeBlockProps>
 
 type Props = {
   nodes: NodeTypes[]
@@ -109,8 +107,8 @@ export function serializeLexical({ nodes }: Props): JSX.Element {
           }
 
           switch (blockType) {
-            case 'formBlock':
-              return <FormBlock key={index} {...block} />
+            // case 'formBlock':
+            //   return <FormBlock key={index} {...block} />
             case 'mediaBlock':
               return (
                 <MediaBlock

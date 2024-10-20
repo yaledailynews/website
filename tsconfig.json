@@ -44,7 +44,7 @@
     ".next/types/**/*.ts",
     "redirects.js",
     "next.config.js"
-  ],
+, "eslint.config.js", ".eslintrc.cjs"  ],
   "exclude": [
     "node_modules"
   ]

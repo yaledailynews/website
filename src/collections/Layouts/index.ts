@@ -1,12 +1,12 @@
-import { authenticated } from "@/access/authenticated";
-import { authenticatedOrPublished } from "@/access/authenticatedOrPublished";
-import { slugField } from "@/fields/slug";
-import { generatePreviewPath } from "@/utilities/generatePreviewPath";
-import { CollectionConfig } from "payload";
-import { Text } from "@/blocks/Layout/Text/config";
-import { Articles } from "@/blocks/Layout/Articles/config";
-import { Podcasts } from "@/blocks/Layout/Podcasts/config";
-import { Newsletter } from "@/blocks/Layout/Newsletter/config";
+import { authenticated } from '@/access/authenticated'
+import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
+import { slugField } from '@/fields/slug'
+import { generatePreviewPath } from '@/utilities/generatePreviewPath'
+import { CollectionConfig } from 'payload'
+import { Text } from '@/blocks/Layout/Text/config'
+import { Articles } from '@/blocks/Layout/Articles/config'
+import { Podcasts } from '@/blocks/Layout/Podcasts/config'
+import { Newsletter } from '@/blocks/Layout/Newsletter/config'
 
 export const Layouts: CollectionConfig = {
   slug: 'layouts',
@@ -56,30 +56,25 @@ export const Layouts: CollectionConfig = {
     },
     ...slugField(),
     {
-      name: "template",
-      type: "select",
+      name: 'template',
+      type: 'select',
       options: [
-        { label: "Standard", value: "standard" },
-        { label: "Category", value: "category" },
-        { label: "Special Issue", value: "special-issue" },
-        { label: "Magazine", value: "magazine" },
-        { label: "Podcast", value: "podcast" },
+        { label: 'Standard', value: 'standard' },
+        { label: 'Category', value: 'category' },
+        { label: 'Special Issue', value: 'special-issue' },
+        { label: 'Magazine', value: 'magazine' },
+        { label: 'Podcast', value: 'podcast' },
       ],
-      defaultValue: "standard",
+      defaultValue: 'standard',
       required: true,
       admin: {
-        position: "sidebar",
+        position: 'sidebar',
       },
     },
     {
-      name: "blocks",
-      type: "blocks",
-      blocks: [
-        Articles,
-        Text,
-        Podcasts,
-        Newsletter,
-      ],
+      name: 'blocks',
+      type: 'blocks',
+      blocks: [Articles, Text, Podcasts, Newsletter],
     },
   ],
   hooks: {
