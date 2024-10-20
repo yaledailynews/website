@@ -30,16 +30,16 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
                   like: query,
                 },
               },
-              {
-                'meta.description': {
-                  like: query,
-                },
-              },
-              {
-                'meta.title': {
-                  like: query,
-                },
-              },
+              // {
+              //   'meta.description': {
+              //     like: query,
+              //   },
+              // },
+              // {
+              //   'meta.title': {
+              //     like: query,
+              //   },
+              // },
               {
                 slug: {
                   like: query,

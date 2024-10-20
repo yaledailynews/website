@@ -4,11 +4,11 @@ import { cn } from 'src/utilities/cn'
 import React from 'react'
 import RichText from '@/components/RichText'
 
-import type { Page } from '@/payload-types'
+import type { Page, MediaBlock as MediaBlockProps } from '@/payload-types'
 
 import { Media } from '../../components/Media'
 
-type Props = Extract<Page['layout'][0], { blockType: 'mediaBlock' }> & {
+type Props = MediaBlockProps & {
   breakout?: boolean
   captionClassName?: string
   className?: string
@@ -31,8 +31,8 @@ export const MediaBlock: React.FC<Props> = (props) => {
     disableInnerContainer,
   } = props
 
-  let caption
-  if (media && typeof media === 'object') caption = media.caption
+  // let caption
+  // if (media && typeof media === 'object') caption = media.caption
 
   return (
     <div
@@ -52,7 +52,7 @@ export const MediaBlock: React.FC<Props> = (props) => {
       {position === 'default' && (
         <Media imgClassName={cn('rounded', imgClassName)} resource={media} src={staticImage} />
       )}
-      {caption && (
+      {/* {caption && (
         <div
           className={cn(
             'mt-6',
@@ -62,9 +62,9 @@ export const MediaBlock: React.FC<Props> = (props) => {
             captionClassName,
           )}
         >
-          <RichText content={caption} enableGutter={false} />
+          <RichText content={caption} font='sans' size='sm' />
         </div>
-      )}
+      )} */}
     </div>
   )
 }

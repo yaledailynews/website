@@ -2,24 +2,24 @@ import type { CollectionConfig } from 'payload'
 
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
-import { Archive } from '../../blocks/ArchiveBlock/config'
-import { CallToAction } from '../../blocks/CallToAction/config'
-import { Content } from '../../blocks/Content/config'
+// import { Archive } from '../../blocks/ArchiveBlock/config'
+// import { CallToAction } from '../../blocks/CallToAction/config'
+// import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
-import { hero } from '@/heros/config'
+// import { hero } from '@/heros/config'
 import { slugField } from '@/fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidatePage } from './hooks/revalidatePage'
 
-import {
-  MetaDescriptionField,
-  MetaImageField,
-  MetaTitleField,
-  OverviewField,
-  PreviewField,
-} from '@payloadcms/plugin-seo/fields'
+// import {
+//   MetaDescriptionField,
+//   MetaImageField,
+//   MetaTitleField,
+//   OverviewField,
+//   PreviewField,
+// } from '@payloadcms/plugin-seo/fields'
 import { BlocksFeature, FixedToolbarFeature, HeadingFeature, HorizontalRuleFeature, InlineToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import { Banner } from '@/blocks/Banner/config'
 import { Code } from '@/blocks/Code/config'
@@ -85,33 +85,33 @@ export const Pages: CollectionConfig = {
           ],
           label: 'Content',
         },
-        {
-          name: 'meta',
-          label: 'SEO',
-          fields: [
-            OverviewField({
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-              imagePath: 'meta.image',
-            }),
-            MetaTitleField({
-              hasGenerateFn: true,
-            }),
-            MetaImageField({
-              relationTo: 'media',
-            }),
+        // {
+        //   name: 'meta',
+        //   label: 'SEO',
+        //   fields: [
+        //     OverviewField({
+        //       titlePath: 'meta.title',
+        //       descriptionPath: 'meta.description',
+        //       imagePath: 'meta.image',
+        //     }),
+        //     MetaTitleField({
+        //       hasGenerateFn: true,
+        //     }),
+        //     MetaImageField({
+        //       relationTo: 'media',
+        //     }),
 
-            MetaDescriptionField({}),
-            PreviewField({
-              // if the `generateUrl` function is configured
-              hasGenerateFn: true,
+        //     MetaDescriptionField({}),
+        //     PreviewField({
+        //       // if the `generateUrl` function is configured
+        //       hasGenerateFn: true,
 
-              // field paths to match the target field for data
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-            }),
-          ],
-        },
+        //       // field paths to match the target field for data
+        //       titlePath: 'meta.title',
+        //       descriptionPath: 'meta.description',
+        //     }),
+        //   ],
+        // },
       ],
     },
     {

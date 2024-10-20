@@ -19,7 +19,7 @@ export const BannerBlock: React.FC<Props> = ({ className, content, style }) => {
           'border-warning bg-warning/30': style === 'warning',
         })}
       >
-        <RichText content={content} enableGutter={false} enableProse={false} />
+        <RichText content={content} font='sans' size='md' />
       </div>
     </div>
   )

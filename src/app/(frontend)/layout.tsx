@@ -9,8 +9,6 @@ import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
-import { Providers } from '@/providers'
-import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
 
@@ -22,25 +20,22 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
       <head>
-        <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
         <link rel="stylesheet" href="https://use.typekit.net/wkm0djp.css" />
       </head>
       <body>
-        <Providers>
-          <AdminBar
-            adminBarProps={{
-              preview: isEnabled,
-            }}
-          />
-          <LivePreviewListener />
-          <div className="md:px-6 lg:px-10 xl:px-16 max-w-7xl mx-auto flex flex-col gap-5 overflow-hidden">
-            <Header />
-            {children}
-            <Footer />
-          </div>
-        </Providers>
+        <AdminBar
+          adminBarProps={{
+            preview: isEnabled,
+          }}
+        />
+        <LivePreviewListener />
+        <div className="md:px-6 lg:px-10 xl:px-16 max-w-7xl mx-auto flex flex-col gap-5 overflow-hidden">
+          <Header />
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
   )

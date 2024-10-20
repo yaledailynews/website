@@ -10,15 +10,11 @@ import { BoldFeatureClient as BoldFeatureClient_8 } from '@payloadcms/richtext-l
 import { ItalicFeatureClient as ItalicFeatureClient_9 } from '@payloadcms/richtext-lexical/client'
 import { LinkFeatureClient as LinkFeatureClient_10 } from '@payloadcms/richtext-lexical/client'
 import { HeadingFeatureClient as HeadingFeatureClient_11 } from '@payloadcms/richtext-lexical/client'
-import { OverviewComponent as OverviewComponent_12 } from '@payloadcms/plugin-seo/client'
-import { MetaTitleComponent as MetaTitleComponent_13 } from '@payloadcms/plugin-seo/client'
-import { MetaImageComponent as MetaImageComponent_14 } from '@payloadcms/plugin-seo/client'
-import { MetaDescriptionComponent as MetaDescriptionComponent_15 } from '@payloadcms/plugin-seo/client'
-import { PreviewComponent as PreviewComponent_16 } from '@payloadcms/plugin-seo/client'
-import { SlugComponent as SlugComponent_17 } from '@/fields/slug/SlugComponent'
-import { LinkToDoc as LinkToDoc_18 } from '@payloadcms/plugin-search/client'
-import { default as default_19 } from '@/components/BeforeDashboard'
-import { default as default_20 } from '@/components/BeforeLogin'
+import { SlugComponent as SlugComponent_12 } from '@/fields/slug/SlugComponent'
+import { AutomaticPositionComponent as AutomaticPositionComponent_13 } from '@/blocks/Layout/Articles/AutomaticPosition.tsx'
+import { LinkToDoc as LinkToDoc_14 } from '@payloadcms/plugin-search/client'
+import { default as default_15 } from '@/components/BeforeDashboard'
+import { default as default_16 } from '@/components/BeforeLogin'
 
 export const importMap = {
   "@payloadcms/richtext-lexical/client#RichTextCell": RichTextCell_0,
@@ -33,13 +29,9 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#ItalicFeatureClient": ItalicFeatureClient_9,
   "@payloadcms/richtext-lexical/client#LinkFeatureClient": LinkFeatureClient_10,
   "@payloadcms/richtext-lexical/client#HeadingFeatureClient": HeadingFeatureClient_11,
-  "@payloadcms/plugin-seo/client#OverviewComponent": OverviewComponent_12,
-  "@payloadcms/plugin-seo/client#MetaTitleComponent": MetaTitleComponent_13,
-  "@payloadcms/plugin-seo/client#MetaImageComponent": MetaImageComponent_14,
-  "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_15,
-  "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_16,
-  "@/fields/slug/SlugComponent#SlugComponent": SlugComponent_17,
-  "@payloadcms/plugin-search/client#LinkToDoc": LinkToDoc_18,
-  "@/components/BeforeDashboard#default": default_19,
-  "@/components/BeforeLogin#default": default_20
+  "@/fields/slug/SlugComponent#SlugComponent": SlugComponent_12,
+  "@/blocks/Layout/Articles/AutomaticPosition.tsx#AutomaticPositionComponent": AutomaticPositionComponent_13,
+  "@payloadcms/plugin-search/client#LinkToDoc": LinkToDoc_14,
+  "@/components/BeforeDashboard#default": default_15,
+  "@/components/BeforeLogin#default": default_16
 }

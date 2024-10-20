@@ -23,17 +23,17 @@ export const searchFields: Field[] = [
         name: 'title',
         label: 'Title',
       },
-      {
-        type: 'text',
-        name: 'description',
-        label: 'Description',
-      },
-      {
-        name: 'image',
-        label: 'Image',
-        type: 'upload',
-        relationTo: 'media',
-      },
+      // {
+      //   type: 'text',
+      //   name: 'description',
+      //   label: 'Description',
+      // },
+      // {
+      //   name: 'image',
+      //   label: 'Image',
+      //   type: 'upload',
+      //   relationTo: 'media',
+      // },
     ],
   },
   {

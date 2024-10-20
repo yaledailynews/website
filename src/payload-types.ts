@@ -17,6 +17,7 @@ export interface Config {
     categories: Category;
     users: User;
     authors: Author;
+    layouts: Layout;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -77,12 +78,47 @@ export interface Page {
     };
     [k: string]: unknown;
   };
-  meta?: {
-    title?: string | null;
-    image?: (number | null) | Media;
-    description?: string | null;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: number;
+  title: string;
+  subhead?: string | null;
+  cover?: (number | null) | Media;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
   };
   publishedAt?: string | null;
+  categories?: (number | Category)[] | null;
+  authors?: (number | Author)[] | null;
+  relatedPosts?: (number | Post)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
   slug?: string | null;
   slugLock?: boolean | null;
   updatedAt: string;
@@ -161,50 +197,6 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: number;
-  title: string;
-  subhead?: string | null;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  relatedPosts?: (number | Post)[] | null;
-  categories?: (number | Category)[] | null;
-  meta?: {
-    title?: string | null;
-    image?: (number | null) | Media;
-    description?: string | null;
-  };
-  publishedAt?: string | null;
-  authors?: (number | Author)[] | null;
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        name?: string | null;
-      }[]
-    | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories".
  */
 export interface Category {
@@ -223,6 +215,96 @@ export interface Category {
     | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "layouts".
+ */
+export interface Layout {
+  id: number;
+  title: string;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  template: 'standard' | 'category' | 'special-issue' | 'magazine' | 'podcast';
+  blocks?: (ArticlesBlock | TextBlock | PodcastsBlock | NewsletterBlock)[] | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ArticlesBlock".
+ */
+export interface ArticlesBlock {
+  template:
+    | 'SimpleList'
+    | 'FeaturedSingle'
+    | 'FeaturedPair'
+    | 'SmallImageTrio'
+    | 'TallImageTrio'
+    | 'TwoColumnQuad'
+    | 'LargeImageQuad'
+    | 'Opinion'
+    | 'WKND'
+    | 'Magazine'
+    | 'SidebarTrio';
+  desktopPosition?: ('default' | 'sidebar' | 'fullTop' | 'fullBottom') | null;
+  source?: ('manual' | 'latestFromCategory') | null;
+  posts?: (number | Post)[] | null;
+  category?: (number | null) | Category;
+  topDivider: 'dark' | 'light';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'layoutsArticles';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBlock".
+ */
+export interface TextBlock {
+  text: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  desktopPosition?: ('default' | 'sidebar' | 'fullTop' | 'fullBottom') | null;
+  topDivider: 'dark' | 'light';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'layoutsText';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PodcastsBlock".
+ */
+export interface PodcastsBlock {
+  desktopPosition?: ('default' | 'sidebar' | 'fullTop' | 'fullBottom') | null;
+  topDivider: 'dark' | 'light';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'layoutsPodcasts';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsletterBlock".
+ */
+export interface NewsletterBlock {
+  desktopPosition?: ('default' | 'sidebar' | 'fullTop' | 'fullBottom') | null;
+  topDivider: 'dark' | 'light';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'layoutsNewsletter';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -443,8 +525,6 @@ export interface Search {
   slug?: string | null;
   meta?: {
     title?: string | null;
-    description?: string | null;
-    image?: (number | null) | Media;
   };
   categories?:
     | {
@@ -486,6 +566,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'authors';
         value: number | Author;
+      } | null)
+    | ({
+        relationTo: 'layouts';
+        value: number | Layout;
       } | null)
     | ({
         relationTo: 'redirects';

@@ -12,7 +12,7 @@ import { enUS } from 'date-fns/locale'
 
 import type { Author, Post } from '@/payload-types'
 
-import { generateMeta } from '@/utilities/generateMeta'
+// import { generateMeta } from '@/utilities/generateMeta'
 import Link from 'next/link'
 import { IconMail, IconPlayerPlay, IconShare3 } from '@tabler/icons-react'
 import Image from 'next/image'
@@ -25,7 +25,7 @@ export async function generateStaticParams() {
   const posts = await payload.find({
     collection: 'posts',
     draft: false,
-    limit: 1000,
+    limit: 100000,
     overrideAccess: false,
   })
 
@@ -103,12 +103,12 @@ export default async function Post({ params: paramsPromise }: Args) {
           )}
         </div>
 
-        {post.meta?.image && typeof post.meta.image !== 'string' && (
+        {post.cover && (
           <div
             className={`flex flex-col items-end ${`max-w-screen-sm `} pt-9`}
             // TODO: can adaptively have different image sizes here
           >
-            <Media imgClassName="w-full h-auto" resource={post.meta.image} />
+            <Media className="w-full h-auto" media={post.cover} />
           </div>
         )}
         <div className="max-w-screen-sm px-5 md:px-0 w-full flex flex-col pt-7 sm:pt-8 md:pt-9 lg:pt-10 gap-8 sm:gap-10 md:gap-12 lg:gap-14">
@@ -131,7 +131,7 @@ export default async function Post({ params: paramsPromise }: Args) {
                     <div className="font-semibold text-sm">
                       By{' '}
                       {resolvedAuthors.map((author, i) => (
-                        <>
+                        <React.Fragment key={i}>
                           <CMSLink
                             className="underline"
                             key={author.name + i}
@@ -146,7 +146,7 @@ export default async function Post({ params: paramsPromise }: Args) {
                           {i < numAuthors - 1 && (
                             <span>{i === numAuthors - 2 ? ' and ' : ', '}</span>
                           )}
-                        </>
+                        </React.Fragment>
                       ))}
                     </div>
                     <div className="text-xs sm:text-sm text-gray-600">{formattedDate}</div>
@@ -189,12 +189,12 @@ export default async function Post({ params: paramsPromise }: Args) {
   )
 }
 
-export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { slug = '' } = await paramsPromise
-  const post = await queryPostBySlug({ slug })
+// export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
+//   const { slug = '' } = await paramsPromise
+//   const post = await queryPostBySlug({ slug })
 
-  return generateMeta({ doc: post })
-}
+//   return generateMeta({ doc: post })
+// }
 
 const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
   const { isEnabled: draft } = await draftMode()
