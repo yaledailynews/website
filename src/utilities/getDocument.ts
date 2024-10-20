@@ -24,7 +24,7 @@ async function getDocument<T extends Collection>(collection: T, slug: string, de
 /**
  * Returns a unstable_cache function mapped with the cache tag for the slug
  */
-export const getCachedDocument = <T extends Collection>(collection: T, slug: string) =>
-  unstable_cache(async () => getDocument(collection, slug), [collection, slug], {
+export const getCachedDocument = <T extends Collection>(collection: T, slug: string, depth = 0) =>
+  unstable_cache(async () => getDocument(collection, slug, depth), [collection, slug], {
     tags: [`${collection}_${slug}`],
   })

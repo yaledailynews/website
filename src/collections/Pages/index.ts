@@ -1,11 +1,10 @@
 import type { CollectionConfig } from 'payload'
 
-import { authenticated } from '../../access/authenticated'
-import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
-import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { authenticated } from '@/access/authenticated'
+import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
 import { slugField } from '@/fields/slug'
-import { populatePublishedAt } from '../../hooks/populatePublishedAt'
-import { generatePreviewPath } from '../../utilities/generatePreviewPath'
+import { populatePublishedAt } from '@/hooks/populatePublishedAt'
+import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { revalidatePage } from './hooks/revalidatePage'
 
 import {
@@ -16,8 +15,11 @@ import {
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
-import { Banner } from '@/blocks/Banner/config'
-import { Code } from '@/blocks/Code/config'
+
+import { Banner } from '@/blocks/Banner'
+import { Code } from '@/blocks/Code'
+import { MediaBlock } from '@/blocks/MediaBlock'
+
 export const Pages: CollectionConfig = {
   slug: 'pages',
   access: {
@@ -55,65 +57,40 @@ export const Pages: CollectionConfig = {
       required: true,
     },
     {
-      type: 'tabs',
-      tabs: [
-        {
-          fields: [
-            {
-              name: 'content',
-              type: 'richText',
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => {
-                  return [
-                    ...rootFeatures,
-                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                    BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
-                    FixedToolbarFeature(),
-                    InlineToolbarFeature(),
-                    HorizontalRuleFeature(),
-                  ]
-                },
-              }),
-              label: false,
-              required: true,
-            },
-          ],
-          label: 'Content',
+      name: 'content',
+      type: 'richText',
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => {
+          return [
+            ...rootFeatures,
+            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+            BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+            FixedToolbarFeature(),
+            InlineToolbarFeature(),
+            HorizontalRuleFeature(),
+          ]
         },
-        // {
-        //   name: 'meta',
-        //   label: 'SEO',
-        //   fields: [
-        //     OverviewField({
-        //       titlePath: 'meta.title',
-        //       descriptionPath: 'meta.description',
-        //       imagePath: 'meta.image',
-        //     }),
-        //     MetaTitleField({
-        //       hasGenerateFn: true,
-        //     }),
-        //     MetaImageField({
-        //       relationTo: 'media',
-        //     }),
-
-        //     MetaDescriptionField({}),
-        //     PreviewField({
-        //       // if the `generateUrl` function is configured
-        //       hasGenerateFn: true,
-
-        //       // field paths to match the target field for data
-        //       titlePath: 'meta.title',
-        //       descriptionPath: 'meta.description',
-        //     }),
-        //   ],
-        // },
-      ],
+      }),
+      required: true,
     },
     {
       name: 'publishedAt',
       type: 'date',
       admin: {
+        date: {
+          pickerAppearance: 'dayAndTime',
+        },
         position: 'sidebar',
+      },
+      hooks: {
+        beforeChange: [
+          ({ siblingData, value }) => {
+            if (siblingData._status === 'published' && !value) {
+              return new Date()
+            }
+            return value
+          },
+        ],
       },
     },
     ...slugField(),

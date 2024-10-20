@@ -16,7 +16,7 @@ function getPosition(state: FormState, path: string) {
   if (layoutTemplate === 'standard') {
     const pathSections = path.split('.')
     const [blocksFieldName, index] = pathSections
-    const template = state[`${blocksFieldName}.${index}.template`].value
+    const template = state[`${blocksFieldName}.${index}.template`]?.value
     if (template === 'SidebarTrio') {
       return 'sidebar'
     } else if (template === 'WKND') {
@@ -27,7 +27,7 @@ function getPosition(state: FormState, path: string) {
       return 'fullBottom'
     }
   }
-  return 'default'
+  return 'main'
 }
 
 export const AutomaticPositionComponent: React.FC<SelectFieldClientProps> = ({ field }) => {
@@ -41,7 +41,6 @@ export const AutomaticPositionComponent: React.FC<SelectFieldClientProps> = ({ f
 
   useEffect(() => {
     if (targetFieldValue) {
-      console.log('targetFieldValue', field)
       if (value !== targetFieldValue) setValue(targetFieldValue)
     } else {
       if (value !== '') setValue('')

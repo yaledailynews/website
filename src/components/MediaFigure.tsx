@@ -15,7 +15,21 @@ export async function MediaFigure({
 } & Partial<ImageProps>) {
   if (!media) return null
   if (typeof media === 'string') return null
-  if (typeof media === 'number') return null
+  // TODO: deal with this properly instead of placeholder
+  if (typeof media === 'number') {
+    return (
+      <figure
+        className={
+          'w-full flex flex-col items-end' + (figureClassName ? ` ${figureClassName}` : '')
+        }
+      >
+        <div className="w-full mb-2 aspect-video bg-gray-200 flex justify-center items-center flex-col gap-4 p-10">
+          <p>Meda ID: {media}</p>
+          <p className='text-red-600 text-center'>You should increase the depth of the parent query.</p>
+        </div>
+      </figure>
+    )
+  }
   if (!media.url) return null
 
   const resolvedAuthor = media.author

@@ -11,7 +11,7 @@ import { ItalicFeatureClient as ItalicFeatureClient_9 } from '@payloadcms/richte
 import { LinkFeatureClient as LinkFeatureClient_10 } from '@payloadcms/richtext-lexical/client'
 import { HeadingFeatureClient as HeadingFeatureClient_11 } from '@payloadcms/richtext-lexical/client'
 import { SlugComponent as SlugComponent_12 } from '@/fields/slug/SlugComponent'
-import { AutomaticPositionComponent as AutomaticPositionComponent_13 } from '@/blocks/Layout/Articles/AutomaticPosition.tsx'
+import { AutomaticPositionComponent as AutomaticPositionComponent_13 } from '@/collections/Layouts/blocks/Articles/AutomaticPosition.tsx'
 import { LinkToDoc as LinkToDoc_14 } from '@payloadcms/plugin-search/client'
 import { default as default_15 } from '@/components/BeforeDashboard'
 import { default as default_16 } from '@/components/BeforeLogin'
@@ -30,7 +30,7 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#LinkFeatureClient": LinkFeatureClient_10,
   "@payloadcms/richtext-lexical/client#HeadingFeatureClient": HeadingFeatureClient_11,
   "@/fields/slug/SlugComponent#SlugComponent": SlugComponent_12,
-  "@/blocks/Layout/Articles/AutomaticPosition.tsx#AutomaticPositionComponent": AutomaticPositionComponent_13,
+  "@/collections/Layouts/blocks/Articles/AutomaticPosition.tsx#AutomaticPositionComponent": AutomaticPositionComponent_13,
   "@payloadcms/plugin-search/client#LinkToDoc": LinkToDoc_14,
   "@/components/BeforeDashboard#default": default_15,
   "@/components/BeforeLogin#default": default_16

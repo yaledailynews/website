@@ -14,7 +14,7 @@ export const Newsletter: Block = {
       type: 'select',
       defaultValue: 'sidebar',
       options: [
-        { label: 'Default', value: 'default' },
+        { label: 'Main', value: 'main' },
         { label: 'Sidebar', value: 'sidebar' },
         { label: 'Full Width at Top', value: 'fullTop' },
         { label: 'Full Width at Bottom', value: 'fullBottom' },

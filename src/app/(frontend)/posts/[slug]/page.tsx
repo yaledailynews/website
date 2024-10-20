@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 
-import { RelatedPosts } from '@/blocks/RelatedPosts/Component'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
@@ -104,7 +103,7 @@ export default async function Post({ params: paramsPromise }: Args) {
 
         {post.cover && (
           <div
-            className={`flex flex-col items-end ${`max-w-screen-sm `} pt-9`}
+            className={`flex flex-col items-end ${`max-w-screen-sm `} pt-9 w-full`}
             // TODO: can adaptively have different image sizes here
           >
             <MediaFigure className="w-full h-auto" media={post.cover} />

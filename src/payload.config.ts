@@ -28,8 +28,10 @@ import Users from './collections/Users'
 import { Authors } from './collections/Authors'
 import { Layouts } from './collections/Layouts'
 
-import { Footer } from './Footer/config'
-import { Header } from './Header/config'
+import { Footer } from './globals/Footer'
+import { Header } from './globals/Header'
+import { Settings } from './globals/Settings'
+
 import { revalidateRedirects } from './hooks/revalidateRedirects'
 
 import { searchFields } from '@/search/fieldOverrides'
@@ -57,10 +59,8 @@ export default buildConfig({
     },
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below and the import `BeforeLogin` statement on line 15.
       beforeLogin: ['@/components/BeforeLogin'],
       // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below and the import `BeforeDashboard` statement on line 15.
       beforeDashboard: ['@/components/BeforeDashboard'],
     },
     importMap: {
@@ -130,7 +130,7 @@ export default buildConfig({
   collections: [Pages, Posts, Media, Categories, Users, Authors, Layouts],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
-  globals: [Header, Footer],
+  globals: [Settings, Header, Footer],
   plugins: [
     redirectsPlugin({
       collections: ['pages', 'posts'],

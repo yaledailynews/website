@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
-import { anyone } from '../access/anyone'
-import { authenticated } from '../access/authenticated'
+import { anyone } from '@/access/anyone'
+import { authenticated } from '@/access/authenticated'
 import { slugField } from '@/fields/slug'
 
 const Categories: CollectionConfig = {
@@ -21,6 +21,11 @@ const Categories: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+    },
+    {
+      name: 'layout',
+      type: 'relationship',
+      relationTo: 'layouts',
     },
     ...slugField(),
   ],

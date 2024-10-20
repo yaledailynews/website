@@ -52,17 +52,17 @@ export const Articles: Block = {
       type: 'select',
       // hidden: true,
       options: [
-        { label: 'Default', value: 'default' },
+        { label: 'Main', value: 'main' },
         { label: 'Sidebar', value: 'sidebar' },
         { label: 'Full Width at Top', value: 'fullTop' },
         { label: 'Full Width at Bottom', value: 'fullBottom' },
       ],
-      defaultValue: 'default',
+      defaultValue: 'main',
       admin: {
         readOnly: true,
         components: {
           Field: {
-            path: '@/blocks/Layout/Articles/AutomaticPosition.tsx#AutomaticPositionComponent',
+            path: '@/collections/Layouts/blocks/Articles/AutomaticPosition.tsx#AutomaticPositionComponent',
           },
         },
       },
@@ -74,6 +74,7 @@ export const Articles: Block = {
         { label: 'Manual', value: 'manual' },
         { label: 'Latest from category', value: 'latestFromCategory' },
       ],
+      required: true,
       defaultValue: 'manual',
     },
     {

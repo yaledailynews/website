@@ -4,23 +4,24 @@ import Link from 'next/link'
 import React from 'react'
 
 import type { Author, Category, Page, Post } from '@/payload-types'
+import { resolveCachedDocument } from '@/utilities/resolveDoc'
 
 type CMSLinkType = {
-  appearance?: 'inline'
+  appearance?: 'inline' // | 'button'
   children?: React.ReactNode
   className?: string
   label?: string | null
   newTab?: boolean | null
   reference?: {
     relationTo: 'pages' | 'posts' | 'authors' | 'categories'
-    value: Page | Post | Author | Category | string | number
+    value: Page | Post | Author | Category | number
   } | null
   // size?: ButtonProps['size'] | null
   type?: 'custom' | 'reference' | null
   url?: string | null
 }
 
-export const CMSLink: React.FC<CMSLinkType> = (props) => {
+export const CMSLink: React.FC<CMSLinkType> = async (props) => {
   const {
     type,
     appearance = 'inline',
@@ -34,9 +35,9 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   } = props
 
   const href =
-    type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
-      ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${
-          reference.value.slug
+    type === 'reference' && reference
+      ? `${reference.relationTo !== 'pages' ? `/${reference.relationTo}` : ''}/${
+          (await resolveCachedDocument(reference.relationTo, reference.value)()).slug
         }`
       : url
 
@@ -55,12 +56,12 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     )
   }
 
-  return (
-    // <Button asChild className={className} size={size} variant={appearance}>
-      <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
-        {label && label}
-        {children && children}
-      </Link>
-    // </Button>
-  )
+  // return (
+  //   <Button asChild className={className} size={size} variant={appearance}>
+  //     <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
+  //       {label && label}
+  //       {children && children}
+  //     </Link>
+  //   </Button>
+  // )
 }

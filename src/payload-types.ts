@@ -30,6 +30,7 @@ export interface Config {
     defaultIDType: number;
   };
   globals: {
+    settings: Setting;
     header: Header;
     footer: Footer;
   };
@@ -168,9 +169,9 @@ export interface Author {
     };
     [k: string]: unknown;
   } | null;
+  avatar?: (number | null) | Media;
   twitter?: string | null;
   instagram?: string | null;
-  avatar?: (number | null) | Media;
   user?: (number | null) | User;
   slug?: string | null;
   slugLock?: boolean | null;
@@ -202,6 +203,7 @@ export interface User {
 export interface Category {
   id: number;
   title: string;
+  layout?: (number | null) | Layout;
   slug?: string | null;
   slugLock?: boolean | null;
   parent?: (number | null) | Category;
@@ -249,8 +251,8 @@ export interface ArticlesBlock {
     | 'WKND'
     | 'Magazine'
     | 'SidebarTrio';
-  desktopPosition?: ('default' | 'sidebar' | 'fullTop' | 'fullBottom') | null;
-  source?: ('manual' | 'latestFromCategory') | null;
+  desktopPosition?: ('main' | 'sidebar' | 'fullTop' | 'fullBottom') | null;
+  source: 'manual' | 'latestFromCategory';
   posts?: (number | Post)[] | null;
   category?: (number | null) | Category;
   topDivider: 'dark' | 'light';
@@ -278,7 +280,7 @@ export interface TextBlock {
     };
     [k: string]: unknown;
   };
-  desktopPosition?: ('default' | 'sidebar' | 'fullTop' | 'fullBottom') | null;
+  desktopPosition?: ('main' | 'sidebar' | 'fullTop' | 'fullBottom') | null;
   topDivider: 'dark' | 'light';
   id?: string | null;
   blockName?: string | null;
@@ -289,7 +291,7 @@ export interface TextBlock {
  * via the `definition` "PodcastsBlock".
  */
 export interface PodcastsBlock {
-  desktopPosition?: ('default' | 'sidebar' | 'fullTop' | 'fullBottom') | null;
+  desktopPosition?: ('main' | 'sidebar' | 'fullTop' | 'fullBottom') | null;
   topDivider: 'dark' | 'light';
   id?: string | null;
   blockName?: string | null;
@@ -300,7 +302,7 @@ export interface PodcastsBlock {
  * via the `definition` "NewsletterBlock".
  */
 export interface NewsletterBlock {
-  desktopPosition?: ('default' | 'sidebar' | 'fullTop' | 'fullBottom') | null;
+  desktopPosition?: ('main' | 'sidebar' | 'fullTop' | 'fullBottom') | null;
   topDivider: 'dark' | 'light';
   id?: string | null;
   blockName?: string | null;
@@ -628,6 +630,16 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settings".
+ */
+export interface Setting {
+  id: number;
+  homeLayout: number | Layout;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

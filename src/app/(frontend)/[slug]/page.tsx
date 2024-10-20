@@ -1,14 +1,10 @@
 import type { Metadata } from 'next'
-
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
-
 import type { Page as PageType } from '@/payload-types'
-
-import { MediaFigure } from '@/components/MediaFigure'
 import RichText from '@/components/RichText'
 
 export async function generateStaticParams() {

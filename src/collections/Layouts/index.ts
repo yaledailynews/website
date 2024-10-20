@@ -3,10 +3,10 @@ import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
 import { slugField } from '@/fields/slug'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { CollectionConfig } from 'payload'
-import { Text } from '@/blocks/Layout/Text/config'
-import { Articles } from '@/blocks/Layout/Articles/config'
-import { Podcasts } from '@/blocks/Layout/Podcasts/config'
-import { Newsletter } from '@/blocks/Layout/Newsletter/config'
+import { Text } from '@/collections/Layouts/blocks/Text'
+import { Articles } from '@/collections/Layouts/blocks/Articles'
+import { Podcasts } from '@/collections/Layouts/blocks/Podcasts'
+import { Newsletter } from '@/collections/Layouts/blocks/Newsletter'
 
 export const Layouts: CollectionConfig = {
   slug: 'layouts',
@@ -51,7 +51,20 @@ export const Layouts: CollectionConfig = {
       name: 'publishedAt',
       type: 'date',
       admin: {
+        date: {
+          pickerAppearance: 'dayAndTime',
+        },
         position: 'sidebar',
+      },
+      hooks: {
+        beforeChange: [
+          ({ siblingData, value }) => {
+            if (siblingData._status === 'published' && !value) {
+              return new Date()
+            }
+            return value
+          },
+        ],
       },
     },
     ...slugField(),

@@ -2,7 +2,7 @@ import { MediaFigure } from '@/components/MediaFigure'
 import { TemplateProps } from '.'
 import { PostItem } from '@/components/PostItem'
 
-export async function FeaturedPair({ block, posts }: TemplateProps) {
+export async function FeaturedPair({ posts }: TemplateProps) {
   const [mainPost, secondaryPost] = posts
 
   return (

@@ -1,38 +1,29 @@
 import { Block } from 'payload'
 
-export const Podcasts: Block = {
-  slug: 'layoutsPodcasts',
-  interfaceName: 'PodcastsBlock',
+export const Text: Block = {
+  slug: 'layoutsText',
+  interfaceName: 'TextBlock',
   labels: {
-    singular: 'Podcasts',
-    plural: 'Podcasts',
+    singular: 'Text',
+    plural: 'Text',
   },
   fields: [
-    // {
-    //   name: "podcasts",
-    //   type: "relationship",
-    //   relationTo: "podcasts",
-    //   required: true,
-    //   hasMany: true,
-    //   minRows: 1,
-    //   admin: {
-    //     isSortable: true,
-    //   },
-    // },
+    {
+      name: 'text',
+      type: 'richText',
+      required: true,
+    },
     {
       name: 'desktopPosition',
       label: 'Desktop Position',
       type: 'select',
-      defaultValue: 'sidebar',
+      defaultValue: 'main',
       options: [
-        { label: 'Default', value: 'default' },
+        { label: 'Main', value: 'main' },
         { label: 'Sidebar', value: 'sidebar' },
         { label: 'Full Width at Top', value: 'fullTop' },
         { label: 'Full Width at Bottom', value: 'fullBottom' },
       ],
-      admin: {
-        readOnly: true,
-      },
     },
     {
       name: 'topDivider',

@@ -1,4 +1,3 @@
-// import { HeaderClient } from './Component.client'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import React from 'react'
 import logo from '@/assets/logo.webp'
@@ -22,7 +21,7 @@ function celciusToFarenheit(celcius: number) {
 }
 
 export async function Header() {
-  const header: Header = await getCachedGlobal('header', 1)()
+  const header = await getCachedGlobal('header', 1)();
 
   const currentDate = new Date().toLocaleDateString('en-US', {
     weekday: 'long',
@@ -112,7 +111,7 @@ export async function Header() {
             {header.navItems.map(({ link, id }) => (
               <li key={id}>
                 <CMSLink
-                  // appearance="link"
+                  appearance="inline"
                   className="flex text-sm md:text-xs text-black hover:underline decoration-2 underline-offset-4 px-4 py-2 md:py-3.5 md:px-4"
                   {...link}
                 />

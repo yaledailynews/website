@@ -1,8 +1,8 @@
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
-import { Banner } from '@/blocks/Banner/config'
-import { Code } from '@/blocks/Code/config'
-import { MediaBlock } from '@/blocks/MediaBlock/config'
+import { Banner } from '@/blocks/Banner'
+import { Code } from '@/blocks/Code'
+import { MediaBlock } from '@/blocks/MediaBlock'
 import { slugField } from '@/fields/slug'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import {
@@ -72,8 +72,14 @@ export const Authors: CollectionConfig = {
           ]
         },
       }),
-      label: false,
       required: false,
+    },
+    {
+      name: 'avatar',
+      type: 'upload',
+      relationTo: 'media',
+      required: false,
+      label: 'Avatar',
     },
     {
       name: 'twitter',
@@ -86,16 +92,12 @@ export const Authors: CollectionConfig = {
       label: 'Instagram Handle',
     },
     {
-      name: 'avatar',
-      type: 'upload',
-      relationTo: 'media',
-      required: false,
-      label: 'Avatar',
-    },
-    {
       name: 'user',
       type: 'relationship',
       relationTo: 'users',
+      admin: {
+        position: 'sidebar',
+      },
     },
     ...slugField('name'),
   ],
