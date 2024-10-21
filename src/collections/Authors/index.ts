@@ -83,6 +83,18 @@ export const Authors: CollectionConfig = {
       label: 'Avatar',
     },
     {
+      name: 'showPosts',
+      type: 'checkbox',
+      label: 'Show Posts',
+      defaultValue: true,
+    },
+    {
+      name: 'showMedia',
+      type: 'checkbox',
+      label: 'Show Media',
+      defaultValue: false,
+    },
+    {
       name: 'twitter',
       type: 'text',
       label: 'Twitter (X) Handle',

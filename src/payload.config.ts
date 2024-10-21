@@ -127,6 +127,8 @@ export default buildConfig({
     pool: {
       connectionString: env.DATABASE_URI,
     },
+    push: false,
+    
   }),
   collections: [Pages, Posts, Media, Categories, Users, Authors, Layouts],
   cors: [env.PAYLOAD_PUBLIC_SERVER_URL].filter(Boolean),

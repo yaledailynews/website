@@ -1,11 +1,8 @@
-import type { Metadata } from 'next'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
-import { draftMode } from 'next/headers'
-import React, { cache } from 'react'
-import type { Page as PageType } from '@/payload-types'
 import RichText from '@/components/RichText'
+import { getCachedDocument } from '@/utilities/getDocument'
 
 export async function generateStaticParams() {
   const payload = await getPayloadHMR({ config: configPromise })
@@ -37,12 +34,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   const { slug = 'home' } = await paramsPromise
   const url = '/' + slug
 
-  let page: PageType | null
-
-  page = await queryPageBySlug({
-    slug,
-  })
-
+  const page = await getCachedDocument('pages', slug, 2)()
   if (!page) {
     return <PayloadRedirects url={url} />
   }
@@ -72,32 +64,3 @@ export default async function Page({ params: paramsPromise }: Args) {
     </article>
   )
 }
-
-// export async function generateMetadata({ params: paramsPromise }): Promise<Metadata> {
-//   const { slug = 'home' } = await paramsPromise
-//   const page = await queryPageBySlug({
-//     slug,
-//   })
-
-//   return generateMeta({ doc: page })
-// }
-
-const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
-  const { isEnabled: draft } = await draftMode()
-
-  const payload = await getPayloadHMR({ config: configPromise })
-
-  const result = await payload.find({
-    collection: 'pages',
-    draft,
-    limit: 1,
-    overrideAccess: draft,
-    where: {
-      slug: {
-        equals: slug,
-      },
-    },
-  })
-
-  return result.docs?.[0] || null
-})

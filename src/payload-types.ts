@@ -171,6 +171,8 @@ export interface Author {
     [k: string]: unknown;
   } | null;
   avatar?: (number | null) | Media;
+  showPosts?: boolean | null;
+  showMedia?: boolean | null;
   twitter?: string | null;
   instagram?: string | null;
   user?: (number | null) | User;

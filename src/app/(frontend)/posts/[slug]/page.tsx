@@ -18,6 +18,8 @@ import icon from '@/assets/icon.png'
 import { CMSLink } from '@/components/Link'
 import { MediaFigure } from '@/components/MediaFigure'
 import { CopyLink } from '@/components/CopyLink'
+import { resolveCachedDocument } from '@/utilities/resolveDoc'
+import { getCachedDocument } from '@/utilities/getDocument'
 
 export async function generateStaticParams() {
   const payload = await getPayloadHMR({ config: configPromise })
@@ -42,13 +44,7 @@ type Args = {
 }
 
 function resolveAuthors(authors: (Author | number)[]) {
-  let authorPromises = authors.map((author) => {
-    if (typeof author === 'number') {
-      return queryAuthorById({ id: author })
-    }
-    return author
-  })
-  return Promise.all(authorPromises)
+  return Promise.all(authors.map((author) => resolveCachedDocument('authors', author)()))
 }
 
 const AuthorCard: React.FC<{ author: Author }> = async ({ author }) => {
@@ -74,7 +70,7 @@ const AuthorCard: React.FC<{ author: Author }> = async ({ author }) => {
 export default async function Post({ params: paramsPromise }: Args) {
   const { slug = '' } = await paramsPromise
   const url = '/posts/' + slug
-  const post = await queryPostBySlug({ slug })
+  const post = await getCachedDocument('posts', slug, 2)()
 
   if (!post) return <PayloadRedirects url={url} />
   if (!post.authors) return <div>Post has no authors</div>
@@ -181,46 +177,3 @@ export default async function Post({ params: paramsPromise }: Args) {
     </article>
   )
 }
-
-// export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-//   const { slug = '' } = await paramsPromise
-//   const post = await queryPostBySlug({ slug })
-
-//   return generateMeta({ doc: post })
-// }
-
-const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
-  const { isEnabled: draft } = await draftMode()
-
-  const payload = await getPayloadHMR({ config: configPromise })
-
-  const result = await payload.find({
-    collection: 'posts',
-    draft,
-    limit: 1,
-    overrideAccess: draft,
-    where: {
-      slug: {
-        equals: slug,
-      },
-    },
-  })
-
-  return result.docs?.[0] || null
-})
-
-const queryAuthorById = cache(async ({ id }: { id: number }) => {
-  const payload = await getPayloadHMR({ config: configPromise })
-
-  const result = await payload.find({
-    collection: 'authors',
-    limit: 1,
-    where: {
-      id: {
-        equals: id,
-      },
-    },
-  })
-
-  return result.docs?.[0] || null
-})

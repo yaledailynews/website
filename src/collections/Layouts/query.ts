@@ -22,6 +22,7 @@ export const queryLayout = cache(
         : await payload.find({
             collection: 'layouts',
             draft,
+            depth: 3,
             limit: 1,
             overrideAccess: draft,
             where:

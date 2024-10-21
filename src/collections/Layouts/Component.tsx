@@ -7,6 +7,7 @@ import { Category, Layout as LayoutType, Post } from '@/payload-types'
 import Link from 'next/link'
 import { LayoutQuery } from './query'
 import { LayoutBlock, LayoutBlockType } from './blocks/Component'
+import { resolveCachedDocument } from '@/utilities/resolveDoc'
 
 export default async function Layout({ layout, resolvedPosts }: LayoutQuery) {
   if (!layout.blocks) return <div>Layout has no blocks</div>
@@ -44,7 +45,6 @@ export default async function Layout({ layout, resolvedPosts }: LayoutQuery) {
     </>
   )
 }
-
 
 function BlocksForPosition({
   position,
@@ -86,7 +86,9 @@ function BlocksForPosition({
             {block.blockName &&
               block.blockType === 'layoutsArticles' &&
               (block.category ? (
-                <Link href={`/categories/${await resolveCategorySlug(block.category)}`}>
+                <Link
+                  href={`/categories/${(await resolveCachedDocument('categories', block.category)()).slug}`}
+                >
                   <h2 className={cn('text-sm font-bold')}>{block.blockName}</h2>
                 </Link>
               ) : (
@@ -100,24 +102,4 @@ function BlocksForPosition({
       })}
     </>
   )
-}
-
-const queryCategoryById = cache(async ({ id }: { id: number }) => {
-  const { isEnabled: draft } = await draftMode()
-
-  const payload = await getPayloadHMR({ config: configPromise })
-  return payload.findByID({
-    collection: 'categories',
-    id,
-    draft,
-    overrideAccess: draft,
-  })
-})
-
-async function resolveCategorySlug(category: Category | number) {
-  if (typeof category === 'number') {
-    const resolvedCategory = await queryCategoryById({ id: category })
-    return resolvedCategory.slug
-  }
-  return category.slug
 }
