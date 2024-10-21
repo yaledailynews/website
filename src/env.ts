@@ -1,6 +1,11 @@
 import { createEnv } from '@t3-oss/env-nextjs'
 import { z } from 'zod'
 
+const domainRegex = /^(?!:\/\/)([a-zA-Z0-9-_]+(\.[a-zA-Z0-9-_]+)+)$/
+const zDomain = z.string().min(1).regex(domainRegex, {
+  message: 'Invalid domain format',
+})
+
 export const env = createEnv({
   server: {
     DATABASE_URL: z.string().url(),
@@ -16,8 +21,8 @@ export const env = createEnv({
   },
   client: {
     NEXT_PUBLIC_VERCEL_ENV: z.enum(['production', 'preview', 'development']).optional(),
-    NEXT_PUBLIC_VERCEL_URL: z.string().url().optional(),
-    NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL: z.string().url().optional(),
+    NEXT_PUBLIC_VERCEL_URL: zDomain.optional(),
+    NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL: zDomain.optional(),
     NEXT_PUBLIC_IS_LIVE: z.enum(['true', 'false']),
   },
   runtimeEnv: {
