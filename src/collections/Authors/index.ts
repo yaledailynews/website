@@ -3,7 +3,7 @@ import { authenticated } from '@/access/authenticated'
 import { Banner } from '@/blocks/Banner'
 import { Code } from '@/blocks/Code'
 import { MediaBlock } from '@/blocks/MediaBlock'
-import { env } from '@/env'
+import { env, SERVER_URL } from '@/env'
 import { slugField } from '@/fields/slug'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import {
@@ -34,7 +34,7 @@ export const Authors: CollectionConfig = {
           collection: 'posts',
         })
 
-        return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
+        return `${SERVER_URL}${path}`
       },
     },
     preview: (data) => {
@@ -43,7 +43,7 @@ export const Authors: CollectionConfig = {
         collection: 'posts',
       })
 
-      return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
+      return `${SERVER_URL}${path}`
     },
   },
   fields: [

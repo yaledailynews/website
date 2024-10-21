@@ -1,6 +1,7 @@
 import { s3Storage } from '@payloadcms/storage-s3'
 
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres' // TODO: see if I can use this
 
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
@@ -36,7 +37,7 @@ import { revalidateRedirects } from './hooks/revalidateRedirects'
 
 import { searchFields } from '@/search/fieldOverrides'
 import { beforeSyncWithSearch } from '@/search/beforeSync'
-import { env } from './env'
+import { env, SERVER_URL } from './env'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -125,14 +126,13 @@ export default buildConfig({
   }),
   db: postgresAdapter({
     pool: {
-      connectionString: env.DATABASE_URI,
+      connectionString: env.DATABASE_URL,
     },
     push: false,
-    
   }),
   collections: [Pages, Posts, Media, Categories, Users, Authors, Layouts],
-  cors: [env.PAYLOAD_PUBLIC_SERVER_URL].filter(Boolean),
-  csrf: [env.PAYLOAD_PUBLIC_SERVER_URL].filter(Boolean),
+  cors: [SERVER_URL].filter(Boolean),
+  csrf: [SERVER_URL].filter(Boolean),
   globals: [Settings, Header, Footer],
   plugins: [
     redirectsPlugin({

@@ -1,4 +1,4 @@
-import { env } from '@/env'
+import { SERVER_URL } from '@/env'
 import type { Metadata } from 'next'
 
 const defaultOpenGraph: Metadata['openGraph'] = {
@@ -6,9 +6,7 @@ const defaultOpenGraph: Metadata['openGraph'] = {
   description: 'An open-source website built with Payload and Next.js.',
   images: [
     {
-      url: env.NEXT_PUBLIC_SERVER_URL
-        ? `${env.NEXT_PUBLIC_SERVER_URL}/website-template-OG.webp`
-        : '/website-template-OG.webp',
+      url: `${SERVER_URL}/website-template-OG.webp`,
     },
   ],
   siteName: 'Payload Website Template',

@@ -125,4 +125,7 @@ To run Payload in production, you need to build and start the Admin panel. To do
 
 ## Database Migrations
 
-Set up your own database branch in Neon. Then run `bun run paylod migrate:create` and `bun run payload migrate` to make sure everything is up to date, including every time you make a change to the Payload config. Also run `bun run payload generate:types` and `bun run payload generate:importmap` to regenerate the necessary types and import map.
+Set up your own database branch in Neon. Then run `bun run payload migrate:create` and `bun run payload migrate` to make sure everything is up to date, including every time you make a change to the Payload config. Also run `bun run payload generate:types` and `bun run payload generate:importmap` to regenerate the necessary types and import map.
+
+<!-- ## Notes
+vercel env pull .env.development.local -->

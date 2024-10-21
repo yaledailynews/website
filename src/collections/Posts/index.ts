@@ -19,7 +19,7 @@ import { populateAuthors } from './hooks/populateAuthors'
 import { revalidatePost } from './hooks/revalidatePost'
 
 import { slugField } from '@/fields/slug'
-import { env } from '@/env'
+import { SERVER_URL } from '@/env'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -38,7 +38,7 @@ export const Posts: CollectionConfig = {
           collection: 'posts',
         })
 
-        return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
+        return `${SERVER_URL}${path}`
       },
     },
     preview: (data) => {
@@ -47,7 +47,7 @@ export const Posts: CollectionConfig = {
         collection: 'posts',
       })
 
-      return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
+      return `${SERVER_URL}${path}`
     },
     useAsTitle: 'title',
   },
