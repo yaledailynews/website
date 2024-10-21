@@ -1,5 +1,9 @@
+import type { NextConfig } from 'next'
+type Redirects = NextConfig['redirects']
+type Redirect = Awaited<ReturnType<NonNullable<Redirects>>>[number]
+
 const redirects = async () => {
-  const internetExplorerRedirect = {
+  const internetExplorerRedirect: Redirect = {
     destination: '/ie-incompatible.html',
     has: [
       {
