@@ -1,0 +1,4 @@
+Regressions:
+- Search
+- Configurable footer
+- Author pages (in progress)
