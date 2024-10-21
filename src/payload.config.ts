@@ -36,6 +36,7 @@ import { revalidateRedirects } from './hooks/revalidateRedirects'
 
 import { searchFields } from '@/search/fieldOverrides'
 import { beforeSyncWithSearch } from '@/search/beforeSync'
+import { env } from './env'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -124,12 +125,12 @@ export default buildConfig({
   }),
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URI || '',
+      connectionString: env.DATABASE_URI,
     },
   }),
   collections: [Pages, Posts, Media, Categories, Users, Authors, Layouts],
-  cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
-  csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
+  cors: [env.PAYLOAD_PUBLIC_SERVER_URL].filter(Boolean),
+  csrf: [env.PAYLOAD_PUBLIC_SERVER_URL].filter(Boolean),
   globals: [Settings, Header, Footer],
   plugins: [
     redirectsPlugin({
@@ -200,15 +201,15 @@ export default buildConfig({
       },
       config: {
         credentials: {
-          accessKeyId: process.env.S3_ACCESS_KEY_ID!,
-          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
+          accessKeyId: env.S3_ACCESS_KEY_ID,
+          secretAccessKey: env.S3_SECRET_ACCESS_KEY,
         },
-        region: process.env.S3_REGION!,
+        region: env.S3_REGION,
       },
-      bucket: process.env.S3_BUCKET!,
+      bucket: env.S3_BUCKET,
     }),
   ],
-  secret: process.env.PAYLOAD_SECRET!,
+  secret: env.PAYLOAD_SECRET,
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

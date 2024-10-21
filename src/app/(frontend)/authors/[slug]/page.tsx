@@ -1,8 +1,6 @@
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import configPromise from '@payload-config'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
-import Layout from '@/collections/Layouts/Component'
-import { queryLayout } from '@/collections/Layouts/query'
 import { getCachedDocument } from '@/utilities/getDocument'
 
 export async function generateStaticParams() {
@@ -30,12 +28,9 @@ type Args = {
 export default async function CategoryPage({ params: paramsPromise }: Args) {
   const { slug = '' } = await paramsPromise
 
-  const category = await getCachedDocument('categories', slug, 3)()
-  if (!category) return <PayloadRedirects url={'/categories/' + slug} />
-  if (!category.layout) return <div>Category has no layout</div> // TODO: get latest posts
+  const author = await getCachedDocument('authors', slug, 2)()
 
-  const queryResult = await queryLayout({ layoutOrId: category.layout })
-  if (!queryResult) return <div>Layout not found</div>
+  if (!author) return <PayloadRedirects url={'/authors/' + slug} />
 
-  return <Layout {...queryResult} />
+  return <div>{author.name}</div>
 }

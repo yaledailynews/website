@@ -17,6 +17,7 @@ import Image from 'next/image'
 import icon from '@/assets/icon.png'
 import { CMSLink } from '@/components/Link'
 import { MediaFigure } from '@/components/MediaFigure'
+import { CopyLink } from '@/components/CopyLink'
 
 export async function generateStaticParams() {
   const payload = await getPayloadHMR({ config: configPromise })
@@ -163,13 +164,7 @@ export default async function Post({ params: paramsPromise }: Args) {
                   >
                     <IconPlayerPlay size={20} />
                   </button>
-                  <button
-                    // onClick={handleShare}
-                    className="p-2 bg-gray-100 rounded-full"
-                    aria-label="Share article"
-                  >
-                    <IconShare3 size={20} />
-                  </button>
+                  <CopyLink />
                 </div>
               </div>
             </div>

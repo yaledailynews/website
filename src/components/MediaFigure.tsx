@@ -15,6 +15,7 @@ export async function MediaFigure({
 } & Partial<ImageProps>) {
   if (!media) return null
   if (typeof media === 'string') return null
+
   // TODO: deal with this properly instead of placeholder
   if (typeof media === 'number') {
     return (
@@ -25,7 +26,9 @@ export async function MediaFigure({
       >
         <div className="w-full mb-2 aspect-video bg-gray-200 flex justify-center items-center flex-col gap-4 p-10">
           <p>Meda ID: {media}</p>
-          <p className='text-red-600 text-center'>You should increase the depth of the parent query.</p>
+          <p className="text-red-600 text-center">
+            You should increase the depth of the parent query.
+          </p>
         </div>
       </figure>
     )
@@ -56,14 +59,13 @@ export async function MediaFigure({
           ImageComponent
         )}
       </div>
-      {resolvedAuthor && (
+      {resolvedAuthor ? (
         <figcaption className="text-xs text-gray-500">
           <Link href={`/authors/${resolvedAuthor.slug}`}>{resolvedAuthor.name}</Link>
         </figcaption>
+      ) : (
+        media.credit && <figcaption className="text-xs text-gray-500">{media.credit}</figcaption>
       )}
-      {/* {media.credit && (
-        <figcaption className="text-xs text-gray-500">{media.credit}</figcaption>
-      )} */}
     </figure>
   )
 }

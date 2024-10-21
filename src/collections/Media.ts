@@ -1,10 +1,4 @@
 import type { CollectionConfig } from 'payload'
-
-import {
-  FixedToolbarFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -34,6 +28,17 @@ export const Media: CollectionConfig = {
       relationTo: 'authors',
       hasMany: false,
     },
+    {
+      name: 'credit',
+      type: 'text',
+      admin: {
+        description: 'This will only be displayed if there is no author',
+        placeholder: 'Courtesy of ...',
+        condition(data, siblingData) {
+          return !siblingData.author
+        }
+      }
+    }
   ],
   upload: {
     // Upload to the public/media directory in Next.js making them publicly accessible even outside of Payload

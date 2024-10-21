@@ -9,6 +9,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import './index.scss'
+import { env } from '@/env'
 
 const baseClass = 'admin-bar'
 
@@ -57,7 +58,7 @@ export const AdminBar: React.FC<{
           logo: 'text-white',
           user: 'text-white',
         }}
-        cmsURL={process.env.NEXT_PUBLIC_SERVER_URL}
+        cmsURL={env.NEXT_PUBLIC_SERVER_URL}
         collection={collection}
         collectionLabels={{
           plural: collectionLabels[collection]?.plural || 'Pages',
