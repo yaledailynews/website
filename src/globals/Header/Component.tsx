@@ -68,6 +68,7 @@ export async function Header() {
               src={logo}
               alt="YDN Logo"
               className="w-full max-w-36 md:max-w-xs h-auto" // dark:invert-[0.9] once we do dark-mode
+              sizes="(max-width: 768px) 60vw, (max-width: 1200px) 40vw, 30vw"
               loading="eager"
             />
           </Link>
