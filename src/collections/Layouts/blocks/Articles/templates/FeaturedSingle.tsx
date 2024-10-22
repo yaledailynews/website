@@ -22,7 +22,7 @@ export async function FeaturedSingle({ posts }: TemplateProps) {
           </div>
         </div>
       </Link>
-      <MediaFigure media={post.cover} href={`/article/${post.slug}`} loading="eager" />
+      <MediaFigure media={post.cover} href={`/posts/${post.slug}`} loading="eager" />
     </article>
   )
 }

@@ -8,9 +8,9 @@ export async function SidebarTrio({ posts }: TemplateProps) {
   return (
     <>
       <article className="flex flex-col gap-3">
-        <MediaFigure media={mainPost.cover} className="w-full" href={`/article/${mainPost.slug}`} />
+        <MediaFigure media={mainPost.cover} className="w-full" href={`/posts/${mainPost.slug}`} />
         <Link
-          href={`/article/${mainPost.slug}`}
+          href={`/posts/${mainPost.slug}`}
           className="hover:opacity-70 transition-opacity w-full"
         >
           <div className="flex flex-col gap-3">
@@ -33,7 +33,7 @@ export async function SidebarTrio({ posts }: TemplateProps) {
       </article>
       <article className="flex flex-col gap-3 border-t pt-5">
         <Link
-          href={`/article/${secondaryPost.slug}`}
+          href={`/posts/${secondaryPost.slug}`}
           className="hover:opacity-70 transition-opacity w-full"
         >
           <div className="flex flex-col gap-3">
@@ -53,7 +53,7 @@ export async function SidebarTrio({ posts }: TemplateProps) {
       </article>
       <article className="grid grid-cols-2 gap-3 border-t pt-5">
         <Link
-          href={`/article/${tertiaryPost.slug}`}
+          href={`/posts/${tertiaryPost.slug}`}
           className="hover:opacity-70 transition-opacity w-full"
         >
           <div className="flex flex-col gap-3">
@@ -67,7 +67,7 @@ export async function SidebarTrio({ posts }: TemplateProps) {
         </Link>
         <MediaFigure
           media={tertiaryPost.cover}
-          href={`/article/${tertiaryPost.slug}`}
+          href={`/posts/${tertiaryPost.slug}`}
           className="w-full aspect-[11/9] object-cover"
         />
       </article>

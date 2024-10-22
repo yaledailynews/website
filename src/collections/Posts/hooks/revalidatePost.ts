@@ -17,6 +17,17 @@ export const revalidatePost: CollectionAfterChangeHook<Post> = ({
     revalidatePath(path)
     revalidateTag(`posts_${doc.slug}`)
     revalidateTag(`posts_id_${doc.id}`)
+
+    if (doc.categories) {
+      doc.categories.forEach((category) => {
+        revalidateTag(`posts_category_${category}`)
+      })
+    }
+    if (doc.authors) {
+      doc.authors.forEach((author) => {
+        revalidateTag(`posts_author_${author}`)
+      })
+    }
   }
 
   // If the post was previously published, we need to revalidate the old path
@@ -28,6 +39,17 @@ export const revalidatePost: CollectionAfterChangeHook<Post> = ({
     revalidatePath(oldPath)
     revalidateTag(`posts_${previousDoc.slug}`)
     revalidateTag(`posts_id_${previousDoc.id}`)
+
+    if (previousDoc.categories) {
+      previousDoc.categories.forEach((category) => {
+        revalidateTag(`posts_category_${category}`)
+      })
+    }
+    if (previousDoc.authors) {
+      previousDoc.authors.forEach((author) => {
+        revalidateTag(`posts_author_${author}`)
+      })
+    }
   }
 
   return doc

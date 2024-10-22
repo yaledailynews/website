@@ -1,15 +1,12 @@
-import { getCachedGlobal } from '@/utilities/getGlobals'
 import Link from 'next/link'
 import React from 'react'
-
 import type { Footer } from '@payload-types'
 import logo from '@/assets/logo.webp'
-
-// import { CMSLink } from '@/components/Link'
 import Image from 'next/image'
+import { getGlobal } from '@/utilities/cache'
 
 export async function Footer() {
-  const footer: Footer = await getCachedGlobal('footer')()
+  const footer: Footer = await getGlobal('footer')()
 
   return (
     <footer className="border-t-2 border-t-gray-700 py-8 sm:pb-12 md:pb-16 flex flex-col gap-6 px-6 sm:px-7 md:px-0">

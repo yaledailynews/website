@@ -3,7 +3,7 @@ import { authenticated } from '@/access/authenticated'
 import { Banner } from '@/blocks/Banner'
 import { Code } from '@/blocks/Code'
 import { MediaBlock } from '@/blocks/MediaBlock'
-import { env, SERVER_URL } from '@/env'
+import { SERVER_URL } from '@/env'
 import { slugField } from '@/fields/slug'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import {
@@ -15,6 +15,7 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 import { CollectionConfig } from 'payload'
+import { revalidateAuthor } from './hooks/revalidateAuthor'
 
 export const Authors: CollectionConfig = {
   slug: 'authors',
@@ -114,4 +115,7 @@ export const Authors: CollectionConfig = {
     },
     ...slugField('name'),
   ],
+  hooks: {
+    afterChange: [revalidateAuthor],
+  },
 }

@@ -1,13 +1,9 @@
-import { getPayloadHMR } from '@payloadcms/next/utilities'
-import configPromise from '@payload-config'
-import { cache } from 'react'
-import { draftMode } from 'next/headers'
 import { cn } from '@/utilities/cn'
-import { Category, Layout as LayoutType, Post } from '@payload-types'
+import { Layout as LayoutType, Post } from '@payload-types'
 import Link from 'next/link'
 import { LayoutQuery } from './query'
 import { LayoutBlock, LayoutBlockType } from './blocks/Component'
-import { resolveCachedDocument } from '@/utilities/resolveDoc'
+import { getDocById } from '@/utilities/cache'
 
 export default async function Layout({ layout, resolvedPosts }: LayoutQuery) {
   if (!layout.blocks) return <div>Layout has no blocks</div>
@@ -87,7 +83,7 @@ function BlocksForPosition({
               block.blockType === 'layoutsArticles' &&
               (block.category ? (
                 <Link
-                  href={`/categories/${(await resolveCachedDocument('categories', block.category)()).slug}`}
+                  href={`/categories/${(await getDocById('categories', block.category)()).slug}`}
                 >
                   <h2 className={cn('text-sm font-bold')}>{block.blockName}</h2>
                 </Link>

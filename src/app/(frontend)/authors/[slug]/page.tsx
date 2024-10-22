@@ -1,11 +1,10 @@
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import configPromise from '@payload-config'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
-import { getCachedDocument } from '@/utilities/getDocument'
 import RichText from '@/components/RichText'
 import { IconMail } from '@tabler/icons-react'
-import { cache } from 'react'
 import { PostItem } from '@/components/PostItem'
+import { getDocBySlug, getPostsByAuthor } from '@/utilities/cache'
 
 export async function generateStaticParams() {
   const payload = await getPayloadHMR({ config: configPromise })
@@ -29,29 +28,13 @@ type Args = {
   }>
 }
 
-const getPostsForAuthor = cache(async (authorId: number) => {
-  const payload = await getPayloadHMR({ config: configPromise })
-  const posts = await payload.find({
-    collection: 'posts',
-    draft: false,
-    limit: 100,
-    overrideAccess: false,
-    where: {
-      authors: {
-        contains: authorId,
-      },
-    },
-  })
-  return posts.docs
-})
-
-export default async function CategoryPage({ params: paramsPromise }: Args) {
+export default async function AuthorPage({ params: paramsPromise }: Args) {
   const { slug = '' } = await paramsPromise
 
-  const author = await getCachedDocument('authors', slug, 2)()
+  const author = await getDocBySlug('authors', slug)()
   if (!author) return <PayloadRedirects url={'/authors/' + slug} />
 
-  const posts = await getPostsForAuthor(author.id)
+  const posts = await getPostsByAuthor(author.id, 0, 100)()
 
   return (
     <main className="w-full flex flex-col items-center gap-5 pb-6 sm:pb-8 md:pb-10 lg:pb-14 overflow-hidden">

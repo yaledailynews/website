@@ -1,10 +1,10 @@
 import Layout from "@/collections/Layouts/Component";
 import { queryLayout } from "@/collections/Layouts/query";
-import { getCachedGlobal } from "@/utilities/getGlobals";
+import { getGlobal } from "@/utilities/cache";
 
 export default async function HomePage() {
-  const settings = await getCachedGlobal('settings', 3)();
-  const queryResult = await queryLayout({ layoutOrId: settings?.homeLayout });
+  const settings = await getGlobal('settings')();
+  const queryResult = await queryLayout(settings?.homeLayout);
 
   if (!queryResult) return <div>Home layout not found</div>;
 
