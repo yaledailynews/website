@@ -1,4 +1,4 @@
-import { Layout, Post } from '@/payload-types'
+import { Layout, Post } from '@payload-types'
 import { TextBlock } from './Text/Component'
 import { ArticlesBlock } from './Articles/Component'
 import { PodcastsBlock } from './Podcasts/Component'

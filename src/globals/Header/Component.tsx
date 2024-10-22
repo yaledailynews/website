@@ -2,7 +2,7 @@ import { getCachedGlobal } from '@/utilities/getGlobals'
 import React from 'react'
 import logo from '@/assets/logo.webp'
 
-import type { Header } from '@/payload-types'
+import type { Header } from '@payload-types'
 import Image from 'next/image'
 import Link from 'next/link'
 import {

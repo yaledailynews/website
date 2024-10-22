@@ -9,7 +9,7 @@ export async function generateStaticParams() {
   const layouts = await payload.find({
     collection: 'layouts',
     draft: false,
-    limit: 1000,
+    limit: 100,
     overrideAccess: false,
   })
 

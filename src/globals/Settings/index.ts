@@ -1,7 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
-import { link } from '@/fields/link'
-// import { revalidateSettings } from './hooks/revalidateSettings'
+// import { link } from '@/fields/link'
+import { revalidateSettings } from './hooks/revalidateSettings'
 
 export const Settings: GlobalConfig = {
   slug: 'settings',
@@ -23,7 +23,7 @@ export const Settings: GlobalConfig = {
       label: 'Home Layout',
     }
   ],
-  // hooks: {
-  //   afterChange: [revalidateSettings],
-  // },
+  hooks: {
+    afterChange: [revalidateSettings],
+  },
 }

@@ -3,7 +3,7 @@ import type { Metadata } from 'next/types'
 import configPromise from '@payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import React from 'react'
-import { Post } from '@/payload-types'
+import { Post } from '@payload-types'
 import { Search } from '@/search/Component'
 
 type Args = {

@@ -2,7 +2,7 @@ import { getPayloadHMR } from '@payloadcms/next/utilities'
 import { draftMode } from 'next/headers'
 import { cache } from 'react'
 import configPromise from '@payload-config'
-import { Layout, Post } from '@/payload-types'
+import { Layout, Post } from '@payload-types'
 import { getId } from '@/utilities/getId'
 import { templateConstraints } from './blocks/Articles'
 

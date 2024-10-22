@@ -4,7 +4,7 @@ import { cn } from 'src/utilities/cn'
 import React from 'react'
 import RichText from '@/components/RichText'
 
-import type { Page, MediaBlock as MediaBlockProps } from '@/payload-types'
+import type { Page, MediaBlock as MediaBlockProps } from '@payload-types'
 import { MediaFigure } from '@/components/MediaFigure'
 
 type Props = MediaBlockProps & {

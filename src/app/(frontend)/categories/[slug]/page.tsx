@@ -10,7 +10,7 @@ export async function generateStaticParams() {
   const categories = await payload.find({
     collection: 'categories',
     draft: false,
-    limit: 1000,
+    limit: 100,
     overrideAccess: false,
   })
 
