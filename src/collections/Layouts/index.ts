@@ -7,7 +7,8 @@ import { Text } from '@/collections/Layouts/blocks/Text'
 import { Articles } from '@/collections/Layouts/blocks/Articles'
 import { Podcasts } from '@/collections/Layouts/blocks/Podcasts'
 import { Newsletter } from '@/collections/Layouts/blocks/Newsletter'
-import { env, SERVER_URL } from '@/env'
+import { SERVER_URL } from '@/env'
+import { revalidateLayout } from './hooks/revalidateLayout'
 
 export const Layouts: CollectionConfig = {
   slug: 'layouts',
@@ -92,7 +93,7 @@ export const Layouts: CollectionConfig = {
     },
   ],
   hooks: {
-    // afterChange: [revalidatePage],
+    afterChange: [revalidateLayout],
     // beforeChange: [populatePublishedAt],
   },
   versions: {

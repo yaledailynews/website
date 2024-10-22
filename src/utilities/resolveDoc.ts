@@ -1,7 +1,7 @@
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import configPromise from '@payload-config'
 
-import type { Config } from '@/payload-types'
+import type { Config } from '@payload-types'
 import { unstable_cache } from 'next/cache'
 import { getId } from './getId'
 import { draftMode } from 'next/headers'
@@ -41,7 +41,7 @@ export const resolveCachedDocument = <T extends Collection>(
     async () => resolveDocument(collection, entry),
     [collection, id.toString(), depth.toString()],
     {
-      tags: [`${collection}_${id}`],
+      tags: [`${collection}_id_${id}`],
     },
   )
 }

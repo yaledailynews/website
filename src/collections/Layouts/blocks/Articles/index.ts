@@ -1,4 +1,4 @@
-import { ArticlesBlock } from '@/payload-types'
+import { ArticlesBlock } from '@payload-types'
 import { Block } from 'payload'
 
 export type TemplateName = Exclude<ArticlesBlock['template'], number>

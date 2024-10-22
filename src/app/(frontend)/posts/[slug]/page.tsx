@@ -9,7 +9,7 @@ import RichText from '@/components/RichText'
 import { format } from 'date-fns'
 import { enUS } from 'date-fns/locale'
 
-import type { Author, Post } from '@/payload-types'
+import type { Author, Post } from '@payload-types'
 
 import Link from 'next/link'
 import { IconMail, IconPlayerPlay, IconShare3 } from '@tabler/icons-react'
@@ -26,7 +26,7 @@ export async function generateStaticParams() {
   const posts = await payload.find({
     collection: 'posts',
     draft: false,
-    limit: 100000,
+    limit: 100,
     overrideAccess: false,
   })
 

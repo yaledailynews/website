@@ -1,4 +1,4 @@
-import { Post } from "@/payload-types";
+import { Post } from "@payload-types";
 import Link from "next/link";
 
 export function PostItem({

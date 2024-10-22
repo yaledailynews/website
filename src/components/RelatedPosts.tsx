@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import React from 'react'
 import RichText from '@/components/RichText'
 
-import type { Post } from '@/payload-types'
+import type { Post } from '@payload-types'
 
 export type RelatedPostsProps = {
   className?: string

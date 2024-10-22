@@ -1,4 +1,4 @@
-import { NewsletterBlock as NewsletterBlockProps, Layout } from '@/payload-types'
+import { NewsletterBlock as NewsletterBlockProps, Layout } from '@payload-types'
 
 export function NewsletterBlock({ block, layout }: { block: NewsletterBlockProps; layout: Layout }) {
   return (

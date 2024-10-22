@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import { Post } from '@/payload-types'
+import { Post } from '@payload-types'
 import { MediaFigure } from '@/components/MediaFigure'
 import { TemplateProps } from '.'
 

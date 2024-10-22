@@ -12,7 +12,7 @@ export async function generateStaticParams() {
   const authors = await payload.find({
     collection: 'authors',
     draft: false,
-    limit: 1000,
+    limit: 100,
     overrideAccess: false,
   })
 

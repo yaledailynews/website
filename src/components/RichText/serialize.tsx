@@ -7,7 +7,7 @@ import { DefaultNodeTypes, SerializedBlockNode } from '@payloadcms/richtext-lexi
 import type {
   BannerBlock as BannerBlockProps,
   MediaBlock as MediaBlockProps,
-} from '@/payload-types'
+} from '@payload-types'
 
 import {
   IS_BOLD,

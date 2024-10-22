@@ -3,7 +3,7 @@ import { cn } from 'src/utilities/cn'
 import Link from 'next/link'
 import React from 'react'
 
-import type { Author, Category, Page, Post } from '@/payload-types'
+import type { Author, Category, Page, Post } from '@payload-types'
 import { resolveCachedDocument } from '@/utilities/resolveDoc'
 
 type CMSLinkType = {

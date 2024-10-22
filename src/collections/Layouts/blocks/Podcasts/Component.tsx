@@ -1,4 +1,4 @@
-import { PodcastsBlock as PodcastsBlockProps, Layout } from '@/payload-types'
+import { PodcastsBlock as PodcastsBlockProps, Layout } from '@payload-types'
 
 // function PodcastEpisodeItem({
 // 	title,

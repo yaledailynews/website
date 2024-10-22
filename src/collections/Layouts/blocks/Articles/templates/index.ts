@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ArticlesBlock, Post } from '@/payload-types'
+import { ArticlesBlock, Post } from '@payload-types'
 import { TemplateName } from '..'
 
 import { FeaturedPair } from './FeaturedPair'
