@@ -1,7 +1,5 @@
-import { getCachedGlobal } from '@/utilities/getGlobals'
 import React from 'react'
 import logo from '@/assets/logo.webp'
-
 import type { Header } from '@payload-types'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -15,13 +13,14 @@ import {
   IconX,
 } from '@tabler/icons-react'
 import { CMSLink } from '@/components/Link'
+import { getGlobal } from '@/utilities/cache'
 
 function celciusToFarenheit(celcius: number) {
   return (celcius * 9) / 5 + 32
 }
 
 export async function Header() {
-  const header = await getCachedGlobal('header', 1)();
+  const header = await getGlobal('header')()
 
   const currentDate = new Date().toLocaleDateString('en-US', {
     weekday: 'long',

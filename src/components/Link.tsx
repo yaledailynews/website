@@ -4,7 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import type { Author, Category, Page, Post } from '@payload-types'
-import { resolveCachedDocument } from '@/utilities/resolveDoc'
+import { getDocById } from '@/utilities/cache'
 
 type CMSLinkType = {
   appearance?: 'inline' // | 'button'
@@ -37,7 +37,7 @@ export const CMSLink: React.FC<CMSLinkType> = async (props) => {
   const href =
     type === 'reference' && reference
       ? `${reference.relationTo !== 'pages' ? `/${reference.relationTo}` : ''}/${
-          (await resolveCachedDocument(reference.relationTo, reference.value)()).slug
+          (await getDocById(reference.relationTo, reference.value)()).slug
         }`
       : url
 

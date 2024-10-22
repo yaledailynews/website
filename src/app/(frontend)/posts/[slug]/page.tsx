@@ -3,8 +3,7 @@ import type { Metadata } from 'next'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
-import { draftMode } from 'next/headers'
-import React, { cache } from 'react'
+import React from 'react'
 import RichText from '@/components/RichText'
 import { format } from 'date-fns'
 import { enUS } from 'date-fns/locale'
@@ -12,14 +11,13 @@ import { enUS } from 'date-fns/locale'
 import type { Author, Post } from '@payload-types'
 
 import Link from 'next/link'
-import { IconMail, IconPlayerPlay, IconShare3 } from '@tabler/icons-react'
+import { IconMail, IconPlayerPlay } from '@tabler/icons-react'
 import Image from 'next/image'
 import icon from '@/assets/icon.png'
 import { CMSLink } from '@/components/Link'
 import { MediaFigure } from '@/components/MediaFigure'
 import { CopyLink } from '@/components/CopyLink'
-import { resolveCachedDocument } from '@/utilities/resolveDoc'
-import { getCachedDocument } from '@/utilities/getDocument'
+import { getDocById, getDocBySlug } from '@/utilities/cache'
 
 export async function generateStaticParams() {
   const payload = await getPayloadHMR({ config: configPromise })
@@ -41,10 +39,6 @@ type Args = {
   params: Promise<{
     slug?: string
   }>
-}
-
-function resolveAuthors(authors: (Author | number)[]) {
-  return Promise.all(authors.map((author) => resolveCachedDocument('authors', author)()))
 }
 
 const AuthorCard: React.FC<{ author: Author }> = async ({ author }) => {
@@ -70,14 +64,14 @@ const AuthorCard: React.FC<{ author: Author }> = async ({ author }) => {
 export default async function Post({ params: paramsPromise }: Args) {
   const { slug = '' } = await paramsPromise
   const url = '/posts/' + slug
-  const post = await getCachedDocument('posts', slug, 2)()
+  const post = await getDocBySlug('posts', slug)()
 
   if (!post) return <PayloadRedirects url={url} />
   if (!post.authors) return <div>Post has no authors</div>
   if (!post.publishedAt) return <div>Post has no published date</div>
 
   const numAuthors = post.authors.length
-  const resolvedAuthors = await resolveAuthors(post.authors)
+  const resolvedAuthors = await Promise.all(post.authors.map((author) => getDocById('authors', author)()))
 
   const formattedDate = format(post.publishedAt, "MMM. d, yyyy, h:mm a 'ET'", {
     locale: enUS,

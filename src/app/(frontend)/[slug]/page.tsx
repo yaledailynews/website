@@ -2,7 +2,7 @@ import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import RichText from '@/components/RichText'
-import { getCachedDocument } from '@/utilities/getDocument'
+import { getDocBySlug } from '@/utilities/cache'
 
 export async function generateStaticParams() {
   const payload = await getPayloadHMR({ config: configPromise })
@@ -34,7 +34,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   const { slug = 'home' } = await paramsPromise
   const url = '/' + slug
 
-  const page = await getCachedDocument('pages', slug, 2)()
+  const page = await getDocBySlug('pages', slug)()
   if (!page) {
     return <PayloadRedirects url={url} />
   }

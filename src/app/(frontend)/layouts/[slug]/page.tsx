@@ -28,7 +28,7 @@ type Args = {
 
 export default async function LayoutPage({ params: paramsPromise }: Args) {
   const { slug = '' } = await paramsPromise
-  const queryResult = await queryLayout({ slug })
+  const queryResult = await queryLayout(slug)
   if (!queryResult) return <PayloadRedirects url={'/layouts/' + slug} />
 
   return <Layout {...queryResult} />
