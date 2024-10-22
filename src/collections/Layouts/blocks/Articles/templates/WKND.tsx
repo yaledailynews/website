@@ -11,6 +11,7 @@ function WKNDPost({ post }: { post: Post }) {
         href={`/posts/${post.slug}`}
         media={post.cover}
         className="w-full aspect-[11/9] object-cover"
+        sizes="(max-width: 768px) 50vw, (max-width: 1200px) 40vw, 30vw"
       />
       <Link href={`/posts/${post.slug}`} className="hover:opacity-70 transition-opacity">
         <h1 className="font-headline text-xl md:text-lg">{post.title}</h1>

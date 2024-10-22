@@ -8,7 +8,12 @@ export async function SidebarTrio({ posts }: TemplateProps) {
   return (
     <>
       <article className="flex flex-col gap-3">
-        <MediaFigure media={mainPost.cover} className="w-full" href={`/posts/${mainPost.slug}`} />
+        <MediaFigure
+          media={mainPost.cover}
+          className="w-full"
+          href={`/posts/${mainPost.slug}`}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 30vw, 20vw"
+        />
         <Link
           href={`/posts/${mainPost.slug}`}
           className="hover:opacity-70 transition-opacity w-full"
@@ -69,6 +74,7 @@ export async function SidebarTrio({ posts }: TemplateProps) {
           media={tertiaryPost.cover}
           href={`/posts/${tertiaryPost.slug}`}
           className="w-full aspect-[11/9] object-cover"
+          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
         />
       </article>
     </>

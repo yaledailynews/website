@@ -1,10 +1,13 @@
+// TODO: invalidation
+
 import type { CollectionConfig } from 'payload'
 
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
 import { slugField } from '@/fields/slug'
+import { revalidateCategory } from './hooks/revalidateCategory'
 
-const Categories: CollectionConfig = {
+export const Categories: CollectionConfig = {
   slug: 'categories',
   access: {
     create: authenticated,
@@ -29,6 +32,7 @@ const Categories: CollectionConfig = {
     },
     ...slugField(),
   ],
+  hooks: {
+    afterChange: [revalidateCategory],
+  },
 }
-
-export default Categories

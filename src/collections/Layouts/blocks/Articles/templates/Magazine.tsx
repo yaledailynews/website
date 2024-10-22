@@ -12,6 +12,7 @@ function MagazinePostItem({ post }: { post: Post }) {
       <MediaFigure
         media={post.cover}
         href={`/posts/${post.slug}`}
+        sizes="(max-width: 768px) 50vw, (max-width: 1200px) 30vw, 20vw"
         className="w-full border aspect-[14/9] object-cover max-h-[60vw]"
       />
       <Link href={`/posts/${post.slug}`} className="hover:opacity-70 transition-opacity">

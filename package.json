@@ -14,7 +14,9 @@
     "lint:fix": "cross-env NODE_OPTIONS=--no-deprecation next lint --fix",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
-    "migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate"
+    "migrate:create": "cross-env NODE_OPTIONS=--no-deprecation payload migrate create",
+    "migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate",
+    "sync": "cross-env NODE_OPTIONS=--no-deprecation bun run payload migrate:create && bun run migrate && bun run generate:types && bun run generate:importmap"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "beta",
@@ -37,6 +39,7 @@
     "@t3-oss/env-core": "^0.11.1",
     "@t3-oss/env-nextjs": "^0.11.1",
     "@tabler/icons-react": "^3.19.0",
+    "blurhash": "^2.0.5",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cross-env": "^7.0.3",
@@ -49,6 +52,7 @@
     "next": "^15.0.0",
     "payload": "beta",
     "payload-admin-bar": "^1.0.6",
+    "payload-blurhash-plugin": "3",
     "prism-react-renderer": "^2.4.0",
     "react": "rc",
     "react-dom": "rc",

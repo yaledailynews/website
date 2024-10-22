@@ -1,9 +1,5 @@
 import { s3Storage } from '@payloadcms/storage-s3'
-
 import { postgresAdapter } from '@payloadcms/db-postgres'
-// import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres' // TODO: see if I can use this
-
-import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { searchPlugin } from '@payloadcms/plugin-search'
@@ -21,11 +17,11 @@ import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 
-import Categories from './collections/Categories'
+import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
-import Users from './collections/Users'
+import { Users } from './collections/Users'
 import { Authors } from './collections/Authors'
 import { Layouts } from './collections/Layouts'
 
@@ -160,32 +156,6 @@ export default buildConfig({
     nestedDocsPlugin({
       collections: ['categories'],
     }),
-    formBuilderPlugin({
-      fields: {
-        payment: false,
-      },
-      formOverrides: {
-        fields: ({ defaultFields }) => {
-          return defaultFields.map((field) => {
-            if ('name' in field && field.name === 'confirmationMessage') {
-              return {
-                ...field,
-                editor: lexicalEditor({
-                  features: ({ rootFeatures }) => {
-                    return [
-                      ...rootFeatures,
-                      FixedToolbarFeature(),
-                      HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                    ]
-                  },
-                }),
-              }
-            }
-            return field
-          })
-        },
-      },
-    }),
     searchPlugin({
       collections: ['posts'],
       beforeSync: beforeSyncWithSearch,
@@ -210,6 +180,9 @@ export default buildConfig({
       },
       bucket: env.S3_BUCKET,
     }),
+    // computeBlurhash({
+    //   collections: ['media'],
+    // }),
   ],
   secret: env.PAYLOAD_SECRET,
   sharp,
