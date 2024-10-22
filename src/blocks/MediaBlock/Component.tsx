@@ -48,7 +48,7 @@ export const MediaBlock: React.FC<Props> = (props) => {
           <MediaFigure
             media={media}
             src={staticImage}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 95vw, 90vw"
           />
         </div>
       )}

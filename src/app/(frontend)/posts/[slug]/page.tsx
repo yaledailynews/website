@@ -71,7 +71,9 @@ export default async function Post({ params: paramsPromise }: Args) {
   if (!post.publishedAt) return <div>Post has no published date</div>
 
   const numAuthors = post.authors.length
-  const resolvedAuthors = await Promise.all(post.authors.map((author) => getDocById('authors', author)()))
+  const resolvedAuthors = await Promise.all(
+    post.authors.map((author) => getDocById('authors', author)()),
+  )
 
   const formattedDate = format(post.publishedAt, "MMM. d, yyyy, h:mm a 'ET'", {
     locale: enUS,
@@ -97,7 +99,11 @@ export default async function Post({ params: paramsPromise }: Args) {
             className={`flex flex-col items-end ${`max-w-screen-sm `} pt-9 w-full`}
             // TODO: can adaptively have different image sizes here
           >
-            <MediaFigure className="w-full h-auto" media={post.cover} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 35vw" />
+            <MediaFigure
+              className="w-full h-auto"
+              media={post.cover}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
+            />
           </div>
         )}
         <div className="max-w-screen-sm px-5 md:px-0 w-full flex flex-col pt-7 sm:pt-8 md:pt-9 lg:pt-10 gap-8 sm:gap-10 md:gap-12 lg:gap-14">
