@@ -16,7 +16,7 @@ export async function SmallImageTrio({ posts }: TemplateProps) {
         ))}
       </div>
       <MediaFigure
-        href={`/article/${mainPost.slug}`}
+        href={`/posts/${mainPost.slug}`}
         media={mainPost.cover}
         className="w-full h-auto object-cover max-h-[60vw]"
       />

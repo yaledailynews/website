@@ -47,16 +47,7 @@ export default async function Page({ params: paramsPromise }: Args) {
           {page.title && (
             <h1 className="text-3xl md:text-4xl leading-9 font-headline">{page.title}</h1>
           )}
-        </div>
-
-        {/* {page.meta?.image && typeof page.meta.image !== 'string' && (
-          <div
-            className={`flex flex-col items-end ${`max-w-screen-sm `} pt-9`}
-            // TODO: can adaptively have different image sizes here
-          >
-            <Media imgClassName="w-full h-auto" resource={page.meta.image} />
-          </div>
-        )} */}
+        </div>xw
         <div className="max-w-screen-sm px-5 md:px-0 w-full flex flex-col pt-7 sm:pt-8 md:pt-9 lg:pt-10 gap-8 sm:gap-10 md:gap-12 lg:gap-14">
           <RichText content={page.content} font="serif" size="lg" black />
         </div>

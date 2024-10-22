@@ -11,10 +11,10 @@ function MagazinePostItem({ post }: { post: Post }) {
     <article className="flex flex-col gap-2">
       <MediaFigure
         media={post.cover}
-        href={`/article/${post.slug}`}
+        href={`/posts/${post.slug}`}
         className="w-full border aspect-[14/9] object-cover max-h-[60vw]"
       />
-      <Link href={`/article/${post.slug}`} className="hover:opacity-70 transition-opacity">
+      <Link href={`/posts/${post.slug}`} className="hover:opacity-70 transition-opacity">
         <div className="flex flex-col gap-2">
           <h1 className="font-headline text-xl md:text-lg ">{post.title}</h1>
           <div className="flex gap-3 sm:items-center flex-col-reverse sm:flex-row items-start">
