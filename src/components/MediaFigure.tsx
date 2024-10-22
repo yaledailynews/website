@@ -2,6 +2,7 @@ import Image, { ImageProps } from 'next/image'
 import Link from 'next/link'
 import type { Media as MediaType } from '@payload-types'
 import { getDocById } from '@/utilities/cache'
+import { blurHashToDataURL } from '@/utilities/blurhashToDataURL'
 
 export async function MediaFigure({
   media,
@@ -15,18 +16,29 @@ export async function MediaFigure({
 } & Partial<ImageProps>) {
   if (!media) return null
   if (typeof media === 'string') return null
-  
-  const resolvedMedia = await getDocById('media', media)()
 
-  if (!resolvedMedia.url) return null
+  const { url, blurhash, alt, width, height, author, credit } = await getDocById('media', media)()
+  if (!url) return null
 
-  const author = resolvedMedia.author ? await getDocById('authors', resolvedMedia.author)() : null
+  const resolvedAuthor = author ? await getDocById('authors', author)() : null
+
+  console.log('blurhash', blurhash)
+
+  const blur = blurhash ? blurHashToDataURL(blurhash) : undefined
 
   const ImageComponent =
-    resolvedMedia.width && resolvedMedia.height ? (
-      <Image src={resolvedMedia.url} alt={resolvedMedia.alt} width={resolvedMedia.width} height={resolvedMedia.height} {...props} />
+    width && height ? (
+      <Image
+        src={url}
+        alt={alt}
+        width={width}
+        height={height}
+        blurDataURL={blur}
+        placeholder={blur ? "blur" : "empty"}
+        {...props}
+      />
     ) : (
-      <Image src={resolvedMedia.url} alt={resolvedMedia.alt} {...props} />
+      <Image src={url} alt={alt} blurDataURL={blur} placeholder={blur ? "blur" : "empty"} {...props} />
     )
 
   return (
@@ -42,12 +54,12 @@ export async function MediaFigure({
           ImageComponent
         )}
       </div>
-      {author ? (
+      {resolvedAuthor ? (
         <figcaption className="text-xs text-gray-500">
-          <Link href={`/authors/${author.slug}`}>{author.name}</Link>
+          <Link href={`/authors/${resolvedAuthor.slug}`}>{resolvedAuthor.name}</Link>
         </figcaption>
       ) : (
-        resolvedMedia.credit && <figcaption className="text-xs text-gray-500">{resolvedMedia.credit}</figcaption>
+        credit && <figcaption className="text-xs text-gray-500">{credit}</figcaption>
       )}
     </figure>
   )

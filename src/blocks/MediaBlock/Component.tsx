@@ -45,11 +45,20 @@ export const MediaBlock: React.FC<Props> = (props) => {
     >
       {position === 'fullscreen' && (
         <div className="relative">
-          <MediaFigure media={media} src={staticImage} />
+          <MediaFigure
+            media={media}
+            src={staticImage}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
+          />
         </div>
       )}
       {position === 'default' && (
-        <MediaFigure className={cn('rounded', imgClassName)} media={media} src={staticImage} />
+        <MediaFigure
+          className={cn('rounded', imgClassName)}
+          media={media}
+          src={staticImage}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
+        />
       )}
       {/* {caption && (
         <div

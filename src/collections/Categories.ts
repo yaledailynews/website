@@ -1,3 +1,5 @@
+// TODO: invalidation
+
 import type { CollectionConfig } from 'payload'
 
 import { anyone } from '@/access/anyone'

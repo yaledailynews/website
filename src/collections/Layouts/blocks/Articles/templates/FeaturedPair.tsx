@@ -13,7 +13,8 @@ export async function FeaturedPair({ posts }: TemplateProps) {
       <MediaFigure
         media={mainPost.cover}
         figureClassName="lg:col-span-3 lg:row-span-2 md:col-span-1"
-        loading="eager"
+        priority
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 30vw, 20vw"
         href={`/posts/${mainPost.slug}`}
       />
       <div className="border-t pt-5 sm:col-span-2">
