@@ -1,10 +1,9 @@
-import { cache } from 'react'
 import { Layout, Post } from '@payload-types'
 import { getId } from '@/utilities/getId'
 import { templateConstraints } from './blocks/Articles'
 import { getDoc, getDocById, getPostsByCategory } from '@/utilities/cache'
 
-export const queryLayout = cache(async (entry: string | number | Layout) => {
+export const queryLayout = async (entry: string | number | Layout) => {
   const layout = await getDoc('layouts', entry)()
   if (!layout) return null
 
@@ -49,6 +48,6 @@ export const queryLayout = cache(async (entry: string | number | Layout) => {
   }
 
   return { layout, resolvedPosts }
-})
+}
 
 export type LayoutQuery = NonNullable<Awaited<ReturnType<typeof queryLayout>>>
