@@ -2,7 +2,6 @@ import Image, { ImageProps } from 'next/image'
 import Link from 'next/link'
 import type { Media as MediaType } from '@payload-types'
 import { getDocById } from '@/utilities/cache'
-import { blurHashToDataURL } from '@/utilities/blurhashToDataURL'
 
 export async function MediaFigure({
   media,
@@ -17,14 +16,12 @@ export async function MediaFigure({
   if (!media) return null
   if (typeof media === 'string') return null
 
-  const { url, blurhash, alt, width, height, author, credit } = await getDocById('media', media)()
+  const { url, placeholder, alt, width, height, author, credit } = await getDocById('media', media)()
   if (!url) return null
 
   const resolvedAuthor = author ? await getDocById('authors', author)() : null
 
-  console.log('blurhash', blurhash)
-
-  const blur = blurhash ? blurHashToDataURL(blurhash) : undefined
+  const blur = placeholder || undefined
 
   const ImageComponent =
     width && height ? (

@@ -21,7 +21,7 @@ export async function SimpleList({ posts }: TemplateProps) {
           media={post.cover}
           href={`/posts/${post.slug}`}
           className="w-full aspect-video object-cover max-h-[60vw]"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 30vw, 20vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 30vw"
         />
       </article>
     </div>

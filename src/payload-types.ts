@@ -133,7 +133,7 @@ export interface Media {
   alt: string;
   author?: (number | null) | Author;
   credit?: string | null;
-  blurhash?: string | null;
+  placeholder?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;

@@ -1,14 +1,10 @@
 // TODO: invalidation
 
 import type { CollectionConfig } from 'payload'
-import path from 'path'
-import { fileURLToPath } from 'url'
-
-import { anyone } from '../access/anyone'
-import { authenticated } from '../access/authenticated'
-
-const filename = fileURLToPath(import.meta.url)
-const dirname = path.dirname(filename)
+import { anyone } from '@/access/anyone'
+import { authenticated } from '@/access/authenticated'
+import { revalidateMedia } from './hooks/revalidateMedia'
+import { generateBlur } from './hooks/generateBlurImage'
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -38,8 +34,19 @@ export const Media: CollectionConfig = {
         placeholder: 'Courtesy of ...',
         condition(data, siblingData) {
           return !siblingData.author
-        }
+        },
+      },
+    },
+    {
+      name: 'placeholder',
+      type: 'text',
+      admin: {
+        hidden: true,
       }
     },
   ],
+  hooks: {
+    afterChange: [revalidateMedia],
+    beforeChange: [generateBlur],
+  },
 }

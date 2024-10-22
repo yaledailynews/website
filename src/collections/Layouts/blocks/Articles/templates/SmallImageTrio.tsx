@@ -19,7 +19,7 @@ export async function SmallImageTrio({ posts }: TemplateProps) {
         href={`/posts/${mainPost.slug}`}
         media={mainPost.cover}
         className="w-full h-auto object-cover max-h-[60vw]"
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 30vw, 20vw"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 30vw"
       />
     </div>
   )
