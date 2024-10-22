@@ -1,7 +1,7 @@
 import { s3Storage } from '@payloadcms/storage-s3'
 
 import { postgresAdapter } from '@payloadcms/db-postgres'
-import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres' // TODO: see if I can use this
+// import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres' // TODO: see if I can use this
 
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
