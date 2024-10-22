@@ -1,6 +1,10 @@
-Regressions:
+## Regressions remaining:
 - Search
 - Tags
 - Meta (titles and such)
-- Configurable footer
 - Author pages (in progress)
+
+## To add soon:
+- Configurable footer
+- ESLint 9
+- Better static slugs

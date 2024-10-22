@@ -2,7 +2,7 @@ import type { Config } from '@payload-types'
 
 import configPromise from '@payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
-import { unstable_cache, unstable_cacheTag } from 'next/cache'
+import { unstable_cache } from 'next/cache'
 import { draftMode } from 'next/headers'
 import { getId } from './getId'
 import { DataFromCollectionSlug, Where } from 'payload'
@@ -135,8 +135,11 @@ export async function findPostsByCategory(id: number, depth: number, limit: numb
     },
   })
 
-  // TODO: tag each post
-
+  // tag each post for revalidation
+  for (const post of posts) {
+    getDocById('posts', post.id)
+  }
+  
   return posts
 }
 
@@ -159,7 +162,10 @@ export async function findPostsByAuthor(id: number, depth: number, limit: number
     },
   })
 
-  // TODO: tag each post
+  // tag each post for revalidation
+  for (const post of posts) {
+    getDocById('posts', post.id)
+  }
 
   return posts
 }
