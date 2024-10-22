@@ -135,6 +135,11 @@ export async function findPostsByCategory(id: number, depth: number, limit: numb
     },
   })
 
+  // tag each post for revalidation
+  for (const post of posts) {
+    getDocById('posts', post.id)
+  }
+  
   return posts
 }
 
@@ -156,6 +161,11 @@ export async function findPostsByAuthor(id: number, depth: number, limit: number
       },
     },
   })
+
+  // tag each post for revalidation
+  for (const post of posts) {
+    getDocById('posts', post.id)
+  }
 
   return posts
 }

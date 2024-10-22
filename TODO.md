@@ -1,5 +1,11 @@
-Regressions:
+## Regressions remaining:
 - Search
-- Configurable footer
+- Tags
+- Meta (titles and such)
 - Author pages (in progress)
-- Proper cache invalidation (everything only goes 1 deep?)
+
+## To add soon:
+- Configurable footer
+- ESLint 9
+- Better static slugs (freeze on publish)
+- Preview not tied to slug
