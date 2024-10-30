@@ -19,6 +19,7 @@ export const env = createEnv({
     S3_REGION: z.string().min(1),
     S3_BUCKET: z.string().min(1),
     S3_ENDPOINT: z.string().min(1),
+    RESEND_API_KEY: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_VERCEL_ENV: z.enum(['production', 'preview', 'development']).optional(),
@@ -43,6 +44,7 @@ export const env = createEnv({
     NEXT_PUBLIC_VERCEL_URL: process.env.NEXT_PUBLIC_VERCEL_URL,
     NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL:
       process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL,
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
   },
 })
 

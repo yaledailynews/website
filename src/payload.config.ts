@@ -11,9 +11,11 @@ import {
   LinkFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
-import sharp from 'sharp' // editor-import
 import { UnderlineFeature } from '@payloadcms/richtext-lexical'
+import { resendAdapter } from '@payloadcms/email-resend'
+
 import path from 'path'
+import sharp from 'sharp' // editor-import
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 
@@ -181,10 +183,16 @@ export default buildConfig({
       },
       bucket: env.S3_BUCKET,
     }),
+    
   ],
   secret: env.PAYLOAD_SECRET,
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+  email: resendAdapter({
+    defaultFromAddress: 'noreply@admin.yaledailynews2.com',
+    defaultFromName: 'Yale Daily News Admin',
+    apiKey: env.RESEND_API_KEY,
+  }),
 })

@@ -82,8 +82,9 @@ function BlocksForPosition({
             {block.blockName &&
               block.blockType === 'layoutsArticles' &&
               (block.category ? (
+                // TODO: better error handling here
                 <Link
-                  href={`/categories/${(await getDocById('categories', block.category)()).slug}`}
+                  href={`/categories/${(await getDocById('categories', block.category)())!.slug}`}
                 >
                   <h2 className={cn('text-sm font-bold')}>{block.blockName}</h2>
                 </Link>
