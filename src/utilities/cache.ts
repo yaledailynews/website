@@ -68,13 +68,17 @@ export const findDocById = async <T extends Collection>(
   const { isEnabled: draft } = await draftMode()
   const payload = await getPayloadHMR({ config: configPromise })
 
-  return await payload.findByID({
+  const result = await payload.findByID({
     collection,
     draft,
     overrideAccess: draft,
     depth,
     id: entry,
   })
+  if (!result) {
+    throw new Error(`Document with id ${entry} not found in collection ${collection}`)
+  }
+  return result
 }
 
 export const getDocById = <T extends Collection>(

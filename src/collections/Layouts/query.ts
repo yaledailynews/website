@@ -41,7 +41,9 @@ export const queryLayout = async (entry: string | number | Layout) => {
         block.source === 'manual' &&
         block.posts
       ) {
-        const posts = await Promise.all(block.posts.map((post) => getDocById('posts', post)()))
+        const posts = (
+          await Promise.all(block.posts.map((post) => getDocById('posts', post)()))
+        ).filter((post): post is Post => post !== null)
         resolvedPosts.set(i, posts)
       }
     }
