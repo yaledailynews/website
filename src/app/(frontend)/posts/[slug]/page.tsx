@@ -71,9 +71,9 @@ export default async function Post({ params: paramsPromise }: Args) {
   if (!post.publishedAt) return <div>Post has no published date</div>
 
   const numAuthors = post.authors.length
-  const resolvedAuthors = await Promise.all(
-    post.authors.map((author) => getDocById('authors', author)()),
-  )
+  const resolvedAuthors = (
+    await Promise.all(post.authors.map((author) => getDocById('authors', author)()))
+  ).filter((author) => !!author)
 
   const formattedDate = format(post.publishedAt, "MMM. d, yyyy, h:mm a 'ET'", {
     locale: enUS,
