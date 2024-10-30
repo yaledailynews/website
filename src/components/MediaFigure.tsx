@@ -3,6 +3,7 @@ import Link from 'next/link'
 import type { Media as MediaType } from '@payload-types'
 import { getDocById } from '@/utilities/cache'
 import { DetailedHTMLProps, ImgHTMLAttributes } from 'react'
+import { env } from '@/env'
 
 export async function MediaFigure({
   media,
@@ -27,7 +28,7 @@ export async function MediaFigure({
 
   const resolvedAuthor = author ? await getDocById('authors', author)() : null
 
-  const url = 'https://pub-c087d1309f784630b8a8535c6e8197db.r2.dev/' + filename
+  const url = `${env.NEXT_PUBLIC_S3_URL}/${filename}`
 
   const ImageComponent =
     width && height ? (
