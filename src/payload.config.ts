@@ -12,7 +12,7 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 import { UnderlineFeature } from '@payloadcms/richtext-lexical'
-import { resendAdapter } from '@payloadcms/email-resend'
+// import { resendAdapter } from '@payloadcms/email-resend'
 
 import path from 'path'
 import sharp from 'sharp' // editor-import
@@ -190,9 +190,9 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  email: resendAdapter({
-    defaultFromAddress: 'noreply@admin.yaledailynews2.com',
-    defaultFromName: 'Yale Daily News Admin',
-    apiKey: env.RESEND_API_KEY,
-  }),
+  // email: resendAdapter({
+  //   defaultFromAddress: 'noreply@admin.yaledailynews2.com',
+  //   defaultFromName: 'Yale Daily News Admin',
+  //   apiKey: env.RESEND_API_KEY,
+  // }),
 })
