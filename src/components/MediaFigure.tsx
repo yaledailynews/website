@@ -1,41 +1,48 @@
-import Image, { ImageProps } from 'next/image'
+// import Image, { ImageProps } from 'next/image'
 import Link from 'next/link'
 import type { Media as MediaType } from '@payload-types'
 import { getDocById } from '@/utilities/cache'
+import { DetailedHTMLProps, ImgHTMLAttributes } from 'react'
 
 export async function MediaFigure({
   media,
   href,
   figureClassName,
+  priority = false,
   ...props
 }: {
   media?: MediaType | string | number | null
   href?: string
   figureClassName?: string
-} & Partial<ImageProps>) {
+  priority?: boolean
+} & Partial<ImgHTMLAttributes<HTMLImageElement>>) {
   if (!media) return null
   if (typeof media === 'string') return null
 
-  const { url, placeholder, alt, width, height, author, credit } = await getDocById('media', media)()
-  if (!url) return null
+  const { blurhash, alt, width, height, author, credit, filename } = await getDocById(
+    'media',
+    media,
+  )()
+  if (!filename) return null
 
   const resolvedAuthor = author ? await getDocById('authors', author)() : null
 
-  const blur = placeholder || undefined
+  const url = 'https://pub-c087d1309f784630b8a8535c6e8197db.r2.dev/' + filename
 
   const ImageComponent =
     width && height ? (
-      <Image
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
         src={url}
         alt={alt}
         width={width}
         height={height}
-        blurDataURL={blur}
-        placeholder={blur ? "blur" : "empty"}
+        loading={priority ? 'eager' : 'lazy'}
         {...props}
       />
     ) : (
-      <Image src={url} alt={alt} blurDataURL={blur} placeholder={blur ? "blur" : "empty"} {...props} />
+      // eslint-disable-next-line @next/next/no-img-element
+      <img src={url} alt={alt} loading={priority ? 'eager' : 'lazy'} {...props} />
     )
 
   return (

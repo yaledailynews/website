@@ -156,7 +156,7 @@ export interface Media {
   alt: string;
   author?: (number | null) | Author;
   credit?: string | null;
-  placeholder?: string | null;
+  blurhash?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -514,7 +514,7 @@ export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   author?: T;
   credit?: T;
-  placeholder?: T;
+  blurhash?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

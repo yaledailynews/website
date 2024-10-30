@@ -171,6 +171,7 @@ export default buildConfig({
       collections: {
         media: {
           disableLocalStorage: true,
+          disablePayloadAccessControl: true,
         },
       },
       config: {

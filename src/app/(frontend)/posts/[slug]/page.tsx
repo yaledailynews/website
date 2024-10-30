@@ -103,7 +103,6 @@ export default async function Post({ params: paramsPromise }: Args) {
               className="w-full h-auto"
               media={post.cover}
               priority
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
             />
           </div>
         )}

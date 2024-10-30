@@ -38,7 +38,7 @@ export const Media: CollectionConfig = {
       },
     },
     {
-      name: 'placeholder',
+      name: 'blurhash',
       type: 'text',
       admin: {
         hidden: true,
