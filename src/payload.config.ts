@@ -172,6 +172,7 @@ export default buildConfig({
         },
       },
       config: {
+        endpoint: env.S3_ENDPOINT,
         credentials: {
           accessKeyId: env.S3_ACCESS_KEY_ID,
           secretAccessKey: env.S3_SECRET_ACCESS_KEY,
@@ -180,9 +181,6 @@ export default buildConfig({
       },
       bucket: env.S3_BUCKET,
     }),
-    // computeBlurhash({
-    //   collections: ['media'],
-    // }),
   ],
   secret: env.PAYLOAD_SECRET,
   sharp,

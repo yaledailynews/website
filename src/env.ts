@@ -18,6 +18,7 @@ export const env = createEnv({
     S3_SECRET_ACCESS_KEY: z.string().min(1),
     S3_REGION: z.string().min(1),
     S3_BUCKET: z.string().min(1),
+    S3_ENDPOINT: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_VERCEL_ENV: z.enum(['production', 'preview', 'development']).optional(),
@@ -35,6 +36,7 @@ export const env = createEnv({
     S3_ACCESS_KEY_ID: process.env.S3_ACCESS_KEY_ID,
     S3_SECRET_ACCESS_KEY: process.env.S3_SECRET_ACCESS_KEY,
     S3_REGION: process.env.S3_REGION,
+    S3_ENDPOINT: process.env.S3_ENDPOINT,
     S3_BUCKET: process.env.S3_BUCKET,
     NEXT_PUBLIC_IS_LIVE: process.env.NEXT_PUBLIC_IS_LIVE,
     NEXT_PUBLIC_VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV,
