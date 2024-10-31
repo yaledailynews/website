@@ -9,7 +9,7 @@ export async function Tag({ tag }: { tag: Tag | number }) {
     <span
       className="px-2.5 py-[3px] text-xs font-medium text-white"
       style={{
-        border: `1px solid ${color[700]}`,
+        border: `1px solid ${color[500]}`,
         backgroundColor: resolvedTag.style === "solid" ? color[700] : color[100],
         color: resolvedTag.style === "solid" ? "white" : color[700],
       }}

@@ -23,38 +23,10 @@ export const searchFields: Field[] = [
         name: 'title',
         label: 'Title',
       },
-      // {
-      //   type: 'text',
-      //   name: 'description',
-      //   label: 'Description',
-      // },
-      // {
-      //   name: 'image',
-      //   label: 'Image',
-      //   type: 'upload',
-      //   relationTo: 'media',
-      // },
-    ],
-  },
-  {
-    label: 'Categories',
-    name: 'categories',
-    type: 'array',
-    admin: {
-      readOnly: true,
-    },
-    fields: [
       {
-        name: 'relationTo',
         type: 'text',
-      },
-      {
-        name: 'id',
-        type: 'text',
-      },
-      {
-        name: 'title',
-        type: 'text',
+        name: 'subhead',
+        label: 'Subhead',
       },
     ],
   },

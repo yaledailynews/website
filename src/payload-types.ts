@@ -455,14 +455,8 @@ export interface Search {
   slug?: string | null;
   meta?: {
     title?: string | null;
+    subhead?: string | null;
   };
-  categories?:
-    | {
-        relationTo?: string | null;
-        id?: string | null;
-        title?: string | null;
-      }[]
-    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -833,13 +827,7 @@ export interface SearchSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
-      };
-  categories?:
-    | T
-    | {
-        relationTo?: T;
-        id?: T;
-        title?: T;
+        subhead?: T;
       };
   updatedAt?: T;
   createdAt?: T;
