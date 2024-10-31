@@ -3,6 +3,7 @@ import React from 'react'
 import { Post } from '@payload-types'
 import { MediaFigure } from '@/components/MediaFigure'
 import { TemplateProps } from '.'
+import { ResolvedAuthors } from '@/components/ResolvedAuthors'
 
 function WKNDPost({ post }: { post: Post }) {
   return (
@@ -16,7 +17,7 @@ function WKNDPost({ post }: { post: Post }) {
       <Link href={`/posts/${post.slug}`} className="hover:opacity-70 transition-opacity">
         <h1 className="font-headline text-xl md:text-lg">{post.title}</h1>
         <p className="text-gray-500 text-sm">
-          By {post.populatedAuthors?.map((author) => author.name).join(', ')}
+          By <ResolvedAuthors post={post} />
         </p>
       </Link>
     </article>

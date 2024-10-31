@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { TemplateProps } from '.'
 import { MediaFigure } from '@/components/MediaFigure'
+import { ResolvedAuthors } from '@/components/ResolvedAuthors'
 
 export async function SidebarTrio({ posts }: TemplateProps) {
   const [mainPost, secondaryPost, tertiaryPost] = posts
@@ -30,7 +31,7 @@ export async function SidebarTrio({ posts }: TemplateProps) {
                 </span>
               )} */}
               <p className="text-gray-500 text-xs">
-                By {mainPost.populatedAuthors?.map((author) => author.name).join(', ')}
+                By <ResolvedAuthors post={mainPost} />
               </p>
             </div>
           </div>
@@ -50,7 +51,7 @@ export async function SidebarTrio({ posts }: TemplateProps) {
                 </span>
               )} */}
               <p className="text-gray-500 text-xs">
-                By {secondaryPost.populatedAuthors?.map((author) => author.name).join(', ')}
+                By <ResolvedAuthors post={secondaryPost} />
               </p>
             </div>
           </div>
@@ -65,7 +66,7 @@ export async function SidebarTrio({ posts }: TemplateProps) {
             <h1 className="font-headline">{tertiaryPost.title}</h1>
             <div className="flex gap-3 items-center">
               <p className="text-gray-500 text-xs">
-                By {tertiaryPost.populatedAuthors?.map((author) => author.name).join(', ')}
+                By <ResolvedAuthors post={tertiaryPost} />
               </p>
             </div>
           </div>

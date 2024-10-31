@@ -15,11 +15,11 @@ import { Banner } from '@/blocks/Banner'
 import { Code } from '@/blocks/Code'
 import { MediaBlock } from '@/blocks/MediaBlock'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
-import { populateAuthors } from './hooks/populateAuthors'
 import { revalidatePost } from './hooks/revalidatePost'
 
 import { slugField } from '@/fields/slug'
 import { SERVER_URL } from '@/env'
+import { addToPinecone } from './hooks/addToPinecone'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -132,35 +132,10 @@ export const Posts: CollectionConfig = {
       hasMany: true,
       relationTo: 'authors',
     },
-    // This field is only used to populate the user data via the `populateAuthors` hook
-    // This is because the `user` collection has access control locked to protect user privacy
-    // GraphQL will also not return mutated user data that differs from the underlying schema
-    {
-      name: 'populatedAuthors',
-      type: 'array',
-      access: {
-        update: () => false,
-      },
-      admin: {
-        disabled: true,
-        readOnly: true,
-      },
-      fields: [
-        {
-          name: 'id',
-          type: 'text',
-        },
-        {
-          name: 'name',
-          type: 'text',
-        },
-      ],
-    },
     ...slugField(),
   ],
   hooks: {
-    afterChange: [revalidatePost],
-    afterRead: [populateAuthors],
+    afterChange: [revalidatePost, addToPinecone],
   },
   versions: {
     drafts: {

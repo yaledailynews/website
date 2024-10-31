@@ -33,8 +33,6 @@ import { Settings } from './globals/Settings'
 
 import { revalidateRedirects } from './hooks/revalidateRedirects'
 
-import { searchFields } from '@/search/fieldOverrides'
-import { beforeSyncWithSearch } from '@/search/beforeSync'
 import { env, SERVER_URL } from './env'
 import { Tags } from './collections/Tags'
 
@@ -158,15 +156,6 @@ export default buildConfig({
     }),
     nestedDocsPlugin({
       collections: ['categories'],
-    }),
-    searchPlugin({
-      collections: ['posts'],
-      beforeSync: beforeSyncWithSearch,
-      searchOverrides: {
-        fields: ({ defaultFields }) => {
-          return [...defaultFields, ...searchFields]
-        },
-      },
     }),
     s3Storage({
       collections: {

@@ -17,10 +17,10 @@ export async function TwoColumnQuad({ posts }: TemplateProps) {
         />
       </div>
       <div className="flex flex-col gap-5">
-        <PostItem size="base" post={secondaryPost} />
+        <PostItem size="md" post={secondaryPost} />
         {otherPosts.map((post, index) => (
           <div key={index} className="border-t pt-5">
-            <PostItem size="base" post={post} hideSummary />
+            <PostItem size="md" post={post} hideSummary />
           </div>
         ))}
       </div>

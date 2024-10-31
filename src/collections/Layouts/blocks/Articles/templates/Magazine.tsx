@@ -3,10 +3,12 @@ import Link from 'next/link'
 import { Post } from '@payload-types'
 import { TemplateProps } from '.'
 import { MediaFigure } from '@/components/MediaFigure'
+import { getDocById } from '@/utilities/cache'
+import { ResolvedAuthors } from '@/components/ResolvedAuthors'
 
 const seeMoreLink = '/categories/magazine'
 
-function MagazinePostItem({ post }: { post: Post }) {
+async function MagazinePostItem({ post }: { post: Post }) {
   return (
     <article className="flex flex-col gap-2">
       <MediaFigure
@@ -25,7 +27,7 @@ function MagazinePostItem({ post }: { post: Post }) {
               </span>
             )} */}
             <p className="text-gray-500 text-sm font">
-              By {post.populatedAuthors?.map((author) => author.name).join(', ')}
+              By <ResolvedAuthors post={post} />
             </p>
           </div>
         </div>

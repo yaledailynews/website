@@ -20,7 +20,6 @@ export interface Config {
     layouts: Layout;
     tags: Tag;
     redirects: Redirect;
-    search: Search;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -35,7 +34,6 @@ export interface Config {
     layouts: LayoutsSelect<false> | LayoutsSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
-    search: SearchSelect<false> | SearchSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -137,12 +135,6 @@ export interface Post {
   categories?: (number | Category)[] | null;
   tags?: (number | Tag)[] | null;
   authors?: (number | Author)[] | null;
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        name?: string | null;
-      }[]
-    | null;
   slug?: string | null;
   slugLock?: boolean | null;
   updatedAt: string;
@@ -441,26 +433,6 @@ export interface Redirect {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "search".
- */
-export interface Search {
-  id: number;
-  title?: string | null;
-  priority?: number | null;
-  doc: {
-    relationTo: 'posts';
-    value: number | Post;
-  };
-  slug?: string | null;
-  meta?: {
-    title?: string | null;
-    subhead?: string | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -501,10 +473,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'redirects';
         value: number | Redirect;
-      } | null)
-    | ({
-        relationTo: 'search';
-        value: number | Search;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -575,12 +543,6 @@ export interface PostsSelect<T extends boolean = true> {
   categories?: T;
   tags?: T;
   authors?: T;
-  populatedAuthors?:
-    | T
-    | {
-        id?: T;
-        name?: T;
-      };
   slug?: T;
   slugLock?: T;
   updatedAt?: T;
@@ -807,25 +769,6 @@ export interface RedirectsSelect<T extends boolean = true> {
         type?: T;
         reference?: T;
         url?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "search_select".
- */
-export interface SearchSelect<T extends boolean = true> {
-  title?: T;
-  priority?: T;
-  doc?: T;
-  docUrl?: T;
-  slug?: T;
-  meta?:
-    | T
-    | {
-        title?: T;
-        subhead?: T;
       };
   updatedAt?: T;
   createdAt?: T;

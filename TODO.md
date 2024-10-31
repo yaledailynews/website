@@ -1,6 +1,6 @@
 ## Regressions remaining:
-- Search
 - Meta (titles and such)
+- Put tags everywhere
 
 ## To add soon:
 - Configurable footer
