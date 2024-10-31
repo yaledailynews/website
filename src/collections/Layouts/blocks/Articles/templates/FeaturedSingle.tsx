@@ -6,7 +6,7 @@ export async function FeaturedSingle({ posts }: TemplateProps) {
   const [post] = posts
 
   return (
-    <article className="grid gap-3 grid-cols-1 md:grid-cols-[1fr_1fr]">
+    <article className="grid gap-4 md:gap-3 grid-cols-1 sm:grid-cols-[1fr_1fr]">
       <Link href={`/posts/${post.slug}`} className="hover:opacity-70 transition-opacity">
         <div className="flex flex-col gap-3">
           <div className="flex flex-col gap-2.5">
@@ -26,7 +26,7 @@ export async function FeaturedSingle({ posts }: TemplateProps) {
         media={post.cover}
         href={`/posts/${post.slug}`}
         priority
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 30vw"
+        sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 30vw, 400px"
       />
     </article>
   )

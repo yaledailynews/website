@@ -49,7 +49,7 @@ export const MediaBlock: React.FC<Props> = (props) => {
         </div>
       )}
       {position === 'default' && (
-        <MediaFigure className={cn('rounded', imgClassName)} media={media} />
+        <MediaFigure sizes='(max-width: 640px) 100vw, 640px' className={cn('rounded', imgClassName)} media={media} />
       )}
       {/* {caption && (
         <div

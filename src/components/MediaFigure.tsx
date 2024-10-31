@@ -4,8 +4,12 @@ import type { Media as MediaType } from '@payload-types'
 import { getDocById } from '@/utilities/cache'
 import { ImgHTMLAttributes } from 'react'
 import { env } from '@/env'
-import { Blurhash } from 'react-blurhash'
-import { ImageWithBlurhash } from './ImageWithBlurhash'
+
+function generateSrcSet(sizes: NonNullable<MediaType['sizes']>): string {
+  return Object.entries(sizes)
+    .map(([key, size]) => `${env.NEXT_PUBLIC_S3_URL}/${size.filename} ${size.width}w`)
+    .join(', ')
+}
 
 export async function MediaFigure({
   media,
@@ -22,26 +26,28 @@ export async function MediaFigure({
   if (!media) return null
   if (typeof media === 'string') return null
 
-  const { blurhash, alt, width, height, author, credit, filename } = await getDocById(
-    'media',
-    media,
-  )()
-  if (!filename || !width || !height || !blurhash) {
+  const { alt, author, credit, sizes, filename, width, height } = await getDocById('media', media)()
+  if (!filename || !width || !height) {
     return <div className="text-red-500">Missing filename, width, or height</div>
   }
-
   const resolvedAuthor = author ? await getDocById('authors', author)() : null
+
+  if (!sizes) {
+    return <div className="text-red-500">Missing sizes</div>
+  }
+  const srcSet = generateSrcSet(sizes)
 
   const url = `${env.NEXT_PUBLIC_S3_URL}/${filename}`
 
   const ImageComponent = (
-    <ImageWithBlurhash
-      blurhash={blurhash}
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
       src={url}
       alt={alt}
-      w={width}
-      h={height}
+      width={width}
+      height={height}
       loading={priority ? 'eager' : 'lazy'}
+      srcSet={srcSet}
       {...props}
     />
   )
@@ -50,7 +56,7 @@ export async function MediaFigure({
     <figure
       className={'w-full flex flex-col items-end' + (figureClassName ? ` ${figureClassName}` : '')}
     >
-      <div className="w-full mb-2">
+      <div className="w-full mb-2 bg-gray-200">
         {href ? (
           <Link href={href} className="w-full">
             {ImageComponent}
