@@ -18,7 +18,7 @@ export async function LargeImageQuad({ posts }: TemplateProps) {
           media={mainPost.cover}
           href={`/posts/${mainPost.slug}`}
           priority
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 30vw"
+          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 30vw, 400px"
           className="w-full h-auto object-cover max-h-[60vw]"
         />
       </div>

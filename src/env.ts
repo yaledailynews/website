@@ -26,6 +26,7 @@ export const env = createEnv({
     NEXT_PUBLIC_VERCEL_URL: zDomain.optional(),
     NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL: zDomain.optional(),
     NEXT_PUBLIC_IS_LIVE: z.enum(['true', 'false']),
+    NEXT_PUBLIC_S3_URL: z.string().url(),
   },
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
@@ -45,6 +46,7 @@ export const env = createEnv({
     NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL:
       process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
+    NEXT_PUBLIC_S3_URL: process.env.NEXT_PUBLIC_S3_URL,
   },
 })
 

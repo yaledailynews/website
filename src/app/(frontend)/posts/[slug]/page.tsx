@@ -102,8 +102,8 @@ export default async function Post({ params: paramsPromise }: Args) {
             <MediaFigure
               className="w-full h-auto"
               media={post.cover}
+              sizes='(max-width: 640px) 100vw, 640px'
               priority
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
             />
           </div>
         )}
