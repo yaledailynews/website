@@ -19,6 +19,7 @@ export async function MediaFigure({
   figureClassName,
   priority = false,
   fullBleed,
+  hideCredit,
   ...props
 }: {
   media?: MediaType | string | number | null
@@ -26,6 +27,7 @@ export async function MediaFigure({
   fullBleed?: boolean
   figureClassName?: string
   priority?: boolean
+  hideCredit?: boolean
 } & Partial<ImgHTMLAttributes<HTMLImageElement>>) {
   if (!media) return null
   if (typeof media === 'string') return null
@@ -69,25 +71,26 @@ export async function MediaFigure({
           ImageComponent
         )}
       </div>
-      {resolvedAuthor ? (
-        <figcaption
-          className={cn('text-xs text-gray-500', {
-            'px-3 sm:px-1 md:px-0': fullBleed,
-          })}
-        >
-          <Link href={`/authors/${resolvedAuthor.slug}`}>{resolvedAuthor.name}</Link>
-        </figcaption>
-      ) : (
-        credit && (
+      {!hideCredit &&
+        (resolvedAuthor ? (
           <figcaption
             className={cn('text-xs text-gray-500', {
               'px-3 sm:px-1 md:px-0': fullBleed,
             })}
           >
-            {credit}
+            <Link href={`/authors/${resolvedAuthor.slug}`}>{resolvedAuthor.name}</Link>
           </figcaption>
-        )
-      )}
+        ) : (
+          credit && (
+            <figcaption
+              className={cn('text-xs text-gray-500', {
+                'px-3 sm:px-1 md:px-0': fullBleed,
+              })}
+            >
+              {credit}
+            </figcaption>
+          )
+        ))}
     </figure>
   )
 }
