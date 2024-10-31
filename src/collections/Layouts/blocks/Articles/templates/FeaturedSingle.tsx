@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { TemplateProps } from '.'
 import { MediaFigure } from '@/components/MediaFigure'
+import { Tag } from '@/components/Tag'
 
 export async function FeaturedSingle({ posts }: TemplateProps) {
   const [post] = posts
@@ -16,6 +17,7 @@ export async function FeaturedSingle({ posts }: TemplateProps) {
             )}
           </div>
           <div className="flex gap-3 items-center">
+            {post.tags?.map((tag, i) => <Tag key={i} tag={tag} />)}
             <p className="text-gray-500 text-xs">
               By {post.populatedAuthors?.map((author) => author.name).join(', ')}
             </p>

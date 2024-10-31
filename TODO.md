@@ -1,6 +1,6 @@
 ## Regressions remaining:
 - Search
-- Tags
+- Badges
 - Meta (titles and such)
 - Author pages (in progress)
 

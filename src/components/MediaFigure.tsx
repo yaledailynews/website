@@ -8,7 +8,8 @@ import { cn } from '@/utilities/cn'
 
 function generateSrcSet(sizes: NonNullable<MediaType['sizes']>): string {
   return Object.entries(sizes)
-    .map(([key, size]) => `${env.NEXT_PUBLIC_S3_URL}/${size.filename} ${size.width}w`)
+    .filter(([key, size]) => size.width && size.filename && !key.match('avatar'))
+    .map(([, size]) => `${env.NEXT_PUBLIC_S3_URL}/${size.filename} ${size.width}w`)
     .join(', ')
 }
 

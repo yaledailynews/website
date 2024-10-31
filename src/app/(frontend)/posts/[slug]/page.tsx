@@ -18,6 +18,7 @@ import { CMSLink } from '@/components/Link'
 import { MediaFigure } from '@/components/MediaFigure'
 import { CopyLink } from '@/components/CopyLink'
 import { getDocById, getDocBySlug } from '@/utilities/cache'
+import { AvatarImage } from '@/components/AvatarImage'
 
 export async function generateStaticParams() {
   const payload = await getPayloadHMR({ config: configPromise })
@@ -103,7 +104,7 @@ export default async function Post({ params: paramsPromise }: Args) {
               className="w-full h-auto"
               media={post.cover}
               fullBleed
-              sizes='(max-width: 640px) 100vw, 640px'
+              sizes="(max-width: 640px) 100vw, 640px"
               priority
             />
           </div>
@@ -114,15 +115,25 @@ export default async function Post({ params: paramsPromise }: Args) {
               <div className="flex items-center justify-between">
                 <div className="flex flex-col md:flex-row md:items-center gap-3">
                   <div className="flex space-x-1 md:-space-x-4">
-                    {resolvedAuthors.map((author, i) => (
-                      <Image
-                        key={author.name + i}
-                        src={icon}
-                        alt={`${author.name}'s avatar`}
-                        className="size-12 rounded-full object-cover filter grayscale border-2 border-white relative z-30"
-                        style={{ zIndex: numAuthors - i }}
-                      />
-                    ))}
+                    {resolvedAuthors.map((author, i) =>
+                      author.avatar ? (
+                        <AvatarImage
+                          key={author.name + i}
+                          media={author.avatar}
+                          size="sm"
+                          className="size-12 rounded-full object-cover border-2 border-white relative z-30"
+                          style={{ zIndex: numAuthors - i }}
+                        />
+                      ) : (
+                        <Image
+                          key={author.name + i}
+                          src={icon}
+                          alt={`${author.name}'s avatar`}
+                          className="size-12 rounded-full object-cover border-2 border-white relative z-30"
+                          style={{ zIndex: numAuthors - i }}
+                        />
+                      ),
+                    )}
                   </div>
                   <div className="flex flex-col gap-1">
                     <div className="font-semibold text-sm">

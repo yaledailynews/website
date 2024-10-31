@@ -31,6 +31,16 @@ export const Media: CollectionConfig = {
         name: 'xl',
         width: 1280,
       },
+      {
+        name: 'avatar-sm',
+        width: 96,
+        height: 96,
+      },
+      {
+        name: 'avatar-lg',
+        width: 140,
+        height: 140,
+      },
     ],
     adminThumbnail: 'sm',
   },
