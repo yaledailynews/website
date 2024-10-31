@@ -41,9 +41,9 @@ export async function PostItem({
           {post.subhead && !hideSummary && (
             <p
               className={cn('font-serif text-gray-600', {
-                'text-lg': size === 'xl',
-                'text-lg md:text-base': size === 'lg',
-                'text-base md:text-sm': size === 'md',
+                'text-base': size === 'xl',
+                'text-base md:text-sm': size === 'lg',
+                'text-sm md:text-sm': size === 'md',
                 'text-sm md:text-xs': size === 'sm',
               })}
             >
