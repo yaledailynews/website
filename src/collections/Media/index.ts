@@ -31,7 +31,8 @@ export const Media: CollectionConfig = {
         name: 'xl',
         width: 1280,
       },
-    ]
+    ],
+    adminThumbnail: 'sm',
   },
   fields: [
     {

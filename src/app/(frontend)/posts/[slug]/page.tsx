@@ -102,6 +102,7 @@ export default async function Post({ params: paramsPromise }: Args) {
             <MediaFigure
               className="w-full h-auto"
               media={post.cover}
+              fullBleed
               sizes='(max-width: 640px) 100vw, 640px'
               priority
             />

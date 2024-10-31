@@ -4,6 +4,7 @@ import type { Media as MediaType } from '@payload-types'
 import { getDocById } from '@/utilities/cache'
 import { ImgHTMLAttributes } from 'react'
 import { env } from '@/env'
+import { cn } from '@/utilities/cn'
 
 function generateSrcSet(sizes: NonNullable<MediaType['sizes']>): string {
   return Object.entries(sizes)
@@ -16,10 +17,12 @@ export async function MediaFigure({
   href,
   figureClassName,
   priority = false,
+  fullBleed,
   ...props
 }: {
   media?: MediaType | string | number | null
   href?: string
+  fullBleed?: boolean
   figureClassName?: string
   priority?: boolean
 } & Partial<ImgHTMLAttributes<HTMLImageElement>>) {
@@ -66,11 +69,23 @@ export async function MediaFigure({
         )}
       </div>
       {resolvedAuthor ? (
-        <figcaption className="text-xs text-gray-500">
+        <figcaption
+          className={cn('text-xs text-gray-500', {
+            'px-3 sm:px-1 md:px-0': fullBleed,
+          })}
+        >
           <Link href={`/authors/${resolvedAuthor.slug}`}>{resolvedAuthor.name}</Link>
         </figcaption>
       ) : (
-        credit && <figcaption className="text-xs text-gray-500">{credit}</figcaption>
+        credit && (
+          <figcaption
+            className={cn('text-xs text-gray-500', {
+              'px-3 sm:px-1 md:px-0': fullBleed,
+            })}
+          >
+            {credit}
+          </figcaption>
+        )
       )}
     </figure>
   )
