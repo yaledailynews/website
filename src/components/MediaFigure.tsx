@@ -2,8 +2,10 @@
 import Link from 'next/link'
 import type { Media as MediaType } from '@payload-types'
 import { getDocById } from '@/utilities/cache'
-import { DetailedHTMLProps, ImgHTMLAttributes } from 'react'
+import { ImgHTMLAttributes } from 'react'
 import { env } from '@/env'
+import { Blurhash } from 'react-blurhash'
+import { ImageWithBlurhash } from './ImageWithBlurhash'
 
 export async function MediaFigure({
   media,
@@ -24,27 +26,25 @@ export async function MediaFigure({
     'media',
     media,
   )()
-  if (!filename) return null
+  if (!filename || !width || !height || !blurhash) {
+    return <div className="text-red-500">Missing filename, width, or height</div>
+  }
 
   const resolvedAuthor = author ? await getDocById('authors', author)() : null
 
   const url = `${env.NEXT_PUBLIC_S3_URL}/${filename}`
 
-  const ImageComponent =
-    width && height ? (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src={url}
-        alt={alt}
-        width={width}
-        height={height}
-        loading={priority ? 'eager' : 'lazy'}
-        {...props}
-      />
-    ) : (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img src={url} alt={alt} loading={priority ? 'eager' : 'lazy'} {...props} />
-    )
+  const ImageComponent = (
+    <ImageWithBlurhash
+      blurhash={blurhash}
+      src={url}
+      alt={alt}
+      w={width}
+      h={height}
+      loading={priority ? 'eager' : 'lazy'}
+      {...props}
+    />
+  )
 
   return (
     <figure

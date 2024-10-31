@@ -57,6 +57,7 @@
     "payload-blurhash-plugin": "3",
     "prism-react-renderer": "^2.4.0",
     "react": "rc",
+    "react-blurhash": "^0.3.0",
     "react-dom": "rc",
     "react-hook-form": "^7.53.1",
     "sharp": "^0.33.5",
