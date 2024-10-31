@@ -137,7 +137,6 @@ export interface Post {
   categories?: (number | Category)[] | null;
   tags?: (number | Tag)[] | null;
   authors?: (number | Author)[] | null;
-  relatedPosts?: (number | Post)[] | null;
   populatedAuthors?:
     | {
         id?: string | null;
@@ -576,7 +575,6 @@ export interface PostsSelect<T extends boolean = true> {
   categories?: T;
   tags?: T;
   authors?: T;
-  relatedPosts?: T;
   populatedAuthors?:
     | T
     | {
