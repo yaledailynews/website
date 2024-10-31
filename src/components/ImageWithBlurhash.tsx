@@ -31,7 +31,7 @@ export function ImageWithBlurhash({
   const aspectRatio = w / h
 
   return (
-    <div className="w-full max-w-full relative overflow-hidden" style={{ aspectRatio }}>
+    <div className="w-full max-w-full relative overflow-hidden bg-gray-200" style={{ aspectRatio }}>
       {!isLoaded && (
         <Blurhash
           hash={blurhash}
