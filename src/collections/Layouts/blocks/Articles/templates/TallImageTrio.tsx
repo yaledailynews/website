@@ -8,10 +8,10 @@ export async function TallImageTrio({ posts }: TemplateProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-5">
       <div className="flex flex-col gap-3">
-        <PostItem size="base" post={mainPost} />
+        <PostItem size="md" post={mainPost} />
         {otherPosts.map((post, index) => (
           <div key={index} className="border-t pt-5">
-            <PostItem size="base" post={post} />
+            <PostItem size="md" post={post} />
           </div>
         ))}
       </div>

@@ -8,7 +8,8 @@ import { cn } from '@/utilities/cn'
 
 function generateSrcSet(sizes: NonNullable<MediaType['sizes']>): string {
   return Object.entries(sizes)
-    .map(([key, size]) => `${env.NEXT_PUBLIC_S3_URL}/${size.filename} ${size.width}w`)
+    .filter(([key, size]) => size.width && size.filename && !key.match('avatar'))
+    .map(([, size]) => `${env.NEXT_PUBLIC_S3_URL}/${size.filename} ${size.width}w`)
     .join(', ')
 }
 
@@ -18,6 +19,7 @@ export async function MediaFigure({
   figureClassName,
   priority = false,
   fullBleed,
+  hideCredit,
   ...props
 }: {
   media?: MediaType | string | number | null
@@ -25,6 +27,7 @@ export async function MediaFigure({
   fullBleed?: boolean
   figureClassName?: string
   priority?: boolean
+  hideCredit?: boolean
 } & Partial<ImgHTMLAttributes<HTMLImageElement>>) {
   if (!media) return null
   if (typeof media === 'string') return null
@@ -68,25 +71,26 @@ export async function MediaFigure({
           ImageComponent
         )}
       </div>
-      {resolvedAuthor ? (
-        <figcaption
-          className={cn('text-xs text-gray-500', {
-            'px-3 sm:px-1 md:px-0': fullBleed,
-          })}
-        >
-          <Link href={`/authors/${resolvedAuthor.slug}`}>{resolvedAuthor.name}</Link>
-        </figcaption>
-      ) : (
-        credit && (
+      {!hideCredit &&
+        (resolvedAuthor ? (
           <figcaption
             className={cn('text-xs text-gray-500', {
               'px-3 sm:px-1 md:px-0': fullBleed,
             })}
           >
-            {credit}
+            <Link href={`/authors/${resolvedAuthor.slug}`}>{resolvedAuthor.name}</Link>
           </figcaption>
-        )
-      )}
+        ) : (
+          credit && (
+            <figcaption
+              className={cn('text-xs text-gray-500', {
+                'px-3 sm:px-1 md:px-0': fullBleed,
+              })}
+            >
+              {credit}
+            </figcaption>
+          )
+        ))}
     </figure>
   )
 }

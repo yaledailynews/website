@@ -1,10 +1,9 @@
 ## Regressions remaining:
-- Search
-- Tags
 - Meta (titles and such)
-- Author pages (in progress)
+- Put tags everywhere
 
 ## To add soon:
+- polish search
 - Configurable footer
 - ESLint 9
 - Better static slugs (freeze on publish)

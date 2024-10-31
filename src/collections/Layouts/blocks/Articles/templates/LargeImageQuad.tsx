@@ -10,9 +10,9 @@ export async function LargeImageQuad({ posts }: TemplateProps) {
       <div className="grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-5">
         <div className="flex flex-col gap-5">
           <div className="border-b pb-5">
-            <PostItem size="xl" post={mainPost} />
+            <PostItem size="lg" post={mainPost} />
           </div>
-          <PostItem size="base" post={secondaryPost} />
+          <PostItem size="md" post={secondaryPost} />
         </div>
         <MediaFigure
           media={mainPost.cover}
@@ -28,7 +28,7 @@ export async function LargeImageQuad({ posts }: TemplateProps) {
             key={index}
             className={index > 0 ? 'sm:pl-5 sm:border-l' : 'border-b pb-5 sm:pb-0 sm:border-b-0'}
           >
-            <PostItem size="base" post={Post} hideSummary />
+            <PostItem size="md" post={Post} hideSummary />
           </div>
         ))}
       </div>

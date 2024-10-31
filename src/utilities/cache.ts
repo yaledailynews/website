@@ -143,7 +143,7 @@ export async function findPostsByCategory(id: number, depth: number, limit: numb
   for (const post of posts) {
     getDocById('posts', post.id)
   }
-  
+
   return posts
 }
 
@@ -177,4 +177,31 @@ export async function findPostsByAuthor(id: number, depth: number, limit: number
 export const getPostsByAuthor = (id: number, depth = 0, limit = 100) =>
   unstable_cache(async () => findPostsByAuthor(id, depth, limit), [id.toString()], {
     tags: [`posts_author_${id}`],
+  })
+
+export async function findMediaByAuthor(id: number, depth: number, limit: number) {
+  const payload = await getPayloadHMR({ config: configPromise })
+
+  const { docs: media } = await payload.find({
+    collection: 'media',
+    depth,
+    limit,
+    where: {
+      author: {
+        equals: id,
+      },
+    },
+  })
+
+  // tag each media for revalidation
+  for (const item of media) {
+    getDocById('media', item.id)
+  }
+
+  return media
+}
+
+export const getMediaByAuthor = (id: number, depth = 0, limit = 100) =>
+  unstable_cache(async () => findMediaByAuthor(id, depth, limit), [id.toString()], {
+    tags: [`media_author_${id}`],
   })

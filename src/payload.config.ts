@@ -33,9 +33,8 @@ import { Settings } from './globals/Settings'
 
 import { revalidateRedirects } from './hooks/revalidateRedirects'
 
-import { searchFields } from '@/search/fieldOverrides'
-import { beforeSyncWithSearch } from '@/search/beforeSync'
 import { env, SERVER_URL } from './env'
+import { Tags } from './collections/Tags'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -128,7 +127,7 @@ export default buildConfig({
     },
     push: false,
   }),
-  collections: [Pages, Posts, Media, Categories, Users, Authors, Layouts],
+  collections: [Pages, Posts, Media, Categories, Users, Authors, Layouts, Tags],
   cors: [SERVER_URL].filter(Boolean),
   csrf: [SERVER_URL].filter(Boolean),
   globals: [Settings, Header, Footer],
@@ -157,15 +156,6 @@ export default buildConfig({
     }),
     nestedDocsPlugin({
       collections: ['categories'],
-    }),
-    searchPlugin({
-      collections: ['posts'],
-      beforeSync: beforeSyncWithSearch,
-      searchOverrides: {
-        fields: ({ defaultFields }) => {
-          return [...defaultFields, ...searchFields]
-        },
-      },
     }),
     s3Storage({
       collections: {

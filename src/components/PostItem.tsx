@@ -1,59 +1,63 @@
-import { Post } from "@payload-types";
-import Link from "next/link";
+import { getDocById } from '@/utilities/cache'
+import { Post } from '@payload-types'
+import Link from 'next/link'
+import { Tag } from './Tag'
+import { cn } from '@/utilities/cn'
 
-export function PostItem({
+export async function PostItem({
   post,
-  size = "lg",
+  size = 'lg',
   hideSummary = false,
 }: {
-  post: Post;
-  hideSummary?: boolean;
-  size?: "2xl" | "xl" | "lg" | "md" | "sm" | "base";
+  post: Post
+  hideSummary?: boolean
+  size?: 'xl' | 'lg' | 'md' | 'sm'
 }) {
-  const titleSizeClass = {
-    "2xl": "text-2xl",
-    xl: "text-2xl md:text-xl",
-    lg: "text-xl md:text-lg",
-    md: "text-xl md:text-lg",
-    base: "text-xl md:text-lg",
-    sm: "text-lg md:text-sm",
-  }[size];
-
-  const gapSizeClass = {
-    "2xl": "gap-2.5",
-    xl: "gap-2.5 sm:gap-2",
-    lg: "gap-2 sm:gap-1.5",
-    md: "gap-1.5 sm:gap-1",
-    base: "gap-1.5 sm:gap-1",
-    sm: "gap-1.5 sm:gap-1",
-  }[size];
+  const resolvedAuthors = await Promise.all(
+    (post.authors || []).map((author) => getDocById('authors', author)()),
+  )
 
   return (
-    <Link
-      href={`/posts/${post.slug}`}
-      className="hover:opacity-70 transition-opacity"
-    >
+    <Link href={`/posts/${post.slug}`} className="hover:opacity-70 transition-opacity">
       <article className="flex flex-col gap-3">
-        <div className={`flex flex-col gap-1 ${gapSizeClass}`}>
-          <h1 className={`font-headline ${titleSizeClass}`}>{post.title}</h1>
+        <div
+          className={cn('flex flex-col', {
+            'gap-2.5 sm:gap-2': size === 'xl',
+            'gap-2 sm:gap-1.5': size === 'lg',
+            'gap-1.5 sm:gap-1': size === 'md' || size === 'sm',
+          })}
+        >
+          <h1
+            className={cn('font-headline', {
+              'text-2xl': size === 'xl',
+              'text-2xl md:text-xl': size === 'lg',
+              'text-xl md:text-lg': size === 'md',
+              'text-lg md:text-sm': size === 'sm',
+            })}
+          >
+            {post.title}
+          </h1>
 
           {post.subhead && !hideSummary && (
-            <p className="font-serif text-gray-600 text-base md:text-sm">
+            <p
+              className={cn('font-serif text-gray-600', {
+                'text-base': size === 'xl',
+                'text-base md:text-sm': size === 'lg',
+                'text-sm md:text-sm': size === 'md',
+                'text-sm md:text-xs': size === 'sm',
+              })}
+            >
               {post.subhead}
             </p>
           )}
         </div>
         <div className="flex gap-3 items-center">
-          {/* {post.tag && (
-            <span className="text-sky-700 bg-sky-100 px-2 py-0.5 text-xs self-start">
-              {post.tag.name}
-            </span>
-          )} */}
+          {post.tags && <Tag tag={post.tags[0]} />}
           <p className="text-gray-500 text-xs">
-            By {post.populatedAuthors?.map((author) => author.name).join(", ")}
+            By {resolvedAuthors.map((author) => author.name).join(', ')}
           </p>
         </div>
       </article>
     </Link>
-  );
+  )
 }

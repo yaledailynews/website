@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { TemplateProps } from '.'
 import { MediaFigure } from '@/components/MediaFigure'
+import { ResolvedAuthors } from '@/components/ResolvedAuthors'
 
 export async function SimpleList({ posts }: TemplateProps) {
   return posts.map((post, i) => (
@@ -13,7 +14,7 @@ export async function SimpleList({ posts }: TemplateProps) {
               <p className="font-serif text-gray-600 md:text-sm">{post.subhead}</p>
             </div>
             <p className="text-gray-500 text-xs">
-              By {post.populatedAuthors?.map((author) => author.name).join(', ')}
+              By <ResolvedAuthors post={post} />
             </p>
           </div>
         </Link>

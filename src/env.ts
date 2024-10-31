@@ -20,6 +20,8 @@ export const env = createEnv({
     S3_BUCKET: z.string().min(1),
     S3_ENDPOINT: z.string().min(1),
     RESEND_API_KEY: z.string().min(1),
+    PINECONE_API_KEY: z.string().min(1),
+    OPENAI_API_KEY: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_VERCEL_ENV: z.enum(['production', 'preview', 'development']).optional(),
@@ -47,6 +49,8 @@ export const env = createEnv({
       process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     NEXT_PUBLIC_S3_URL: process.env.NEXT_PUBLIC_S3_URL,
+    PINECONE_API_KEY: process.env.PINECONE_API_KEY,
+    OPENAI_API_KEY: process.env.OPENAI_API_KEY,
   },
 })
 

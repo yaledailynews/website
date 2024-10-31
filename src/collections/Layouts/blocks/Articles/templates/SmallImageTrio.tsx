@@ -8,10 +8,10 @@ export async function SmallImageTrio({ posts }: TemplateProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-5">
       <div className="flex flex-col gap-3">
-        <PostItem size="base" post={mainPost} hideSummary />
+        <PostItem size="md" post={mainPost} hideSummary />
         {otherPpsts.map((post, index) => (
           <div key={index} className="border-t pt-5">
-            <PostItem size="base" post={post} hideSummary />
+            <PostItem size="md" post={post} hideSummary />
           </div>
         ))}
       </div>

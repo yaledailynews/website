@@ -52,7 +52,7 @@ export async function Header() {
       <div className="md:pb-3 md:pt-3.5 py-2 px-5 md:px-0 grid grid-cols-1 md:grid-cols-[12rem_1fr_12rem] md:justify-items-center">
         <div className="hidden md:flex h-full flex-col justify-between w-full py-1 px-4 md:px-0">
           <Link href="/search" aria-label="Search">
-            <IconSearch className="w-4 h-4 text-black" />
+            <IconSearch className="w-4 h-4 text-black hover:text-gray-600" />
           </Link>
           <div className="flex flex-col gap-2 text-xs">
             <p className="font-bold whitespace-nowrap">{currentDate}</p>
@@ -78,19 +78,28 @@ export async function Header() {
         </div>
         <div className="hidden md:flex h-full flex-col justify-between w-full items-end py-1 px-4 md:px-0">
           <div className="flex items-center gap-3">
-            <a href="https://www.instagram.com/yaledailynews" aria-label="Instagram">
+            <a
+              href="https://www.instagram.com/yaledailynews"
+              aria-label="Instagram"
+              target="_blank"
+            >
               <IconBrandInstagram className="w-4 h-4 text-black cursor" />
             </a>
-            <a href="https://x.com/yaledailynews" aria-label="X">
+            <a href="https://x.com/yaledailynews" aria-label="X" target="_blank">
               <IconBrandX className="w-4 h-4 text-black cursor" />
             </a>
             <a
               href="https://open.spotify.com/show/3vcPhX7wJ8ftiULsIRp2vG?si=38baef64f1124659&utm_campaign=button_list_PodcastsSpotify&utm_medium=referral&utm_source=later-linkinbio&nd=1&dlsi=8404ff628b9c41de"
               aria-label="Spotify"
+              target="_blank"
             >
               <IconBrandSpotifyFilled className="w-4 h-4 text-black cursor" />
             </a>
-            <a href="https://www.youtube.com/channel/UCxANE19ioVdQV05_oCalAtg" aria-label="YouTube">
+            <a
+              href="https://www.youtube.com/channel/UCxANE19ioVdQV05_oCalAtg"
+              aria-label="YouTube"
+              target="_blank"
+            >
               <IconBrandYoutubeFilled className="w-4 h-4 text-black cursor" />
             </a>
           </div>
