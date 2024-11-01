@@ -6,6 +6,7 @@ import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
 import { slugField } from '@/fields/slug'
 import { revalidateCategory } from './hooks/revalidateCategory'
+import { addToPinecone } from '@/hooks/addToPinecone'
 
 export const Categories: CollectionConfig = {
   slug: 'categories',
@@ -33,6 +34,6 @@ export const Categories: CollectionConfig = {
     ...slugField(),
   ],
   hooks: {
-    afterChange: [revalidateCategory],
+    afterChange: [revalidateCategory, addToPinecone],
   },
 }

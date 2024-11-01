@@ -20,6 +20,7 @@ import { Banner } from '@/blocks/Banner'
 import { Code } from '@/blocks/Code'
 import { MediaBlock } from '@/blocks/MediaBlock'
 import { SERVER_URL } from '@/env'
+import { addToPinecone } from '@/hooks/addToPinecone'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -97,7 +98,7 @@ export const Pages: CollectionConfig = {
     ...slugField(),
   ],
   hooks: {
-    afterChange: [revalidatePage],
+    afterChange: [revalidatePage, addToPinecone],
     beforeChange: [populatePublishedAt],
   },
   versions: {

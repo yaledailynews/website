@@ -16,10 +16,10 @@ import { Code } from '@/blocks/Code'
 import { MediaBlock } from '@/blocks/MediaBlock'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { revalidatePost } from './hooks/revalidatePost'
+import { addToPinecone } from '@/hooks/addToPinecone'
 
 import { slugField } from '@/fields/slug'
 import { SERVER_URL } from '@/env'
-import { addToPinecone } from './hooks/addToPinecone'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
