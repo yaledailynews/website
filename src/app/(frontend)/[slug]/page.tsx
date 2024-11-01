@@ -3,6 +3,7 @@ import configPromise from '@payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import RichText from '@/components/RichText'
 import { getDocBySlug } from '@/utilities/cache'
+import { Metadata } from 'next'
 
 export async function generateStaticParams() {
   const payload = await getPayloadHMR({ config: configPromise })
@@ -54,4 +55,14 @@ export default async function Page({ params: paramsPromise }: Args) {
       </div>
     </article>
   )
+}
+
+export async function generateMetadata({ params }: Args): Promise<Metadata> {
+  const { slug } = await params
+  if (!slug) return { title: 'Not Found' }
+  const page = await getDocBySlug('pages', slug)()
+  if (!page) return { title: 'Not Found' }
+  return {
+    title: page.title,
+  }
 }

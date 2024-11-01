@@ -4,6 +4,7 @@ import { PayloadRedirects } from '@/components/PayloadRedirects'
 import Layout from '@/collections/Layouts/Component'
 import { queryLayout } from '@/collections/Layouts/query'
 import { getDocBySlug } from '@/utilities/cache'
+import { Metadata } from 'next'
 
 export async function generateStaticParams() {
   const payload = await getPayloadHMR({ config: configPromise })
@@ -38,4 +39,14 @@ export default async function CategoryPage({ params: paramsPromise }: Args) {
   if (!queryResult) return <div>Layout not found</div>
 
   return <Layout {...queryResult} />
+}
+
+export async function generateMetadata({ params }: Args): Promise<Metadata> {
+  const { slug } = await params
+  if (!slug) return { title: 'Not Found' }
+  const category = await getDocBySlug('categories', slug)()
+  if (!category) return { title: 'Not Found' }
+  return {
+    title: category.title,
+  }
 }

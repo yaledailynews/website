@@ -9,6 +9,7 @@ import { PostItem } from '@/components/PostItem'
 import { getDocBySlug, getMediaByAuthor, getPostsByAuthor } from '@/utilities/cache'
 import { MediaFigure } from '@/components/MediaFigure'
 import { AvatarImage } from '@/components/AvatarImage'
+import { Metadata } from 'next'
 
 export async function generateStaticParams() {
   const payload = await getPayloadHMR({ config: configPromise })
@@ -143,4 +144,14 @@ export default async function AuthorPage({ params: paramsPromise }: Args) {
       </div>
     </main>
   )
+}
+
+export async function generateMetadata({ params }: Args): Promise<Metadata> {
+  const { slug } = await params
+  if (!slug) return { title: 'Not Found' }
+  const author = await getDocBySlug('authors', slug)()
+  if (!author) return { title: 'Not Found' }
+  return {
+    title: author.name,
+  }
 }

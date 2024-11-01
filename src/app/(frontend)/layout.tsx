@@ -9,11 +9,9 @@ import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/globals/Footer/Component'
 import { Header } from '@/globals/Header/Component'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
 
 import './globals.css'
-import { env, SERVER_URL } from '@/env'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
@@ -43,10 +41,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SERVER_URL),
-  openGraph: mergeOpenGraph(),
-  // twitter: {
-  //   card: 'summary_large_image',
-  //   creator: '@payloadcms',
-  // },
+  title: {
+    default: 'The Yale Daily News',
+    template: '%s | The Yale Daily News',
+  },
 }

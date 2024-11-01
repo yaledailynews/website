@@ -1,15 +1,9 @@
 import { AlgoliaSearch } from '@/components/AlgoliaSearch'
+import { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
 
-type Args = {
-  searchParams: Promise<{
-    q?: string
-  }>
-}
-export default async function SearchPage({ searchParams: searchParamsPromise }: Args) {
-  const { q: query } = await searchParamsPromise
-
+export default function SearchPage() {
   return (
     <main className="w-full flex flex-col items-center gap-5 pb-6 sm:pb-8 md:pb-10 lg:pb-14 overflow-hidden">
       <div className="py-4 sm:py-6 md:py-8 lg:py-9 flex flex-col items-center w-full">
@@ -19,4 +13,9 @@ export default async function SearchPage({ searchParams: searchParamsPromise }: 
       </div>
     </main>
   )
+}
+
+export const metadata: Metadata = {
+  title: 'Search',
+  description: 'Search for articles on The Yale Daily News',
 }
