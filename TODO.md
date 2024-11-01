@@ -1,5 +1,4 @@
 ## Regressions remaining:
-- Meta (titles and such)
 - Put tags everywhere
 
 ## To add soon:
