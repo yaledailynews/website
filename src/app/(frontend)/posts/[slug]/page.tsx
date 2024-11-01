@@ -161,11 +161,6 @@ export default async function Post({ params: paramsPromise }: Args) {
                   </div>
                 </div>
                 <div className=" space-x-2 hidden md:flex">
-                  {/* 
-                  TODO: bookmark functionality?
-                  <button className="p-2 bg-gray-100 rounded-full">
-                    <IconBookmark size={20} />
-                  </button> */}
                   <button
                     // onClick={handleListen}
                     className="p-2 bg-gray-100 rounded-full"
@@ -189,4 +184,15 @@ export default async function Post({ params: paramsPromise }: Args) {
       </div>
     </article>
   )
+}
+
+export async function generateMetadata({ params }: Args): Promise<Metadata> {
+  const { slug } = await params
+  if (!slug) return { title: 'Not Found' }
+  const post = await getDocBySlug('posts', slug)()
+  if (!post) return { title: 'Not Found' }
+  return {
+    title: post.title,
+    description: post.subhead,
+  }
 }
