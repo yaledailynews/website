@@ -1,3 +1,5 @@
+"use server"
+
 // import Image, { ImageProps } from 'next/image'
 import Link from 'next/link'
 import type { Media as MediaType } from '@payload-types'

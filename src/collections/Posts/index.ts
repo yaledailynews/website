@@ -19,7 +19,7 @@ import { revalidatePost } from './hooks/revalidatePost'
 
 import { slugField } from '@/fields/slug'
 import { SERVER_URL } from '@/env'
-import { addToPinecone } from './hooks/addToPinecone'
+import { addToAlgolia } from '@/hooks/addToAlgolia'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -135,7 +135,7 @@ export const Posts: CollectionConfig = {
     ...slugField(),
   ],
   hooks: {
-    afterChange: [revalidatePost, addToPinecone],
+    afterChange: [revalidatePost, addToAlgolia],
   },
   versions: {
     drafts: {

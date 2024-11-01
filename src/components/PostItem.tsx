@@ -1,10 +1,10 @@
-import { getDocById } from '@/utilities/cache'
 import { Post } from '@payload-types'
 import Link from 'next/link'
 import { Tag } from './Tag'
 import { cn } from '@/utilities/cn'
+import { ResolvedAuthors } from './ResolvedAuthors'
 
-export async function PostItem({
+export function PostItem({
   post,
   size = 'lg',
   hideSummary = false,
@@ -13,10 +13,6 @@ export async function PostItem({
   hideSummary?: boolean
   size?: 'xl' | 'lg' | 'md' | 'sm'
 }) {
-  const resolvedAuthors = await Promise.all(
-    (post.authors || []).map((author) => getDocById('authors', author)()),
-  )
-
   return (
     <Link href={`/posts/${post.slug}`} className="hover:opacity-70 transition-opacity">
       <article className="flex flex-col gap-3">
@@ -54,7 +50,7 @@ export async function PostItem({
         <div className="flex gap-3 items-center">
           {post.tags && <Tag tag={post.tags[0]} />}
           <p className="text-gray-500 text-xs">
-            By {resolvedAuthors.map((author) => author.name).join(', ')}
+            By <ResolvedAuthors post={post} />
           </p>
         </div>
       </article>

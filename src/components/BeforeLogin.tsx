@@ -4,8 +4,8 @@ const BeforeLogin: React.FC = () => {
   return (
     <div>
       <p>
-        <b>Welcome to your dashboard!</b>
-        {' This is where site admins will log in to manage your website.'}
+        <b>Welcome to the Yale Daily News CMS</b>
+        {' This is where YDN staff can manage content for the website.'}
       </p>
     </div>
   )

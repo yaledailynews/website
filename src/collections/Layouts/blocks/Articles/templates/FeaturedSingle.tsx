@@ -12,6 +12,7 @@ export async function FeaturedSingle({ posts }: TemplateProps) {
         media={post.cover}
         href={`/posts/${post.slug}`}
         priority
+        className='w-full'
         sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 30vw, 400px"
       />
     </article>
