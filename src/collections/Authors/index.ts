@@ -16,7 +16,6 @@ import {
 } from '@payloadcms/richtext-lexical'
 import { CollectionConfig } from 'payload'
 import { revalidateAuthor } from './hooks/revalidateAuthor'
-import { addToPinecone } from '@/hooks/addToPinecone'
 
 export const Authors: CollectionConfig = {
   slug: 'authors',
@@ -117,6 +116,6 @@ export const Authors: CollectionConfig = {
     ...slugField('name'),
   ],
   hooks: {
-    afterChange: [revalidateAuthor, addToPinecone],
+    afterChange: [revalidateAuthor],
   },
 }

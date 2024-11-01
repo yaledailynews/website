@@ -16,10 +16,10 @@ import { Code } from '@/blocks/Code'
 import { MediaBlock } from '@/blocks/MediaBlock'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { revalidatePost } from './hooks/revalidatePost'
-import { addToPinecone } from '@/hooks/addToPinecone'
 
 import { slugField } from '@/fields/slug'
 import { SERVER_URL } from '@/env'
+import { addToAlgolia } from '@/hooks/addToAlgolia'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -135,7 +135,7 @@ export const Posts: CollectionConfig = {
     ...slugField(),
   ],
   hooks: {
-    afterChange: [revalidatePost, addToPinecone],
+    afterChange: [revalidatePost, addToAlgolia],
   },
   versions: {
     drafts: {

@@ -22,6 +22,7 @@ export const env = createEnv({
     RESEND_API_KEY: z.string().min(1),
     PINECONE_API_KEY: z.string().min(1),
     OPENAI_API_KEY: z.string().min(1),
+    ALGOLIA_WRITE_KEY: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_VERCEL_ENV: z.enum(['production', 'preview', 'development']).optional(),
@@ -29,6 +30,8 @@ export const env = createEnv({
     NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL: zDomain.optional(),
     NEXT_PUBLIC_IS_LIVE: z.enum(['true', 'false']),
     NEXT_PUBLIC_S3_URL: z.string().url(),
+    NEXT_PUBLIC_ALGOLIA_APP_ID: z.string().min(1),
+    NEXT_PUBLIC_ALGOLIA_SEARCH_KEY: z.string().min(1),
   },
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
@@ -51,6 +54,9 @@ export const env = createEnv({
     NEXT_PUBLIC_S3_URL: process.env.NEXT_PUBLIC_S3_URL,
     PINECONE_API_KEY: process.env.PINECONE_API_KEY,
     OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+    NEXT_PUBLIC_ALGOLIA_APP_ID: process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
+    NEXT_PUBLIC_ALGOLIA_SEARCH_KEY: process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_KEY,
+    ALGOLIA_WRITE_KEY: process.env.ALGOLIA_WRITE_KEY,
   },
 })
 
