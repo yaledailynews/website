@@ -2,15 +2,15 @@
 
 import { env } from '@/env'
 import { IconSearch, IconX } from '@tabler/icons-react'
-import { liteClient as algoliasearch } from 'algoliasearch/lite'
 import Link from 'next/link'
 import { SearchBox, Hits, Highlight, Pagination, useStats } from 'react-instantsearch'
 import { InstantSearchNext } from 'react-instantsearch-nextjs'
+import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
-const searchClient = algoliasearch(
-  env.NEXT_PUBLIC_ALGOLIA_APP_ID,
-  env.NEXT_PUBLIC_ALGOLIA_SEARCH_KEY,
-)
+const { searchClient } = instantMeiliSearch(
+  env.NEXT_PUBLIC_MEILI_URL,
+  env.NEXT_PUBLIC_MEILI_SEARCH_KEY,
+);
 
 function Hit({ hit }) {
   return (
@@ -96,9 +96,9 @@ function SearchContent() {
   )
 }
 
-export function AlgoliaSearch() {
+export function MeiliSearch() {
   return (
-    <InstantSearchNext indexName="search_index" routing searchClient={searchClient}>
+    <InstantSearchNext indexName={env.NEXT_PUBLIC_MEILI_SEARCH_INDEX} routing searchClient={searchClient}>
       <SearchContent />
     </InstantSearchNext>
   )
