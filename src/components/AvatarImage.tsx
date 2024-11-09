@@ -25,7 +25,6 @@ export async function AvatarImage({
   const url = `${env.NEXT_PUBLIC_S3_URL}/${avatar.filename}`
 
   return (
-    // eslint-disable-next-line @next/next/no-img-element
     <img
       src={url}
       alt={alt}

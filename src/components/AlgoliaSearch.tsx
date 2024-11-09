@@ -18,18 +18,15 @@ function Hit({ hit }) {
       <article className="grid gap-4 sm:grid-cols-[2fr,1fr]">
         <div className="space-y-2 hover:opacity-70 transition-opacity">
           <h1 className="font-headline text-xl">
-            {/* @ts-expect-error */}
             <Highlight attribute="title" hit={hit} />
           </h1>
           {hit.subhead && (
             <p className="font-serif text-gray-800">
-              {/* @ts-expect-error */}
               <Highlight attribute="subhead" hit={hit} />
             </p>
           )}
           {hit.authors && (
             <p className="text-gray-500 text-xs">
-              {/* @ts-expect-error */}
               By <Highlight attribute="authors" hit={hit} />
             </p>
           )}
@@ -45,7 +42,6 @@ function SearchContent() {
 
   return (
     <>
-      {/* @ts-expect-error */}
       <SearchBox
         submitIconComponent={() => <IconSearch size={20} />}
         resetIconComponent={() => <IconX size={20} />}
@@ -64,7 +60,6 @@ function SearchContent() {
       {stats.query.length > 0 ? (
         stats.nbHits > 0 ? (
           <>
-            {/* @ts-expect-error */}
             <Hits
               hitComponent={Hit}
               classNames={{
@@ -72,7 +67,6 @@ function SearchContent() {
                 item: 'border-b border-gray-300 py-6 last:border-b-0 first:pt-0',
               }}
             />
-            {/* @ts-expect-error */}
             <Pagination
               classNames={{
                 item: 'flex',
@@ -104,7 +98,6 @@ function SearchContent() {
 
 export function AlgoliaSearch() {
   return (
-    // @ts-expect-error
     <InstantSearchNext indexName="search_index" routing searchClient={searchClient}>
       <SearchContent />
     </InstantSearchNext>

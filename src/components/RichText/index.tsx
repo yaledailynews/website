@@ -5,6 +5,7 @@ import { serializeLexical } from './serialize'
 
 type Props = {
   className?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content: Record<string, any>;
   font: "serif" | "sans";
   size: "sm" | "md" | "lg";

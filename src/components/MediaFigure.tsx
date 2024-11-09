@@ -48,7 +48,6 @@ export async function MediaFigure({
   const url = `${env.NEXT_PUBLIC_S3_URL}/${filename}`
 
   const ImageComponent = (
-    // eslint-disable-next-line @next/next/no-img-element
     <img
       src={url}
       alt={alt}
