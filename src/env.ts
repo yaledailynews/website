@@ -21,6 +21,7 @@ export const env = createEnv({
     S3_ENDPOINT: z.string().min(1),
     RESEND_API_KEY: z.string().min(1),
     MEILI_ADMIN_KEY: z.string().min(1),
+    OPENAI_API_KEY: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_VERCEL_ENV: z.enum(['production', 'preview', 'development']).optional(),
@@ -55,6 +56,7 @@ export const env = createEnv({
     MEILI_ADMIN_KEY: process.env.MEILI_ADMIN_KEY,
     NEXT_PUBLIC_MEILI_SEARCH_KEY: process.env.NEXT_PUBLIC_MEILI_SEARCH_KEY,
     NEXT_PUBLIC_MEILI_SEARCH_INDEX: process.env.NEXT_PUBLIC_MEILI_SEARCH_INDEX,
+    OPENAI_API_KEY: process.env.OPENAI_API_KEY,
   },
 })
 

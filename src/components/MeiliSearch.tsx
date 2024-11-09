@@ -10,7 +10,15 @@ import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 const { searchClient } = instantMeiliSearch(
   env.NEXT_PUBLIC_MEILI_URL,
   env.NEXT_PUBLIC_MEILI_SEARCH_KEY,
-);
+  {
+    meiliSearchParams: {
+      hybrid: {
+        embedder: 'openai',
+        semanticRatio: 0.5,
+      },
+    },
+  },
+)
 
 function Hit({ hit }) {
   return (
@@ -98,7 +106,11 @@ function SearchContent() {
 
 export function MeiliSearch() {
   return (
-    <InstantSearchNext indexName={env.NEXT_PUBLIC_MEILI_SEARCH_INDEX} routing searchClient={searchClient}>
+    <InstantSearchNext
+      indexName={env.NEXT_PUBLIC_MEILI_SEARCH_INDEX}
+      routing
+      searchClient={searchClient}
+    >
       <SearchContent />
     </InstantSearchNext>
   )
