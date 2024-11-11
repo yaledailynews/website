@@ -989,6 +989,7 @@ export interface CodeBlock {
 export interface MediaBlock {
   position?: ('default' | 'fullscreen') | null;
   media: number | Media;
+  caption?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';

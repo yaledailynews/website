@@ -1,4 +1,4 @@
-"use server"
+'use server'
 
 // import Image, { ImageProps } from 'next/image'
 import Link from 'next/link'
@@ -19,17 +19,21 @@ export async function MediaFigure({
   media,
   href,
   figureClassName,
+  creditClassName,
   priority = false,
   fullBleed,
   hideCredit,
+  caption,
   ...props
 }: {
   media?: MediaType | string | number | null
   href?: string
   fullBleed?: boolean
   figureClassName?: string
+  creditClassName?: string
   priority?: boolean
   hideCredit?: boolean
+  caption?: string | null
 } & Partial<ImgHTMLAttributes<HTMLImageElement>>) {
   if (!media) return null
   if (typeof media === 'string') return null
@@ -75,18 +79,26 @@ export async function MediaFigure({
       {!hideCredit &&
         (resolvedAuthor ? (
           <figcaption
-            className={cn('text-xs text-gray-500', {
-              'px-3 sm:px-1 md:px-0': fullBleed,
-            })}
+            className={cn(
+              'text-xs text-gray-500',
+              {
+                'px-3 sm:px-1 md:px-0': fullBleed,
+              },
+              creditClassName,
+            )}
           >
             <Link href={`/authors/${resolvedAuthor.slug}`}>{resolvedAuthor.name}</Link>
           </figcaption>
         ) : (
           credit && (
             <figcaption
-              className={cn('text-xs text-gray-500', {
-                'px-3 sm:px-1 md:px-0': fullBleed,
-              })}
+              className={cn(
+                'text-xs text-gray-500',
+                {
+                  'px-3 sm:px-1 md:px-0': fullBleed,
+                },
+                creditClassName,
+              )}
             >
               {credit}
             </figcaption>

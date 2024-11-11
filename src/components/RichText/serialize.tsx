@@ -108,10 +108,8 @@ export function serializeLexical({ nodes }: Props): JSX.Element {
               return (
                 <MediaBlock
                   className="col-start-1 col-span-3"
-                  imgClassName="m-0"
                   key={index}
                   {...block}
-                  captionClassName="mx-auto max-w-[48rem]"
                   enableGutter={false}
                   disableInnerContainer={true}
                 />
@@ -195,6 +193,9 @@ export function serializeLexical({ nodes }: Props): JSX.Element {
                   {serializedChildren}
                 </CMSLink>
               )
+            }
+            case 'horizontalrule': {
+              return <hr className="col-start-2" key={index} />
             }
 
             default:

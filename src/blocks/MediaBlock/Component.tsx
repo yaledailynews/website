@@ -25,45 +25,35 @@ export const MediaBlock: React.FC<Props> = (props) => {
     enableGutter = true,
     imgClassName,
     media,
+    caption,
     position = 'default',
     staticImage,
     disableInnerContainer,
   } = props
 
-  // let caption
-  // if (media && typeof media === 'object') caption = media.caption
-
   return (
     <div
       className={cn(
-        '',
+        'border rounded pb-4',
         {
           container: position === 'default' && enableGutter,
+          'relative left-1/2 -translate-x-1/2 w-[100vw]': position === 'fullscreen',
         },
         className,
       )}
     >
-      {position === 'fullscreen' && (
-        <div className="relative">
-          <MediaFigure media={media} priority />
+      <MediaFigure
+        sizes="(max-width: 640px) 100vw, 640px"
+        className={cn('rounded', imgClassName)}
+        figureClassName="not-prose"
+        creditClassName="px-2"
+        media={media}
+      />
+      {caption && (
+        <div className={cn('text-sm mt-2 px-4 text-gray-700 border-l-gray-800', captionClassName)}>
+          {caption}
         </div>
       )}
-      {position === 'default' && (
-        <MediaFigure sizes='(max-width: 640px) 100vw, 640px' className={cn('rounded', imgClassName)} media={media} />
-      )}
-      {/* {caption && (
-        <div
-          className={cn(
-            'mt-6',
-            {
-              container: position === 'fullscreen' && !disableInnerContainer,
-            },
-            captionClassName,
-          )}
-        >
-          <RichText content={caption} font='sans' size='sm' />
-        </div>
-      )} */}
     </div>
   )
 }

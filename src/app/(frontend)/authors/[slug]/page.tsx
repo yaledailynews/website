@@ -10,6 +10,7 @@ import { getDocBySlug, getMediaByAuthor, getPostsByAuthor } from '@/utilities/ca
 import { MediaFigure } from '@/components/MediaFigure'
 import { AvatarImage } from '@/components/AvatarImage'
 import { Metadata } from 'next'
+import { SmallHeader } from '@/globals/Header/Small'
 
 export async function generateStaticParams() {
   const payload = await getPayloadHMR({ config: configPromise })
@@ -43,106 +44,109 @@ export default async function AuthorPage({ params: paramsPromise }: Args) {
   const media = await getMediaByAuthor(author.id, 0, 100)()
 
   return (
-    <main className="w-full flex flex-col items-center gap-5 pb-6 sm:pb-8 md:pb-10 lg:pb-14 overflow-hidden">
-      <div className="py-4 sm:py-6 md:py-8 lg:py-9 flex flex-col items-center w-full">
-        <div className="max-w-screen-sm px-5 md:px-0 md:mx-0 flex flex-col gap-6 justify-start w-full">
-          <div className="flex gap-5 items-start md:items-center">
-            <AvatarImage
-              media={author.avatar}
-              alt={author.name}
-              size="lg"
-              className="rounded-full relative top-2 md:top-0"
-              width={70}
-            />
-            <div className="flex flex-col gap-2">
-              <h1 className="text-3xl md:text-4xl leading-9 font-headline">{author.name}</h1>
-              <div className="flex flex-col gap-3 md:flex-row text-sm text-gray-800 underline underline-offset-2 decoration-gray-300">
-                {author.email && (
-                  <a
-                    href={`mailto:${author.email}`}
-                    target="_blank"
-                    className="flex gap-1.5 items-center"
-                  >
-                    <IconMail size={20} className="text-black" />
-                    {author.email}
-                  </a>
-                )}
-                {author.twitter && (
-                  <a
-                    href={`https://twitter.com/${author.twitter}`}
-                    target="_blank"
-                    className="flex gap-1.5 items-center"
-                  >
-                    <IconBrandX size={20} className="text-black" />
-                    {author.twitter}
-                  </a>
-                )}
-                {author.instagram && (
-                  <a
-                    href={`https://instagram.com/${author.instagram}`}
-                    target="_blank"
-                    className="flex gap-1.5 items-center"
-                  >
-                    <IconBrandInstagram size={20} className="text-black" />
-                    {author.instagram}
-                  </a>
-                )}
+    <div className="flex flex-col gap-8">
+      <SmallHeader />
+      <main className="w-full flex flex-col items-center gap-5 pb-6 sm:pb-8 md:pb-10 lg:pb-14 overflow-hidden">
+        <div className="py-4 sm:py-6 md:py-8 lg:py-9 flex flex-col items-center w-full">
+          <div className="max-w-screen-sm px-5 md:px-0 md:mx-0 flex flex-col gap-6 justify-start w-full">
+            <div className="flex gap-5 items-start md:items-center">
+              <AvatarImage
+                media={author.avatar}
+                alt={author.name}
+                size="lg"
+                className="rounded-full relative top-2 md:top-0"
+                width={70}
+              />
+              <div className="flex flex-col gap-2">
+                <h1 className="text-3xl md:text-4xl leading-9 font-headline">{author.name}</h1>
+                <div className="flex flex-col gap-3 md:flex-row text-sm text-gray-800 underline underline-offset-2 decoration-gray-300">
+                  {author.email && (
+                    <a
+                      href={`mailto:${author.email}`}
+                      target="_blank"
+                      className="flex gap-1.5 items-center"
+                    >
+                      <IconMail size={20} className="text-black" />
+                      {author.email}
+                    </a>
+                  )}
+                  {author.twitter && (
+                    <a
+                      href={`https://twitter.com/${author.twitter}`}
+                      target="_blank"
+                      className="flex gap-1.5 items-center"
+                    >
+                      <IconBrandX size={20} className="text-black" />
+                      {author.twitter}
+                    </a>
+                  )}
+                  {author.instagram && (
+                    <a
+                      href={`https://instagram.com/${author.instagram}`}
+                      target="_blank"
+                      className="flex gap-1.5 items-center"
+                    >
+                      <IconBrandInstagram size={20} className="text-black" />
+                      {author.instagram}
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-          {author.bio && (
-            <RichText
-              content={author.bio}
-              font="serif"
-              size="lg"
-              black
-              className="pb-5 pt-10 border-t border-black"
-            />
-          )}
-          {author.showPosts && posts.length > 0 && (
-            <>
-              <div className="flex justify-start py-2.5 border-y border-gray-600 w-full">
-                <h2 className="font-bold">Latest Articles</h2>
-              </div>
-              <div className="flex flex-col gap-5">
-                {posts.map((post) => (
-                  <div key={post.id} className="grid sm:grid-cols-[2fr_1fr] gap-6 pb-6 border-b">
-                    <PostItem post={post} size="xl" />
+            {author.bio && (
+              <RichText
+                content={author.bio}
+                font="serif"
+                size="lg"
+                black
+                className="pb-5 pt-10 border-t border-black"
+              />
+            )}
+            {author.showPosts && posts.length > 0 && (
+              <>
+                <div className="flex justify-start py-2.5 border-y border-gray-600 w-full">
+                  <h2 className="font-bold">Latest Articles</h2>
+                </div>
+                <div className="flex flex-col gap-5">
+                  {posts.map((post) => (
+                    <div key={post.id} className="grid sm:grid-cols-[2fr_1fr] gap-6 pb-6 border-b">
+                      <PostItem post={post} size="xl" />
+                      <MediaFigure
+                        media={post.cover}
+                        href={`/posts/${post.slug}`}
+                        sizes="(min-width: 640px) 50vw, 100vw"
+                        className="w-full"
+                      />
+                    </div>
+                  ))}
+                  {/* TODO: pagination */}
+                </div>
+              </>
+            )}
+            {author.showMedia && media.length > 0 && (
+              <>
+                <div className="flex justify-start py-2.5 border-y border-gray-600 w-full">
+                  <h2 className="font-bold">Latest Media</h2>
+                </div>
+                <div className="flex flex-col gap-5">
+                  {media.map((media) => (
                     <MediaFigure
-                      media={post.cover}
-                      href={`/posts/${post.slug}`}
+                      key={media.id}
+                      media={media}
+                      hideCredit
                       sizes="(min-width: 640px) 50vw, 100vw"
                       className="w-full"
                     />
-                  </div>
-                ))}
-                {/* TODO: pagination */}
-              </div>
-            </>
-          )}
-          {author.showMedia && media.length > 0 && (
-            <>
-              <div className="flex justify-start py-2.5 border-y border-gray-600 w-full">
-                <h2 className="font-bold">Latest Media</h2>
-              </div>
-              <div className="flex flex-col gap-5">
-                {media.map((media) => (
-                  <MediaFigure
-                    key={media.id}
-                    media={media}
-                    hideCredit
-                    sizes="(min-width: 640px) 50vw, 100vw"
-                    className="w-full"
-                  />
-                  // TODO: featured in
-                ))}
-                {/* TODO: pagination */}
-              </div>
-            </>
-          )}
+                    // TODO: featured in
+                  ))}
+                  {/* TODO: pagination */}
+                </div>
+              </>
+            )}
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </div>
   )
 }
 

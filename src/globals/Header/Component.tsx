@@ -47,9 +47,9 @@ export async function Header() {
   }
 
   return (
-    <header className="border-b md:border-b border-b-gray-300">
+    <header className="border-b md:border-b border-b-gray-300 sticky top-0 md:static">
       <input type="checkbox" id="drawer-toggle" className="hidden" />
-      <div className="md:pb-3 md:pt-3.5 py-2 px-5 md:px-0 grid grid-cols-1 md:grid-cols-[12rem_1fr_12rem] md:justify-items-center">
+      <div className="md:pb-3 md:pt-3.5 py-2 px-3 md:px-0 grid grid-cols-1 md:grid-cols-[12rem_1fr_12rem] md:justify-items-center">
         <div className="hidden md:flex h-full flex-col justify-between w-full py-1 px-4 md:px-0">
           <Link href="/search" aria-label="Search">
             <IconSearch className="w-4 h-4 text-black hover:text-gray-600" />
@@ -60,7 +60,7 @@ export async function Header() {
           </div>
         </div>
         <div className="w-full flex justify-between items-center md:block">
-          <label htmlFor="drawer-toggle" className="drawer-toggle-label cursor-pointer">
+          <label htmlFor="drawer-toggle" className="md:no-drawer-toggle-label drawer-toggle-label cursor-pointer p-2">
             <IconMenu2 className="size-5" />
           </label>
           <Link href="/" className="flex flex-col items-center">
@@ -72,7 +72,7 @@ export async function Header() {
               loading="eager"
             />
           </Link>
-          <Link href="/search" className="md:hidden">
+          <Link href="/search" className="md:hidden p-2">
             <IconSearch className="size-5" />
           </Link>
         </div>
@@ -111,8 +111,8 @@ export async function Header() {
           </div>
         </div>
       </div>
-      <nav className="drawer max-h-screen overflow-y-scroll md:overflow-hidden flex flex-col md:flex-row md:justify-between md:gap-10 border-r border-gray-500 md:border-gray-300 md:border-r-0 shadow md:shadow-none bg-white md:border-t pb-20 md:pb-0 px-2 pt-2 md:pt-0">
-        <label htmlFor="drawer-toggle" className="drawer-toggle-label cursor-pointer md:hidden p-4">
+      <nav className="drawer md:no-drawer max-h-screen overflow-y-scroll md:overflow-hidden flex flex-col md:flex-row md:justify-between md:gap-10 border-r border-gray-500 md:border-gray-300 md:border-r-0 shadow md:shadow-none bg-white md:border-t pb-20 md:pb-0 px-2 pt-2 md:pt-0">
+        <label htmlFor="drawer-toggle" className="md:no-drawer-toggle-label drawer-toggle-label cursor-pointer md:hidden p-4">
           <IconX className="size-5" />
         </label>
         {header.navItems && (

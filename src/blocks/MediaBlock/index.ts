@@ -25,5 +25,10 @@ export const MediaBlock: Block = {
       relationTo: 'media',
       required: true,
     },
+    {
+      name: 'caption',
+      type: 'textarea',
+      required: false,
+    }
   ],
 }

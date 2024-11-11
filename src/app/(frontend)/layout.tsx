@@ -7,7 +7,6 @@ import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/globals/Footer/Component'
-import { Header } from '@/globals/Header/Component'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { draftMode } from 'next/headers'
 
@@ -30,9 +29,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           }}
         />
         <LivePreviewListener />
-        <div className="md:px-6 lg:px-10 xl:px-16 max-w-7xl mx-auto flex flex-col gap-5 overflow-hidden">
-          <Header />
-          {children}
+        <div className="min-h-screen flex flex-col gap-5">
+          <div className="flex-grow">{children}</div>
           <Footer />
         </div>
       </body>
