@@ -7,7 +7,7 @@ import { Text } from '@/collections/Layouts/blocks/Text'
 import { Articles } from '@/collections/Layouts/blocks/Articles'
 import { Podcasts } from '@/collections/Layouts/blocks/Podcasts'
 import { Newsletter } from '@/collections/Layouts/blocks/Newsletter'
-import { SERVER_URL } from '@/env'
+import { env } from '@/env'
 import { revalidateLayout } from './hooks/revalidateLayout'
 
 export const Layouts: CollectionConfig = {
@@ -27,7 +27,7 @@ export const Layouts: CollectionConfig = {
           collection: 'layouts',
         })
 
-        return `${SERVER_URL}${path}`
+        return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
       },
     },
     preview: (data) => {
@@ -36,7 +36,7 @@ export const Layouts: CollectionConfig = {
         collection: 'layouts',
       })
 
-      return `${SERVER_URL}${path}`
+      return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
     },
     useAsTitle: 'title',
   },

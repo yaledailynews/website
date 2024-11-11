@@ -21,9 +21,9 @@ import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { revalidatePost } from './hooks/revalidatePost'
 
 import { slugField } from '@/fields/slug'
-import { SERVER_URL } from '@/env'
 import { addToMeili } from '@/hooks/addToMeili'
 import { Embed } from '@/blocks/Embed'
+import { env } from '@/env'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -41,7 +41,7 @@ export const Posts: CollectionConfig = {
           id: data.id as number,
           collection: 'posts',
         })
-        return `${SERVER_URL}${path}`
+        return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
       },
     },
     preview: (data) => {
@@ -49,7 +49,7 @@ export const Posts: CollectionConfig = {
         id: data.id as number,
         collection: 'posts',
       })
-      return `${SERVER_URL}${path}`
+      return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
     },
     useAsTitle: 'title',
   },
