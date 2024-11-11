@@ -136,6 +136,7 @@ export interface Post {
   categories?: (number | Category)[] | null;
   tags?: (number | Tag)[] | null;
   authors?: (number | Author)[] | null;
+  heroStyle: 'standard' | 'full';
   slug?: string | null;
   slugLock?: boolean | null;
   updatedAt: string;
@@ -544,6 +545,7 @@ export interface PostsSelect<T extends boolean = true> {
   categories?: T;
   tags?: T;
   authors?: T;
+  heroStyle?: T;
   slug?: T;
   slugLock?: T;
   updatedAt?: T;
@@ -987,7 +989,7 @@ export interface CodeBlock {
  * via the `definition` "MediaBlock".
  */
 export interface MediaBlock {
-  position?: ('default' | 'fullscreen') | null;
+  position?: ('default' | 'wide' | 'fullscreen') | null;
   media: number | Media;
   caption?: string | null;
   id?: string | null;

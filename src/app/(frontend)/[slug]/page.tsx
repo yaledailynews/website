@@ -5,6 +5,7 @@ import RichText from '@/components/RichText'
 import { getDocBySlug } from '@/utilities/cache'
 import { Metadata } from 'next'
 import { SmallHeader } from '@/globals/Header/Small'
+import { StandardContainer } from '@/components/StandardContainer'
 
 export async function generateStaticParams() {
   const payload = await getPayloadHMR({ config: configPromise })

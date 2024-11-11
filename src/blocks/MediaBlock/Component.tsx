@@ -34,26 +34,41 @@ export const MediaBlock: React.FC<Props> = (props) => {
   return (
     <div
       className={cn(
-        'border rounded pb-4',
         {
           container: position === 'default' && enableGutter,
-          'relative left-1/2 -translate-x-1/2 w-[100vw]': position === 'fullscreen',
+          // TODO: fix this at sm size
+          'relative left-1/2 sm:left-[calc(50%_+_7.5px)] md:left-1/2 -translate-x-1/2 w-[100vw] flex justify-center':
+            position === 'fullscreen' || position === 'wide',
+          'lg:px-8 py-2 sm:py-3 md:py-5 lg:py-6': position === 'fullscreen',
+          'lg:px-12 py-2 sm:py-3 md:py-5 lg:py-6': position === 'wide',
         },
         className,
       )}
     >
-      <MediaFigure
-        sizes="(max-width: 640px) 100vw, 640px"
-        className={cn('rounded', imgClassName)}
-        figureClassName="not-prose"
-        creditClassName="px-2"
-        media={media}
-      />
-      {caption && (
-        <div className={cn('text-sm mt-2 px-4 text-gray-700 border-l-gray-800', captionClassName)}>
-          {caption}
-        </div>
-      )}
+      <div
+        className={cn('pb-2 bg-gray-100 border-y lg:border-x', {
+          'max-w-screen-lg': position === 'wide',
+          'max-w-screen-2xl': position === 'fullscreen',
+        })}
+      >
+        <MediaFigure
+          sizes="(max-width: 640px) 100vw, 640px"
+          className={imgClassName}
+          figureClassName="not-prose"
+          creditClassName="px-2"
+          media={media}
+        />
+        {caption && (
+          <div
+            className={cn(
+              'text-sm mt-2 px-4 text-gray-700 border-l-gray-800 pb-2',
+              captionClassName,
+            )}
+          >
+            {caption}
+          </div>
+        )}
+      </div>
     </div>
   )
 }

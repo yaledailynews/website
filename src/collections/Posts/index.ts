@@ -132,6 +132,19 @@ export const Posts: CollectionConfig = {
       hasMany: true,
       relationTo: 'authors',
     },
+    {
+      name: 'heroStyle',
+      type: 'select',
+      options: [
+        { label: 'Standard', value: 'standard' },
+        { label: 'Full Width', value: 'full' },
+      ],
+      defaultValue: 'standard',
+      required: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
     ...slugField(),
   ],
   hooks: {

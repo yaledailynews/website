@@ -10,11 +10,15 @@ export const MediaBlock: Block = {
       defaultValue: 'default',
       options: [
         {
-          label: 'Default',
+          label: 'Inline',
           value: 'default',
         },
         {
-          label: 'Fullscreen',
+          label: 'Wide',
+          value: 'wide',
+        },
+        {
+          label: 'Full Width',
           value: 'fullscreen',
         },
       ],
@@ -29,6 +33,6 @@ export const MediaBlock: Block = {
       name: 'caption',
       type: 'textarea',
       required: false,
-    }
+    },
   ],
 }
