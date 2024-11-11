@@ -1,5 +1,5 @@
 import RichText from '@/components/RichText'
-import { SmallHeader } from '@/globals/Header/Small'
+import { SmallHeader } from '@/globals/Header/Component'
 import { Page } from '@payload-types'
 
 export default function PageComponent({ page }: { page: Page }) {

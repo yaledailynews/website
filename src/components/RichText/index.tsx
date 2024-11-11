@@ -8,7 +8,7 @@ type Props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content: Record<string, any>;
   font: "serif" | "sans";
-  size: "sm" | "md" | "lg";
+  size: "xs" | "sm" | "md" | "lg";
   black?: boolean;
 };
 
@@ -32,6 +32,7 @@ const RichText: React.FC<Props> = ({ className, content, font, size, black }) =>
           "prose-lg md:prose-xl": size === "lg",
           "prose-base md:prose-lg": size === "md",
           "prose-sm md:prose-base": size === "sm",
+          "prose-sm": size === "xs",
         },
         className
       )}
