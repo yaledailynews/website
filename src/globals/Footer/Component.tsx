@@ -27,7 +27,7 @@ export async function Footer() {
               <p>{footer.address}</p>
               <p>
                 <a
-                  href={`tel:${footer.phone.replace(/\D/g, '')}`}
+                  href={`tel:${footer.phone?.replace(/\D/g, '')}`}
                   className="text-sky-800 underline"
                 >
                   {footer.phone}
