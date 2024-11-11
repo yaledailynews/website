@@ -3,7 +3,8 @@ import { getId } from '@/utilities/getId'
 import { templateConstraints } from './blocks/Articles'
 import { getDoc, getDocById, getPostsByCategory } from '@/utilities/cache'
 
-export const queryLayout = async (entry: string | number | Layout) => {
+export const queryLayout = async (entry: string | number | Layout | undefined) => {
+  if (!entry) return null
   const layout = await getDoc('layouts', entry)()
   if (!layout) return null
 

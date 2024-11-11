@@ -3,7 +3,6 @@ import type { Config } from '@payload-types'
 import configPromise from '@payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import { unstable_cache } from 'next/cache'
-import { draftMode } from 'next/headers'
 import { getId } from './getId'
 import { DataFromCollectionSlug, Where } from 'payload'
 
