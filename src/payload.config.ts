@@ -1,15 +1,14 @@
 import { s3Storage } from '@payloadcms/storage-s3'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
-import { redirectsPlugin } from '@payloadcms/plugin-redirects'
-import { searchPlugin } from '@payloadcms/plugin-search'
+// import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import {
   BoldFeature,
-  FixedToolbarFeature,
-  HeadingFeature,
   ItalicFeature,
   LinkFeature,
   lexicalEditor,
+  SuperscriptFeature,
+  SubscriptFeature,
 } from '@payloadcms/richtext-lexical'
 import { UnderlineFeature } from '@payloadcms/richtext-lexical'
 import { resendAdapter } from '@payloadcms/email-resend'
@@ -30,8 +29,6 @@ import { Layouts } from './collections/Layouts'
 import { Footer } from './globals/Footer'
 import { Header } from './globals/Header'
 import { Settings } from './globals/Settings'
-
-import { revalidateRedirects } from './hooks/revalidateRedirects'
 
 import { env, SERVER_URL } from './env'
 import { Tags } from './collections/Tags'
@@ -96,6 +93,8 @@ export default buildConfig({
         UnderlineFeature(),
         BoldFeature(),
         ItalicFeature(),
+        SuperscriptFeature(),
+        SubscriptFeature(),
         LinkFeature({
           enabledCollections: ['pages', 'posts'],
           fields: ({ defaultFields }) => {
@@ -132,28 +131,28 @@ export default buildConfig({
   csrf: [SERVER_URL].filter(Boolean),
   globals: [Settings, Header, Footer],
   plugins: [
-    redirectsPlugin({
-      collections: ['pages', 'posts'],
-      overrides: {
-        // @ts-expect-error
-        fields: ({ defaultFields }) => {
-          return defaultFields.map((field) => {
-            if ('name' in field && field.name === 'from') {
-              return {
-                ...field,
-                admin: {
-                  description: 'You will need to rebuild the website when changing this field.',
-                },
-              }
-            }
-            return field
-          })
-        },
-        hooks: {
-          afterChange: [revalidateRedirects],
-        },
-      },
-    }),
+    // redirectsPlugin({
+    //   collections: ['pages', 'posts'],
+    //   overrides: {
+    //     // @ts-expect-error
+    //     fields: ({ defaultFields }) => {
+    //       return defaultFields.map((field) => {
+    //         if ('name' in field && field.name === 'from') {
+    //           return {
+    //             ...field,
+    //             admin: {
+    //               description: 'You will need to rebuild the website when changing this field.',
+    //             },
+    //           }
+    //         }
+    //         return field
+    //       })
+    //     },
+    //     hooks: {
+    //       afterChange: [revalidateRedirects],
+    //     },
+    //   },
+    // }),
     nestedDocsPlugin({
       collections: ['categories'],
     }),

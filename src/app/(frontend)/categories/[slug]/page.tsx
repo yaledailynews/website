@@ -1,7 +1,6 @@
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import configPromise from '@payload-config'
-import { PayloadRedirects } from '@/components/PayloadRedirects'
-import Layout from '@/collections/Layouts/Component'
+import { LayoutComponent } from '@/collections/Layouts/Component'
 import { queryLayout } from '@/collections/Layouts/query'
 import { getDocBySlug, getPostsByCategory } from '@/utilities/cache'
 import { Metadata } from 'next'
@@ -9,6 +8,7 @@ import { SmallHeader } from '@/globals/Header/Small'
 import { StandardContainer } from '@/components/StandardContainer'
 import { PostItem } from '@/components/PostItem'
 import { MediaFigure } from '@/components/MediaFigure'
+import { notFound } from 'next/navigation'
 
 export async function generateStaticParams() {
   const payload = await getPayloadHMR({ config: configPromise })
@@ -36,7 +36,7 @@ export default async function CategoryPage({ params: paramsPromise }: Args) {
   const { slug = '' } = await paramsPromise
 
   const category = await getDocBySlug('categories', slug)()
-  if (!category) return <PayloadRedirects url={'/categories/' + slug} />
+  if (!category) return notFound()
   if (!category.layout) {
     const posts = await getPostsByCategory(category.id, 3, 100)()
     return (
@@ -82,8 +82,10 @@ export default async function CategoryPage({ params: paramsPromise }: Args) {
     <div className="flex flex-col gap-8">
       <SmallHeader />
       <StandardContainer>
-        <h1 className="text-3xl md:text-4xl leading-9 font-headline w-full border-b py-4">{category.title}</h1>
-        <Layout {...queryResult} />
+        <h1 className="text-3xl md:text-4xl leading-9 font-headline w-full border-b py-4">
+          {category.title}
+        </h1>
+        <LayoutComponent {...queryResult} />
       </StandardContainer>
     </div>
   )

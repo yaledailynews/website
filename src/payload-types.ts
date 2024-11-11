@@ -19,7 +19,6 @@ export interface Config {
     authors: Author;
     layouts: Layout;
     tags: Tag;
-    redirects: Redirect;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -34,7 +33,6 @@ export interface Config {
     authors: AuthorsSelect<false> | AuthorsSelect<true>;
     layouts: LayoutsSelect<false> | LayoutsSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
-    redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -102,8 +100,7 @@ export interface Page {
     [k: string]: unknown;
   };
   publishedAt?: string | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
+  slug: string;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -137,8 +134,7 @@ export interface Post {
   tags?: (number | Tag)[] | null;
   authors?: (number | Author)[] | null;
   heroStyle: 'standard' | 'full';
-  slug?: string | null;
-  slugLock?: boolean | null;
+  slug: string;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -243,8 +239,7 @@ export interface Author {
   twitter?: string | null;
   instagram?: string | null;
   user?: (number | null) | User;
-  slug?: string | null;
-  slugLock?: boolean | null;
+  slug: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -274,8 +269,7 @@ export interface Category {
   id: number;
   title: string;
   layout?: (number | null) | Layout;
-  slug?: string | null;
-  slugLock?: boolean | null;
+  slug: string;
   parent?: (number | null) | Category;
   breadcrumbs?:
     | {
@@ -296,8 +290,7 @@ export interface Layout {
   id: number;
   title: string;
   publishedAt?: string | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
+  slug: string;
   template: 'standard' | 'category' | 'special-issue' | 'magazine' | 'podcast';
   blocks?: (ArticlesBlock | TextBlock | PodcastsBlock | NewsletterBlock)[] | null;
   updatedAt: string;
@@ -405,31 +398,7 @@ export interface Tag {
     | 'pink'
     | 'rose';
   style: 'outline' | 'solid';
-  slug?: string | null;
-  slugLock?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "redirects".
- */
-export interface Redirect {
-  id: number;
-  from: string;
-  to?: {
-    type?: ('reference' | 'custom') | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: number | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: number | Post;
-        } | null);
-    url?: string | null;
-  };
+  slug: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -471,10 +440,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'tags';
         value: number | Tag;
-      } | null)
-    | ({
-        relationTo: 'redirects';
-        value: number | Redirect;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -527,7 +492,6 @@ export interface PagesSelect<T extends boolean = true> {
   content?: T;
   publishedAt?: T;
   slug?: T;
-  slugLock?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -547,7 +511,6 @@ export interface PostsSelect<T extends boolean = true> {
   authors?: T;
   heroStyle?: T;
   slug?: T;
-  slugLock?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -644,7 +607,6 @@ export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
   layout?: T;
   slug?: T;
-  slugLock?: T;
   parent?: T;
   breadcrumbs?:
     | T
@@ -688,7 +650,6 @@ export interface AuthorsSelect<T extends boolean = true> {
   instagram?: T;
   user?: T;
   slug?: T;
-  slugLock?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -700,7 +661,6 @@ export interface LayoutsSelect<T extends boolean = true> {
   title?: T;
   publishedAt?: T;
   slug?: T;
-  slugLock?: T;
   template?: T;
   blocks?:
     | T
@@ -756,23 +716,6 @@ export interface TagsSelect<T extends boolean = true> {
   color?: T;
   style?: T;
   slug?: T;
-  slugLock?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "redirects_select".
- */
-export interface RedirectsSelect<T extends boolean = true> {
-  from?: T;
-  to?:
-    | T
-    | {
-        type?: T;
-        reference?: T;
-        url?: T;
-      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -995,6 +938,18 @@ export interface MediaBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EmbedBlock".
+ */
+export interface EmbedBlock {
+  url: string;
+  aspectRatio: '16:9' | '4:3' | '1:1' | '3:4' | '9:16';
+  caption?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'embed';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

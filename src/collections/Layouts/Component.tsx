@@ -5,7 +5,7 @@ import { LayoutQuery } from './query'
 import { LayoutBlock, LayoutBlockType } from './blocks/Component'
 import { getDocById } from '@/utilities/cache'
 
-export default async function Layout({ layout, resolvedPosts }: LayoutQuery) {
+export async function LayoutComponent({ layout, resolvedPosts }: LayoutQuery) {
   if (!layout.blocks) return <div>Layout has no blocks</div>
 
   const hideSidebar = layout.template !== 'standard'

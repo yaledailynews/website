@@ -1,4 +1,4 @@
-import Layout from '@/collections/Layouts/Component'
+import { LayoutComponent } from '@/collections/Layouts/Component'
 import { queryLayout } from '@/collections/Layouts/query'
 import { StandardContainer } from '@/components/StandardContainer'
 import { Header } from '@/globals/Header/Component'
@@ -14,7 +14,7 @@ export default async function HomePage() {
   return (
     <StandardContainer>
       <Header />
-      <Layout {...queryResult} />
+      <LayoutComponent {...queryResult} />
     </StandardContainer>
   )
 }

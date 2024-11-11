@@ -2,7 +2,6 @@
 
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import configPromise from '@payload-config'
-import { PayloadRedirects } from '@/components/PayloadRedirects'
 import RichText from '@/components/RichText'
 import { IconBrandInstagram, IconBrandX, IconMail } from '@tabler/icons-react'
 import { PostItem } from '@/components/PostItem'
@@ -12,6 +11,7 @@ import { AvatarImage } from '@/components/AvatarImage'
 import { Metadata } from 'next'
 import { SmallHeader } from '@/globals/Header/Small'
 import { StandardContainer } from '@/components/StandardContainer'
+import { notFound } from 'next/navigation'
 
 export async function generateStaticParams() {
   const payload = await getPayloadHMR({ config: configPromise })
@@ -39,7 +39,7 @@ export default async function AuthorPage({ params: paramsPromise }: Args) {
   const { slug = '' } = await paramsPromise
 
   const author = await getDocBySlug('authors', slug)()
-  if (!author) return <PayloadRedirects url={'/authors/' + slug} />
+  if (!author) return notFound()
 
   const posts = await getPostsByAuthor(author.id, 1, 100)()
   const media = await getMediaByAuthor(author.id, 0, 100)()

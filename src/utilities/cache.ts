@@ -17,14 +17,13 @@ async function findDocBySlug<T extends Collection>(
   slug: string,
   depth: number,
 ): Promise<DataFromCollectionSlug<T> | null> {
-  const { isEnabled: draft } = await draftMode()
   const payload = await getPayloadHMR({ config: configPromise })
 
   const page = await payload.find({
     collection,
     depth,
-    draft,
-    overrideAccess: draft,
+    draft: false,
+    overrideAccess: false,
     where: {
       slug: {
         equals: slug,
@@ -40,14 +39,13 @@ export const getDocBySlug = <T extends Collection>(collection: T, slug: string, 
   })
 
 async function findGlobal<T extends Global>(slug: T, depth: number) {
-  const { isEnabled: draft } = await draftMode()
   const payload = await getPayloadHMR({ config: configPromise })
 
   return await payload.findGlobal({
     slug,
     depth: 0,
-    draft,
-    overrideAccess: draft,
+    draft: false,
+    overrideAccess: false,
   })
 }
 
@@ -65,13 +63,12 @@ export const findDocById = async <T extends Collection>(
     return entry
   }
 
-  const { isEnabled: draft } = await draftMode()
   const payload = await getPayloadHMR({ config: configPromise })
 
   const result = await payload.findByID({
     collection,
-    draft,
-    overrideAccess: draft,
+    draft: false,
+    overrideAccess: false,
     depth,
     id: entry,
   })
@@ -105,24 +102,6 @@ export const getDoc = <T extends Collection>(
   }
   return getDocById(collection, entry)
 }
-
-export async function findRedirects(depth = 1) {
-  const payload = await getPayloadHMR({ config: configPromise })
-
-  const { docs: redirects } = await payload.find({
-    collection: 'redirects',
-    depth,
-    limit: 0,
-    pagination: false,
-  })
-
-  return redirects
-}
-
-export const getRedirects = () =>
-  unstable_cache(async () => findRedirects(), ['redirects'], {
-    tags: ['redirects'],
-  })
 
 export async function findPostsByCategory(id: number, depth: number, limit: number, where?: Where) {
   const payload = await getPayloadHMR({ config: configPromise })

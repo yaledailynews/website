@@ -4,7 +4,7 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import React, { Fragment, JSX } from 'react'
 import { CMSLink } from '@/components/Link'
 import { DefaultNodeTypes, SerializedBlockNode } from '@payloadcms/richtext-lexical'
-import type { BannerBlock as BannerBlockProps, MediaBlock as MediaBlockProps } from '@payload-types'
+import type { BannerBlock as BannerBlockProps, EmbedBlock as EmbedBlockProps, MediaBlock as MediaBlockProps } from '@payload-types'
 
 import {
   IS_BOLD,
@@ -15,11 +15,12 @@ import {
   IS_SUPERSCRIPT,
   IS_UNDERLINE,
 } from './nodeFormat'
+import { EmbedBlock } from '@/blocks/Embed/Component'
 // import { FormBlock } from '@/blocks/Form/Component'
 
 export type NodeTypes =
   | DefaultNodeTypes
-  | SerializedBlockNode<MediaBlockProps | BannerBlockProps | CodeBlockProps>
+  | SerializedBlockNode<MediaBlockProps | BannerBlockProps | CodeBlockProps | EmbedBlockProps>
 
 type Props = {
   nodes: NodeTypes[]
@@ -111,15 +112,16 @@ export function serializeLexical({ nodes }: Props): JSX.Element {
                   key={index}
                   {...block}
                   enableGutter={false}
-                  disableInnerContainer={true}
                 />
               )
             case 'banner':
               return <BannerBlock className="col-start-2 mb-4" key={index} {...block} />
             case 'code':
               return <CodeBlock className="col-start-2" key={index} {...block} />
+            case 'embed':
+              return <EmbedBlock className="col-start-2" key={index} {...block} />
             default:
-              return <div key={index}>Unsupported block</div>
+              return <div key={index} className='bg-gray-200 px-4 py-2 text-gray-500'>Unsupported block</div>
           }
         } else {
           switch (node.type) {
