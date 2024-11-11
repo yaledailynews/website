@@ -1,5 +1,5 @@
 import { StandardContainer } from '@/components/StandardContainer'
-import { SmallHeader } from '@/globals/Header/Small'
+import { SmallHeader } from '@/globals/Header/Component'
 import Link from 'next/link'
 import React from 'react'
 

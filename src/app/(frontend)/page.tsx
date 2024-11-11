@@ -1,7 +1,7 @@
 import { LayoutComponent } from '@/collections/Layouts/Component'
 import { queryLayout } from '@/collections/Layouts/query'
 import { StandardContainer } from '@/components/StandardContainer'
-import { Header } from '@/globals/Header/Component'
+import { HomeHeader } from '@/globals/Header/Component'
 import { getGlobal } from '@/utilities/cache'
 import { Metadata } from 'next'
 
@@ -13,7 +13,7 @@ export default async function HomePage() {
 
   return (
     <StandardContainer>
-      <Header />
+      <HomeHeader />
       <LayoutComponent {...queryResult} />
     </StandardContainer>
   )

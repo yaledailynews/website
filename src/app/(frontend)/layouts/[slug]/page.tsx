@@ -4,7 +4,7 @@ import { LayoutComponent } from '@/collections/Layouts/Component'
 import { queryLayout } from '@/collections/Layouts/query'
 import { Metadata } from 'next'
 import { getDocBySlug } from '@/utilities/cache'
-import { SmallHeader } from '@/globals/Header/Small'
+import { SmallHeader } from '@/globals/Header/Component'
 import { StandardContainer } from '@/components/StandardContainer'
 import { notFound } from 'next/navigation'
 

@@ -9,7 +9,7 @@ import { getDocBySlug, getMediaByAuthor, getPostsByAuthor } from '@/utilities/ca
 import { MediaFigure } from '@/components/MediaFigure'
 import { AvatarImage } from '@/components/AvatarImage'
 import { Metadata } from 'next'
-import { SmallHeader } from '@/globals/Header/Small'
+import { SmallHeader } from '@/globals/Header/Component'
 import { StandardContainer } from '@/components/StandardContainer'
 import { notFound } from 'next/navigation'
 
