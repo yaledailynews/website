@@ -4,10 +4,7 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import React, { Fragment, JSX } from 'react'
 import { CMSLink } from '@/components/Link'
 import { DefaultNodeTypes, SerializedBlockNode } from '@payloadcms/richtext-lexical'
-import type {
-  BannerBlock as BannerBlockProps,
-  MediaBlock as MediaBlockProps,
-} from '@payload-types'
+import type { BannerBlock as BannerBlockProps, MediaBlock as MediaBlockProps } from '@payload-types'
 
 import {
   IS_BOLD,
@@ -107,16 +104,12 @@ export function serializeLexical({ nodes }: Props): JSX.Element {
           }
 
           switch (blockType) {
-            // case 'formBlock':
-            //   return <FormBlock key={index} {...block} />
             case 'mediaBlock':
               return (
                 <MediaBlock
                   className="col-start-1 col-span-3"
-                  imgClassName="m-0"
                   key={index}
                   {...block}
-                  captionClassName="mx-auto max-w-[48rem]"
                   enableGutter={false}
                   disableInnerContainer={true}
                 />
@@ -163,7 +156,6 @@ export function serializeLexical({ nodes }: Props): JSX.Element {
                     aria-checked={node.checked ? 'true' : 'false'}
                     className={` ${node.checked ? '' : ''}`}
                     key={index}
-                    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
                     role="checkbox"
                     tabIndex={-1}
                     value={node?.value}
@@ -193,6 +185,7 @@ export function serializeLexical({ nodes }: Props): JSX.Element {
                 <CMSLink
                   key={index}
                   newTab={Boolean(fields?.newTab)}
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   reference={fields.doc as any}
                   type={fields.linkType === 'internal' ? 'reference' : 'custom'}
                   url={fields.url}
@@ -200,6 +193,9 @@ export function serializeLexical({ nodes }: Props): JSX.Element {
                   {serializedChildren}
                 </CMSLink>
               )
+            }
+            case 'horizontalrule': {
+              return <hr className="col-start-2" key={index} />
             }
 
             default:

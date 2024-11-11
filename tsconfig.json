@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "esModuleInterop": true,
-    "target": "es6",
+    "target": "ES2022",
     "lib": [
       "dom",
       "dom.iterable",
@@ -46,8 +46,10 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "redirects.js",
-    "next.config.js"
-, "eslint.config.js", ".eslintrc.cjs"  ],
+    "next.config.js",
+    "eslint.config.mjs",
+    ".eslintrc.cjs"
+  ],
   "exclude": [
     "node_modules"
   ]

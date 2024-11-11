@@ -164,6 +164,7 @@ export async function findPostsByAuthor(id: number, depth: number, limit: number
         contains: id,
       },
     },
+    sort: '-publishedAt',
   })
 
   // tag each post for revalidation

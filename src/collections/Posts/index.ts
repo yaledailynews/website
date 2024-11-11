@@ -19,7 +19,7 @@ import { revalidatePost } from './hooks/revalidatePost'
 
 import { slugField } from '@/fields/slug'
 import { SERVER_URL } from '@/env'
-import { addToAlgolia } from '@/hooks/addToAlgolia'
+import { addToMeili } from '@/hooks/addToMeili'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -132,10 +132,23 @@ export const Posts: CollectionConfig = {
       hasMany: true,
       relationTo: 'authors',
     },
+    {
+      name: 'heroStyle',
+      type: 'select',
+      options: [
+        { label: 'Standard', value: 'standard' },
+        { label: 'Full Width', value: 'full' },
+      ],
+      defaultValue: 'standard',
+      required: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
     ...slugField(),
   ],
   hooks: {
-    afterChange: [revalidatePost, addToAlgolia],
+    afterChange: [revalidatePost, addToMeili],
   },
   versions: {
     drafts: {

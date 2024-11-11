@@ -2,14 +2,22 @@
 
 import { env } from '@/env'
 import { IconSearch, IconX } from '@tabler/icons-react'
-import { liteClient as algoliasearch } from 'algoliasearch/lite'
 import Link from 'next/link'
 import { SearchBox, Hits, Highlight, Pagination, useStats } from 'react-instantsearch'
 import { InstantSearchNext } from 'react-instantsearch-nextjs'
+import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
-const searchClient = algoliasearch(
-  env.NEXT_PUBLIC_ALGOLIA_APP_ID,
-  env.NEXT_PUBLIC_ALGOLIA_SEARCH_KEY,
+const { searchClient } = instantMeiliSearch(
+  env.NEXT_PUBLIC_MEILI_URL,
+  env.NEXT_PUBLIC_MEILI_SEARCH_KEY,
+  {
+    meiliSearchParams: {
+      hybrid: {
+        embedder: 'openai',
+        semanticRatio: 0.5,
+      },
+    },
+  },
 )
 
 function Hit({ hit }) {
@@ -18,18 +26,15 @@ function Hit({ hit }) {
       <article className="grid gap-4 sm:grid-cols-[2fr,1fr]">
         <div className="space-y-2 hover:opacity-70 transition-opacity">
           <h1 className="font-headline text-xl">
-            {/* @ts-expect-error */}
             <Highlight attribute="title" hit={hit} />
           </h1>
           {hit.subhead && (
             <p className="font-serif text-gray-800">
-              {/* @ts-expect-error */}
               <Highlight attribute="subhead" hit={hit} />
             </p>
           )}
           {hit.authors && (
             <p className="text-gray-500 text-xs">
-              {/* @ts-expect-error */}
               By <Highlight attribute="authors" hit={hit} />
             </p>
           )}
@@ -45,7 +50,6 @@ function SearchContent() {
 
   return (
     <>
-      {/* @ts-expect-error */}
       <SearchBox
         submitIconComponent={() => <IconSearch size={20} />}
         resetIconComponent={() => <IconX size={20} />}
@@ -64,7 +68,6 @@ function SearchContent() {
       {stats.query.length > 0 ? (
         stats.nbHits > 0 ? (
           <>
-            {/* @ts-expect-error */}
             <Hits
               hitComponent={Hit}
               classNames={{
@@ -72,7 +75,6 @@ function SearchContent() {
                 item: 'border-b border-gray-300 py-6 last:border-b-0 first:pt-0',
               }}
             />
-            {/* @ts-expect-error */}
             <Pagination
               classNames={{
                 item: 'flex',
@@ -102,10 +104,13 @@ function SearchContent() {
   )
 }
 
-export function AlgoliaSearch() {
+export function MeiliSearch() {
   return (
-    // @ts-expect-error
-    <InstantSearchNext indexName="search_index" routing searchClient={searchClient}>
+    <InstantSearchNext
+      indexName={env.NEXT_PUBLIC_MEILI_SEARCH_INDEX}
+      routing
+      searchClient={searchClient}
+    >
       <SearchContent />
     </InstantSearchNext>
   )

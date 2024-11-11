@@ -13,8 +13,8 @@
   position: fixed;
   top: 0;
   z-index: 9999;
-  left: calc(-100px - 40% - 1px);
-  width: calc(100px + 40%);
+  left: calc(-210px - 5% - 1px);
+  width: calc(210px + 5%);
   height: 100vh;
   max-height: 100vh;
   transition: left 0.3s ease;
@@ -23,14 +23,14 @@
   left: 0;
 }
 @media (min-width: 768px) {
-  .drawer {
+  .md\:no-drawer {
     position: static;
     right: 0;
     width: auto;
     height: auto;
     transition: none;
   }
-  .drawer-toggle-label {
+  .md\:no-drawer-toggle-label {
     display: none;
   }
 }

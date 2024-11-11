@@ -1,9 +1,9 @@
 import { NodeTypes, serializeLexical } from '@/components/RichText/serialize'
 import { env } from '@/env'
-import { searchClient } from '@algolia/client-search'
 import { Post } from '@payload-types'
 import { CollectionAfterChangeHook } from 'payload'
 import React from 'react'
+import { MeiliSearch } from 'meilisearch'
 
 function extractTextFromElement(element: React.ReactNode): string {
   if (typeof element === 'string') {
@@ -18,9 +18,12 @@ function extractTextFromElement(element: React.ReactNode): string {
   return ' '
 }
 
-const client = searchClient(env.NEXT_PUBLIC_ALGOLIA_APP_ID, env.ALGOLIA_WRITE_KEY)
+const client = new MeiliSearch({
+  host: env.NEXT_PUBLIC_MEILI_URL,
+  apiKey: env.MEILI_ADMIN_KEY,
+})
 
-export const addToAlgolia: CollectionAfterChangeHook<Post> = async ({
+export const addToMeili: CollectionAfterChangeHook<Post> = async ({
   doc,
   req: { payload },
   collection,
@@ -78,22 +81,23 @@ export const addToAlgolia: CollectionAfterChangeHook<Post> = async ({
 
     const resolvedCover =
       typeof cover === 'number' ? await payload.findByID({ collection: 'media', id: cover }) : cover
-    const coverUrl = resolvedCover?.filename ?? undefined
+    const coverUrl = resolvedCover?.sizes?.lg?.filename ?? undefined
 
-    await client.addOrUpdateObject({
-      indexName: 'search_index',
-      objectID: id.toString(),
-      body: {
+    const index = client.index(env.NEXT_PUBLIC_MEILI_SEARCH_INDEX)
+
+    await index.addDocuments([
+      {
+        id,
         title,
         subhead,
         slug,
         content: serializedContent,
         authors: authorsArray,
         categories: categoriesArray,
-        publishedAt: publishedAt ? (new Date(publishedAt)).getTime() : undefined,
+        publishedAt: publishedAt ? new Date(publishedAt).getTime() : undefined,
         coverUrl,
       },
-    })
+    ])
   }
 
   return doc

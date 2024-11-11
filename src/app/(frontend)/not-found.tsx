@@ -1,14 +1,26 @@
+import { StandardContainer } from '@/components/StandardContainer'
+import { SmallHeader } from '@/globals/Header/Small'
 import Link from 'next/link'
 import React from 'react'
 
 export default function NotFound() {
   return (
-    <div className="container py-28">
-      <div className="prose max-w-none">
-        <h1 style={{ marginBottom: 0 }}>404</h1>
-        <p className="mb-4">This page could not be found.</p>
-      </div>
-      <Link href="/">Go home</Link>
+    <div className="flex flex-col gap-8">
+      <SmallHeader />
+      <StandardContainer>
+        <div className="flex flex-col gap-8 items-center py-8">
+          <h1 className="text-4xl sm:text-5xl font-bold font-headline">Not Found</h1>
+          <p className="text-lg sm:text-xl text-center text-gray-600">
+            The page you were looking for does not exist.
+          </p>
+          <Link
+            href="/"
+            className="bg-gray-800 text-white py-1.5 px-6 text-lg flex items-center gap-2 hover:bg-gray-900 transition-colors active:bg-black my-6"
+          >
+            Return to the homepage
+          </Link>
+        </div>
+      </StandardContainer>
     </div>
   )
 }

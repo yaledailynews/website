@@ -5,6 +5,8 @@ import Layout from '@/collections/Layouts/Component'
 import { queryLayout } from '@/collections/Layouts/query'
 import { Metadata } from 'next'
 import { getDocBySlug } from '@/utilities/cache'
+import { SmallHeader } from '@/globals/Header/Small'
+import { StandardContainer } from '@/components/StandardContainer'
 
 export async function generateStaticParams() {
   const payload = await getPayloadHMR({ config: configPromise })
@@ -33,7 +35,14 @@ export default async function LayoutPage({ params: paramsPromise }: Args) {
   const queryResult = await queryLayout(slug)
   if (!queryResult) return <PayloadRedirects url={'/layouts/' + slug} />
 
-  return <Layout {...queryResult} />
+  return (
+    <div className="flex flex-col gap-16">
+      <SmallHeader />
+      <StandardContainer>
+        <Layout {...queryResult} />
+      </StandardContainer>
+    </div>
+  )
 }
 
 export async function generateMetadata({ params }: Args): Promise<Metadata> {
