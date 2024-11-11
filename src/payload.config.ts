@@ -2,11 +2,12 @@ import { s3Storage } from '@payloadcms/storage-s3'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
-import { searchPlugin } from '@payloadcms/plugin-search'
 import {
   BoldFeature,
   FixedToolbarFeature,
-  HeadingFeature,
+  // HeadingFeature,
+  OrderedListFeature,
+  UnorderedListFeature,
   ItalicFeature,
   LinkFeature,
   lexicalEditor,
@@ -96,6 +97,8 @@ export default buildConfig({
         UnderlineFeature(),
         BoldFeature(),
         ItalicFeature(),
+        OrderedListFeature(),
+        UnorderedListFeature(),
         LinkFeature({
           enabledCollections: ['pages', 'posts'],
           fields: ({ defaultFields }) => {

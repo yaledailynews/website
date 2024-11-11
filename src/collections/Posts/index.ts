@@ -20,6 +20,7 @@ import { revalidatePost } from './hooks/revalidatePost'
 import { slugField } from '@/fields/slug'
 import { SERVER_URL } from '@/env'
 import { addToMeili } from '@/hooks/addToMeili'
+import { Embed } from '@/blocks/Embed'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -75,7 +76,7 @@ export const Posts: CollectionConfig = {
           return [
             ...rootFeatures,
             HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-            BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+            BlocksFeature({ blocks: [Banner, Code, MediaBlock, Embed] }),
             FixedToolbarFeature(),
             InlineToolbarFeature(),
             HorizontalRuleFeature(),
