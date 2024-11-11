@@ -23,11 +23,9 @@ export const env = createEnv({
     MEILI_ADMIN_KEY: z.string().min(1),
     MEILI_URL: z.string().url(),
     OPENAI_API_KEY: z.string().min(1),
+    RAILWAY_PUBLIC_DOMAIN: zDomain,
   },
   client: {
-    NEXT_PUBLIC_VERCEL_ENV: z.enum(['production', 'preview', 'development']).optional(),
-    NEXT_PUBLIC_VERCEL_URL: zDomain.optional(),
-    NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL: zDomain.optional(),
     NEXT_PUBLIC_IS_LIVE: z.enum(['true', 'false']),
     NEXT_PUBLIC_S3_URL: z.string().url(),
     NEXT_PUBLIC_MEILI_URL: z.string().url(),
@@ -35,6 +33,7 @@ export const env = createEnv({
     NEXT_PUBLIC_MEILI_SEARCH_INDEX: z.string().min(1),
   },
   runtimeEnv: {
+    RAILWAY_PUBLIC_DOMAIN: process.env.RAILWAY_PUBLIC_DOMAIN,
     DATABASE_URL: process.env.DATABASE_URL,
     PAYLOAD_SECRET: process.env.PAYLOAD_SECRET,
     PAYLOAD_PUBLIC_DRAFT_SECRET: process.env.PAYLOAD_PUBLIC_DRAFT_SECRET,
@@ -47,10 +46,6 @@ export const env = createEnv({
     S3_ENDPOINT: process.env.S3_ENDPOINT,
     S3_BUCKET: process.env.S3_BUCKET,
     NEXT_PUBLIC_IS_LIVE: process.env.NEXT_PUBLIC_IS_LIVE,
-    NEXT_PUBLIC_VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV,
-    NEXT_PUBLIC_VERCEL_URL: process.env.NEXT_PUBLIC_VERCEL_URL,
-    NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL:
-      process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     NEXT_PUBLIC_S3_URL: process.env.NEXT_PUBLIC_S3_URL,
     NEXT_PUBLIC_MEILI_URL: process.env.NEXT_PUBLIC_MEILI_URL,
@@ -62,16 +57,4 @@ export const env = createEnv({
   },
 })
 
-if (env.NEXT_PUBLIC_VERCEL_ENV === 'production' && !env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL) {
-  throw new Error('NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL is required in production')
-}
-if (env.NEXT_PUBLIC_VERCEL_ENV === 'preview' && !env.NEXT_PUBLIC_VERCEL_URL) {
-  throw new Error('NEXT_PUBLIC_VERCEL_URL is required in preview')
-}
-
-export const SERVER_URL =
-  env.NEXT_PUBLIC_VERCEL_ENV === 'production'
-    ? `https://${env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`
-    : env.NEXT_PUBLIC_VERCEL_ENV === 'preview'
-      ? `https://${env.NEXT_PUBLIC_VERCEL_URL}`
-      : `http://localhost:3000`
+export const SERVER_URL = env.RAILWAY_PUBLIC_DOMAIN
