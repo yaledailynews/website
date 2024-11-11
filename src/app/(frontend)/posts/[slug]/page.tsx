@@ -4,7 +4,7 @@ import { getPayloadHMR } from '@payloadcms/next/utilities'
 import React from 'react'
 import type { Post } from '@payload-types'
 import { getDocById, getDocBySlug } from '@/utilities/cache'
-import { env, SERVER_URL } from '@/env'
+import { env } from '@/env'
 import PostComponent from '@/collections/Posts/Component'
 import { notFound } from 'next/navigation'
 
@@ -74,7 +74,7 @@ export async function generateMetadata({ params }: Args): Promise<Metadata> {
       locale: 'en_US',
       section,
       siteName: 'The Yale Daily News',
-      url: `${SERVER_URL}/posts/${post.slug}`,
+      url: `${env.NEXT_PUBLIC_SERVER_URL}/posts/${post.slug}`,
       images:
         cover && coverSized && coverSized.filename && coverSized.width && coverSized.height
           ? [

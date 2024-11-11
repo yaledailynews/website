@@ -3,9 +3,8 @@ import { authenticated } from '@/access/authenticated'
 import { Banner } from '@/blocks/Banner'
 import { Code } from '@/blocks/Code'
 import { MediaBlock } from '@/blocks/MediaBlock'
-import { SERVER_URL } from '@/env'
+import { env } from '@/env'
 import { slugField } from '@/fields/slug'
-import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import {
   BlocksFeature,
   FixedToolbarFeature,
@@ -28,24 +27,6 @@ export const Authors: CollectionConfig = {
   admin: {
     defaultColumns: ['name', 'email'],
     useAsTitle: 'name',
-    // livePreview: {
-    //   url: ({ data }) => {
-    //     const path = generatePreviewPath({
-    //       slug: typeof data?.slug === 'string' ? data.slug : '',
-    //       collection: 'posts',
-    //     })
-
-    //     return `${SERVER_URL}${path}`
-    //   },
-    // },
-    // preview: (data) => {
-    //   const path = generatePreviewPath({
-    //     slug: typeof data?.slug === 'string' ? data.slug : '',
-    //     collection: 'posts',
-    //   })
-
-    //   return `${SERVER_URL}${path}`
-    // },
   },
   fields: [
     {

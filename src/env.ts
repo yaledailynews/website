@@ -1,11 +1,6 @@
 import { createEnv } from '@t3-oss/env-nextjs'
 import { z } from 'zod'
 
-const domainRegex = /^(?!:\/\/)([a-zA-Z0-9-_]+(\.[a-zA-Z0-9-_]+)+)$/
-const zDomain = z.string().min(1).regex(domainRegex, {
-  message: 'Invalid domain format',
-})
-
 export const env = createEnv({
   server: {
     DATABASE_URL: z.string().url(),
@@ -23,9 +18,9 @@ export const env = createEnv({
     MEILI_ADMIN_KEY: z.string().min(1),
     MEILI_URL: z.string().url(),
     OPENAI_API_KEY: z.string().min(1),
-    RAILWAY_PUBLIC_DOMAIN: zDomain,
   },
   client: {
+    NEXT_PUBLIC_SERVER_URL: z.string().url(),
     NEXT_PUBLIC_IS_LIVE: z.enum(['true', 'false']),
     NEXT_PUBLIC_S3_URL: z.string().url(),
     NEXT_PUBLIC_MEILI_URL: z.string().url(),
@@ -33,7 +28,6 @@ export const env = createEnv({
     NEXT_PUBLIC_MEILI_SEARCH_INDEX: z.string().min(1),
   },
   runtimeEnv: {
-    RAILWAY_PUBLIC_DOMAIN: process.env.RAILWAY_PUBLIC_DOMAIN,
     DATABASE_URL: process.env.DATABASE_URL,
     PAYLOAD_SECRET: process.env.PAYLOAD_SECRET,
     PAYLOAD_PUBLIC_DRAFT_SECRET: process.env.PAYLOAD_PUBLIC_DRAFT_SECRET,
@@ -54,7 +48,7 @@ export const env = createEnv({
     NEXT_PUBLIC_MEILI_SEARCH_INDEX: process.env.NEXT_PUBLIC_MEILI_SEARCH_INDEX,
     OPENAI_API_KEY: process.env.OPENAI_API_KEY,
     MEILI_URL: process.env.MEILI_URL,
+    NEXT_PUBLIC_SERVER_URL: process.env.NEXT_PUBLIC_SERVER_URL,
   },
 })
 
-export const SERVER_URL = env.RAILWAY_PUBLIC_DOMAIN

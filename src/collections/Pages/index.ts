@@ -22,8 +22,8 @@ import {
 import { Banner } from '@/blocks/Banner'
 import { Code } from '@/blocks/Code'
 import { MediaBlock } from '@/blocks/MediaBlock'
-import { SERVER_URL } from '@/env'
 import { Embed } from '@/blocks/Embed'
+import { env } from '@/env'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -42,7 +42,7 @@ export const Pages: CollectionConfig = {
           collection: 'pages',
         })
 
-        return `${SERVER_URL}${path}`
+        return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
       },
     },
     preview: (data) => {
@@ -51,7 +51,7 @@ export const Pages: CollectionConfig = {
         collection: 'pages',
       })
 
-      return `${SERVER_URL}${path}`
+      return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
     },
     useAsTitle: 'title',
   },

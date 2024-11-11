@@ -30,7 +30,7 @@ import { Footer } from './globals/Footer'
 import { Header } from './globals/Header'
 import { Settings } from './globals/Settings'
 
-import { env, SERVER_URL } from './env'
+import { env } from './env'
 import { Tags } from './collections/Tags'
 
 const filename = fileURLToPath(import.meta.url)
@@ -128,8 +128,8 @@ export default buildConfig({
     push: false,
   }),
   collections: [Pages, Posts, Media, Categories, Users, Authors, Layouts, Tags],
-  cors: [SERVER_URL].filter(Boolean),
-  csrf: [SERVER_URL].filter(Boolean),
+  cors: [env.NEXT_PUBLIC_SERVER_URL].filter(Boolean),
+  csrf: [env.NEXT_PUBLIC_SERVER_URL].filter(Boolean),
   globals: [Settings, Header, Footer],
   plugins: [
     nestedDocsPlugin({
