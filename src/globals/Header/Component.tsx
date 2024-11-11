@@ -15,11 +15,13 @@ import {
 import { CMSLink } from '@/components/Link'
 import { getGlobal } from '@/utilities/cache'
 
+export const revalidate = 600 // 10 minutes
+
 function celciusToFarenheit(celcius: number) {
   return (celcius * 9) / 5 + 32
 }
 
-export async function Header() {
+export async function HomeHeader() {
   const header = await getGlobal('header')()
 
   const currentDate = new Date().toLocaleDateString('en-US', {
@@ -36,6 +38,9 @@ export async function Header() {
       headers: {
         'User-Agent': 'Yale Daily News',
         accept: 'application/geo+json',
+      },
+      next: {
+        revalidate: 3600, // 1 hour
       },
     },
   )
@@ -60,7 +65,10 @@ export async function Header() {
           </div>
         </div>
         <div className="w-full flex justify-between items-center md:block">
-          <label htmlFor="drawer-toggle" className="md:no-drawer-toggle-label drawer-toggle-label cursor-pointer p-2">
+          <label
+            htmlFor="drawer-toggle"
+            className="md:no-drawer-toggle-label drawer-toggle-label cursor-pointer p-2"
+          >
             <IconMenu2 className="size-5" />
           </label>
           <Link href="/" className="flex flex-col items-center">
@@ -112,7 +120,10 @@ export async function Header() {
         </div>
       </div>
       <nav className="drawer md:no-drawer max-h-screen overflow-y-scroll md:overflow-hidden flex flex-col md:flex-row md:justify-between md:gap-10 border-r border-gray-500 md:border-gray-300 md:border-r-0 shadow md:shadow-none bg-white md:border-t pb-20 md:pb-0 px-2 pt-2 md:pt-0">
-        <label htmlFor="drawer-toggle" className="md:no-drawer-toggle-label drawer-toggle-label cursor-pointer md:hidden p-4">
+        <label
+          htmlFor="drawer-toggle"
+          className="md:no-drawer-toggle-label drawer-toggle-label cursor-pointer md:hidden p-4"
+        >
           <IconX className="size-5" />
         </label>
         {header.navItems && (
