@@ -39,7 +39,7 @@ export const MediaBlock: React.FC<Props> = (props) => {
       )}
     >
       <div
-        className={cn('pb-2 bg-gray-100 border-y lg:border-x', {
+        className={cn('pb-2 bg-gray-100 border-y lg:border-x w-full', {
           'max-w-screen-lg': position === 'wide',
           'max-w-screen-2xl': position === 'fullscreen',
         })}
