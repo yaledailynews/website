@@ -5,7 +5,7 @@ const headers = {
   Authorization: `Bearer ${env.MEILI_ADMIN_KEY}`,
 }
 
-const experimentalFeaturesRes = await fetch(`${env.NEXT_PUBLIC_MEILI_URL}/experimental-features/`, {
+const experimentalFeaturesRes = await fetch(`${env.MEILI_URL}/experimental-features/`, {
   method: 'PATCH',
   headers,
   body: JSON.stringify({
@@ -16,7 +16,7 @@ const experimentalFeaturesRes = await fetch(`${env.NEXT_PUBLIC_MEILI_URL}/experi
 console.log(await experimentalFeaturesRes.json())
 
 const addOpenAIEmbedderRes = await fetch(
-  `${env.NEXT_PUBLIC_MEILI_URL}/indexes/${env.NEXT_PUBLIC_MEILI_SEARCH_INDEX}/settings`,
+  `${env.MEILI_URL}/indexes/${env.NEXT_PUBLIC_MEILI_SEARCH_INDEX}/settings`,
   {
     method: 'PATCH',
     headers,
@@ -37,7 +37,7 @@ const addOpenAIEmbedderRes = await fetch(
 console.log(await addOpenAIEmbedderRes.json())
 
 // const checkIndexRes = await fetch(
-//   `${env.NEXT_PUBLIC_MEILI_URL}/indexes/${env.NEXT_PUBLIC_MEILI_SEARCH_INDEX}/settings`,
+//   `${env.MEILI_URL}/indexes/${env.NEXT_PUBLIC_MEILI_SEARCH_INDEX}/settings`,
 //   {
 //     headers,
 //   },

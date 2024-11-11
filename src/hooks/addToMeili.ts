@@ -19,7 +19,7 @@ function extractTextFromElement(element: React.ReactNode): string {
 }
 
 const client = new MeiliSearch({
-  host: env.NEXT_PUBLIC_MEILI_URL,
+  host: env.MEILI_URL,
   apiKey: env.MEILI_ADMIN_KEY,
 })
 
