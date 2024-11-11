@@ -23,7 +23,7 @@ export const Layouts: CollectionConfig = {
     livePreview: {
       url: ({ data }) => {
         const path = generatePreviewPath({
-          slug: typeof data?.slug === 'string' ? data.slug : '',
+          id: data.id as number,
           collection: 'layouts',
         })
 
@@ -32,7 +32,7 @@ export const Layouts: CollectionConfig = {
     },
     preview: (data) => {
       const path = generatePreviewPath({
-        slug: typeof data?.slug === 'string' ? data.slug : '',
+        id: data.id as number,
         collection: 'layouts',
       })
 

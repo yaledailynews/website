@@ -8,18 +8,22 @@ import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { revalidatePage } from './hooks/revalidatePage'
 
 import {
+  BlockquoteFeature,
   BlocksFeature,
   FixedToolbarFeature,
   HeadingFeature,
   HorizontalRuleFeature,
   InlineToolbarFeature,
   lexicalEditor,
+  OrderedListFeature,
+  UnorderedListFeature,
 } from '@payloadcms/richtext-lexical'
 
 import { Banner } from '@/blocks/Banner'
 import { Code } from '@/blocks/Code'
 import { MediaBlock } from '@/blocks/MediaBlock'
 import { SERVER_URL } from '@/env'
+import { Embed } from '@/blocks/Embed'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -34,7 +38,7 @@ export const Pages: CollectionConfig = {
     livePreview: {
       url: ({ data }) => {
         const path = generatePreviewPath({
-          slug: typeof data?.slug === 'string' ? data.slug : '',
+          id: data.id as number,
           collection: 'pages',
         })
 
@@ -43,7 +47,7 @@ export const Pages: CollectionConfig = {
     },
     preview: (data) => {
       const path = generatePreviewPath({
-        slug: typeof data?.slug === 'string' ? data.slug : '',
+        id: data.id as number,
         collection: 'pages',
       })
 
@@ -65,10 +69,13 @@ export const Pages: CollectionConfig = {
           return [
             ...rootFeatures,
             HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-            BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+            BlocksFeature({ blocks: [Banner, Code, MediaBlock, Embed] }),
             FixedToolbarFeature(),
             InlineToolbarFeature(),
             HorizontalRuleFeature(),
+            OrderedListFeature(),
+            UnorderedListFeature(),
+            BlockquoteFeature(),
           ]
         },
       }),
@@ -93,6 +100,12 @@ export const Pages: CollectionConfig = {
           },
         ],
       },
+      validate(date) {
+        if (date && date > new Date()) {
+          return 'Scheduling a post is not yet supported, although we plan to add this feature.'
+        }
+        return true
+      }
     },
     ...slugField(),
   ],

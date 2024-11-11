@@ -4,13 +4,11 @@ import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import {
   BoldFeature,
-  FixedToolbarFeature,
-  // HeadingFeature,
-  OrderedListFeature,
-  UnorderedListFeature,
   ItalicFeature,
   LinkFeature,
   lexicalEditor,
+  SuperscriptFeature,
+  SubscriptFeature,
 } from '@payloadcms/richtext-lexical'
 import { UnderlineFeature } from '@payloadcms/richtext-lexical'
 import { resendAdapter } from '@payloadcms/email-resend'
@@ -97,8 +95,8 @@ export default buildConfig({
         UnderlineFeature(),
         BoldFeature(),
         ItalicFeature(),
-        OrderedListFeature(),
-        UnorderedListFeature(),
+        SuperscriptFeature(),
+        SubscriptFeature(),
         LinkFeature({
           enabledCollections: ['pages', 'posts'],
           fields: ({ defaultFields }) => {

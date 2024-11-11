@@ -19,33 +19,24 @@ export async function GET(
   const payload = await getPayloadHMR({ config: configPromise })
   const token = req.cookies.get(payloadToken)?.value
   const { searchParams } = new URL(req.url)
-  const path = searchParams.get('path')
   const collection = searchParams.get('collection') as CollectionSlug
-  const slug = searchParams.get('slug')
+  const id = searchParams.get('id')
 
   const previewSecret = searchParams.get('previewSecret')
 
   if (previewSecret) {
     return new Response('You are not allowed to preview this page', { status: 403 })
   } else {
-    if (!path) {
-      return new Response('No path provided', { status: 404 })
-    }
-
     if (!collection) {
-      return new Response('No path provided', { status: 404 })
+      return new Response('No collection provided', { status: 404 })
     }
 
-    if (!slug) {
-      return new Response('No path provided', { status: 404 })
+    if (!id) {
+      return new Response('No id provided', { status: 404 })
     }
 
     if (!token) {
       new Response('You are not allowed to preview this page', { status: 403 })
-    }
-
-    if (!path.startsWith('/')) {
-      new Response('This endpoint can only be used for internal previews', { status: 500 })
     }
 
     let user
@@ -66,16 +57,12 @@ export async function GET(
 
     // Verify the given slug exists
     try {
-      const docs = await payload.find({
+      const doc = await payload.findByID({
         collection: collection,
-        where: {
-          slug: {
-            equals: slug,
-          },
-        },
+        id,
       })
 
-      if (!docs.docs.length) {
+      if (!doc) {
         return new Response('Document not found', { status: 404 })
       }
     } catch (error) {
@@ -84,6 +71,6 @@ export async function GET(
 
     draft.enable()
 
-    redirect(path)
+    redirect(`/preview/${collection}/${id}`)
   }
 }

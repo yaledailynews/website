@@ -1,12 +1,15 @@
 import type { CollectionConfig } from 'payload'
 
 import {
+  BlockquoteFeature,
   BlocksFeature,
   FixedToolbarFeature,
   HeadingFeature,
   HorizontalRuleFeature,
   InlineToolbarFeature,
   lexicalEditor,
+  OrderedListFeature,
+  UnorderedListFeature,
 } from '@payloadcms/richtext-lexical'
 
 import { authenticated } from '@/access/authenticated'
@@ -35,19 +38,17 @@ export const Posts: CollectionConfig = {
     livePreview: {
       url: ({ data }) => {
         const path = generatePreviewPath({
-          slug: typeof data?.slug === 'string' ? data.slug : '',
+          id: data.id as number,
           collection: 'posts',
         })
-
         return `${SERVER_URL}${path}`
       },
     },
     preview: (data) => {
       const path = generatePreviewPath({
-        slug: typeof data?.slug === 'string' ? data.slug : '',
+        id: data.id as number,
         collection: 'posts',
       })
-
       return `${SERVER_URL}${path}`
     },
     useAsTitle: 'title',
@@ -80,6 +81,9 @@ export const Posts: CollectionConfig = {
             FixedToolbarFeature(),
             InlineToolbarFeature(),
             HorizontalRuleFeature(),
+            OrderedListFeature(),
+            UnorderedListFeature(),
+            BlockquoteFeature(),
           ]
         },
       }),
@@ -104,6 +108,13 @@ export const Posts: CollectionConfig = {
             return value
           },
         ],
+      },
+      validate(date) {
+        console.log(date)
+        if (date && new Date(date) > new Date()) {
+          return 'Scheduling a post is not yet supported.'
+        }
+        return true
       },
     },
     {
@@ -146,7 +157,7 @@ export const Posts: CollectionConfig = {
         position: 'sidebar',
       },
     },
-    ...slugField(),
+    ...slugField('title'),
   ],
   hooks: {
     afterChange: [revalidatePost, addToMeili],

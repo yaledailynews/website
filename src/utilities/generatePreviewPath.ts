@@ -8,14 +8,14 @@ const collectionPrefixMap: Partial<Record<CollectionSlug, string>> = {
 
 type Props = {
   collection: keyof typeof collectionPrefixMap
-  slug: string
+  id: number
 }
 
-export const generatePreviewPath = ({ collection, slug }: Props) => {
-  const path = `${collectionPrefixMap[collection]}/${slug}`
+export const generatePreviewPath = ({ collection, id }: Props) => {
+  const path = `${collectionPrefixMap[collection]}/${id}`
 
   const params = {
-    slug,
+    id,
     collection,
     path,
   }
@@ -23,7 +23,7 @@ export const generatePreviewPath = ({ collection, slug }: Props) => {
   const encodedParams = new URLSearchParams()
 
   Object.entries(params).forEach(([key, value]) => {
-    encodedParams.append(key, value)
+    encodedParams.append(key, value.toString())
   })
 
   return `/next/preview?${encodedParams.toString()}`

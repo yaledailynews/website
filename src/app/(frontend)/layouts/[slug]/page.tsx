@@ -1,12 +1,12 @@
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import configPromise from '@payload-config'
-import { PayloadRedirects } from '@/components/PayloadRedirects'
-import Layout from '@/collections/Layouts/Component'
+import { LayoutComponent } from '@/collections/Layouts/Component'
 import { queryLayout } from '@/collections/Layouts/query'
 import { Metadata } from 'next'
 import { getDocBySlug } from '@/utilities/cache'
 import { SmallHeader } from '@/globals/Header/Small'
 import { StandardContainer } from '@/components/StandardContainer'
+import { notFound } from 'next/navigation'
 
 export async function generateStaticParams() {
   const payload = await getPayloadHMR({ config: configPromise })
@@ -33,13 +33,13 @@ type Args = {
 export default async function LayoutPage({ params: paramsPromise }: Args) {
   const { slug = '' } = await paramsPromise
   const queryResult = await queryLayout(slug)
-  if (!queryResult) return <PayloadRedirects url={'/layouts/' + slug} />
+  if (!queryResult) return notFound()
 
   return (
     <div className="flex flex-col gap-16">
       <SmallHeader />
       <StandardContainer>
-        <Layout {...queryResult} />
+        <LayoutComponent {...queryResult} />
       </StandardContainer>
     </div>
   )

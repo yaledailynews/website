@@ -102,8 +102,7 @@ export interface Page {
     [k: string]: unknown;
   };
   publishedAt?: string | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
+  slug: string;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -137,8 +136,7 @@ export interface Post {
   tags?: (number | Tag)[] | null;
   authors?: (number | Author)[] | null;
   heroStyle: 'standard' | 'full';
-  slug?: string | null;
-  slugLock?: boolean | null;
+  slug: string;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -243,8 +241,7 @@ export interface Author {
   twitter?: string | null;
   instagram?: string | null;
   user?: (number | null) | User;
-  slug?: string | null;
-  slugLock?: boolean | null;
+  slug: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -274,8 +271,7 @@ export interface Category {
   id: number;
   title: string;
   layout?: (number | null) | Layout;
-  slug?: string | null;
-  slugLock?: boolean | null;
+  slug: string;
   parent?: (number | null) | Category;
   breadcrumbs?:
     | {
@@ -296,8 +292,7 @@ export interface Layout {
   id: number;
   title: string;
   publishedAt?: string | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
+  slug: string;
   template: 'standard' | 'category' | 'special-issue' | 'magazine' | 'podcast';
   blocks?: (ArticlesBlock | TextBlock | PodcastsBlock | NewsletterBlock)[] | null;
   updatedAt: string;
@@ -405,8 +400,7 @@ export interface Tag {
     | 'pink'
     | 'rose';
   style: 'outline' | 'solid';
-  slug?: string | null;
-  slugLock?: boolean | null;
+  slug: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -527,7 +521,6 @@ export interface PagesSelect<T extends boolean = true> {
   content?: T;
   publishedAt?: T;
   slug?: T;
-  slugLock?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -547,7 +540,6 @@ export interface PostsSelect<T extends boolean = true> {
   authors?: T;
   heroStyle?: T;
   slug?: T;
-  slugLock?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -644,7 +636,6 @@ export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
   layout?: T;
   slug?: T;
-  slugLock?: T;
   parent?: T;
   breadcrumbs?:
     | T
@@ -688,7 +679,6 @@ export interface AuthorsSelect<T extends boolean = true> {
   instagram?: T;
   user?: T;
   slug?: T;
-  slugLock?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -700,7 +690,6 @@ export interface LayoutsSelect<T extends boolean = true> {
   title?: T;
   publishedAt?: T;
   slug?: T;
-  slugLock?: T;
   template?: T;
   blocks?:
     | T
@@ -756,7 +745,6 @@ export interface TagsSelect<T extends boolean = true> {
   color?: T;
   style?: T;
   slug?: T;
-  slugLock?: T;
   updatedAt?: T;
   createdAt?: T;
 }

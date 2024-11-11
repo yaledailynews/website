@@ -87,21 +87,23 @@ export async function MediaFigure({
     )
   } else if (mimeType?.startsWith('video')) {
     ImageComponent = (
-      <video controls className="w-full" preload="metadata">
+      <video controls className="w-full bg-gray-800" preload="metadata">
         <source src={`${env.NEXT_PUBLIC_S3_URL}/${filename}`} type={mimeType} />
         Your browser does not support the video tag.
       </video>
     )
   } else if (mimeType?.startsWith('audio')) {
     ImageComponent = (
-      <audio controls className="w-full" preload="metadata">
-        <source src={`${env.NEXT_PUBLIC_S3_URL}/${filename}`} type={mimeType} />
-        Your browser does not support the audio tag.
-      </audio>
+      <div className="flex flex-col bg-gray-800 w-full font-sans font-medium p-3">
+        <audio controls preload="metadata" className="w-full rounded-none">
+          <source src={`${env.NEXT_PUBLIC_S3_URL}/${filename}`} type={mimeType} />
+          Your browser does not support the audio tag.
+        </audio>
+      </div>
     )
   } else if (mimeType?.startsWith('application/pdf')) {
     ImageComponent = (
-      <div className="flex flex-col bg-gray-800 w-full">
+      <div className="flex flex-col bg-gray-800 w-full font-sans font-medium">
         <p className="text-xs px-4 py-2 text-white flex items-center gap-2">
           <IconFileFilled size={16} className="inline-block" />
           {filename}
