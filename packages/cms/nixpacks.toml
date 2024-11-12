@@ -1,0 +1,12 @@
+[phases.setup]
+nixPkgs = ['...', 'unzip']
+
+[phases.build]
+cmds = [
+  'curl -fsSL https://bun.sh/install | bash',
+  'bun install',
+  'cd packages/cms && bun run build',
+]
+
+[start]
+cmd = 'cd packages/cms && bun run start'
