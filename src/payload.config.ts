@@ -1,7 +1,6 @@
 import { s3Storage } from '@payloadcms/storage-s3'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
-// import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import {
   BoldFeature,
   ItalicFeature,

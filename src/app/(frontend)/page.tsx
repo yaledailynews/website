@@ -5,6 +5,8 @@ import { HomeHeader } from '@/globals/Header/Component'
 import { getGlobal } from '@/utilities/cache'
 import { Metadata } from 'next'
 
+export const dynamic = 'force-dynamic'
+
 export default async function HomePage() {
   const settings = await getGlobal('settings')()
   const queryResult = await queryLayout(settings?.homeLayout)
