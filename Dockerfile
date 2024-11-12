@@ -6,11 +6,11 @@ WORKDIR /usr/src/app
 COPY . .
 RUN bun install
 
-WORKDIR /usr/src/app/cms
+WORKDIR /usr/src/app/packages/cms
 ENV NODE_ENV=production
 RUN bun run build
 
-# run the app
-USER bun
-EXPOSE 8080/tcp
-ENTRYPOINT [ "bun", "run", "start" ]
+# # run the app
+# USER bun
+# EXPOSE 8080/tcp
+# ENTRYPOINT [ "bun", "run", "start" ]
