@@ -13,7 +13,6 @@ export default tseslint.config(
     plugins: {
       '@next/next': next,
     },
-    // @ts-expect-error
     rules: next.configs.recommended.rules,
   },
   {
