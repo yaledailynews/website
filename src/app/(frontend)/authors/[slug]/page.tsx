@@ -1,7 +1,5 @@
 // TODO: pagination
 
-import { getPayloadHMR } from '@payloadcms/next/utilities'
-import configPromise from '@payload-config'
 import RichText from '@/components/RichText'
 import { IconBrandInstagram, IconBrandX, IconMail } from '@tabler/icons-react'
 import { PostItem } from '@/components/PostItem'
@@ -13,21 +11,7 @@ import { SmallHeader } from '@/globals/Header/Component'
 import { StandardContainer } from '@/components/StandardContainer'
 import { notFound } from 'next/navigation'
 
-export async function generateStaticParams() {
-  const payload = await getPayloadHMR({ config: configPromise })
-  const authors = await payload.find({
-    collection: 'authors',
-    draft: false,
-    limit: 100,
-    overrideAccess: false,
-  })
-
-  const params = authors.docs.map(({ slug }) => {
-    return { slug }
-  })
-
-  return params
-}
+export const dynamic = 'force-dynamic'
 
 type Args = {
   params: Promise<{

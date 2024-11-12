@@ -15,8 +15,6 @@ import {
 import { CMSLink } from '@/components/Link'
 import { getGlobal } from '@/utilities/cache'
 
-export const revalidate = 600 // 10 minutes
-
 function celciusToFarenheit(celcius: number) {
   return (celcius * 9) / 5 + 32
 }

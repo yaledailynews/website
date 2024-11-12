@@ -1,5 +1,3 @@
-import { getPayloadHMR } from '@payloadcms/next/utilities'
-import configPromise from '@payload-config'
 import { LayoutComponent } from '@/collections/Layouts/Component'
 import { queryLayout } from '@/collections/Layouts/query'
 import { getDocBySlug, getPostsByCategory } from '@/utilities/cache'
@@ -10,21 +8,7 @@ import { PostItem } from '@/components/PostItem'
 import { MediaFigure } from '@/components/MediaFigure'
 import { notFound } from 'next/navigation'
 
-export async function generateStaticParams() {
-  const payload = await getPayloadHMR({ config: configPromise })
-  const categories = await payload.find({
-    collection: 'categories',
-    draft: false,
-    limit: 100,
-    overrideAccess: false,
-  })
-
-  const params = categories.docs.map(({ slug }) => {
-    return { slug }
-  })
-
-  return params
-}
+export const dynamic = 'force-dynamic'
 
 type Args = {
   params: Promise<{

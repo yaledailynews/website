@@ -1,6 +1,4 @@
 import type { Metadata } from 'next'
-import configPromise from '@payload-config'
-import { getPayloadHMR } from '@payloadcms/next/utilities'
 import React from 'react'
 import type { Post } from '@payload-types'
 import { getDocById, getDocBySlug } from '@/utilities/cache'
@@ -8,21 +6,7 @@ import { env } from '@/env'
 import PostComponent from '@/collections/Posts/Component'
 import { notFound } from 'next/navigation'
 
-export async function generateStaticParams() {
-  const payload = await getPayloadHMR({ config: configPromise })
-  const posts = await payload.find({
-    collection: 'posts',
-    draft: false,
-    limit: 100,
-    overrideAccess: false,
-  })
-
-  const params = posts.docs.map(({ slug }) => {
-    return { slug }
-  })
-
-  return params
-}
+export const dynamic = 'force-dynamic'
 
 type Args = {
   params: Promise<{

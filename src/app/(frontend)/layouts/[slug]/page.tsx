@@ -1,5 +1,3 @@
-import { getPayloadHMR } from '@payloadcms/next/utilities'
-import configPromise from '@payload-config'
 import { LayoutComponent } from '@/collections/Layouts/Component'
 import { queryLayout } from '@/collections/Layouts/query'
 import { Metadata } from 'next'
@@ -8,21 +6,7 @@ import { SmallHeader } from '@/globals/Header/Component'
 import { StandardContainer } from '@/components/StandardContainer'
 import { notFound } from 'next/navigation'
 
-export async function generateStaticParams() {
-  const payload = await getPayloadHMR({ config: configPromise })
-  const layouts = await payload.find({
-    collection: 'layouts',
-    draft: false,
-    limit: 100,
-    overrideAccess: false,
-  })
-
-  const params = layouts.docs.map(({ slug }) => {
-    return { slug }
-  })
-
-  return params
-}
+export const dynamic = 'force-dynamic'
 
 type Args = {
   params: Promise<{

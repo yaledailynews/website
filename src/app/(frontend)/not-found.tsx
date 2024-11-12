@@ -3,6 +3,8 @@ import { SmallHeader } from '@/globals/Header/Component'
 import Link from 'next/link'
 import React from 'react'
 
+export const dynamic = 'force-dynamic'
+
 export default function NotFound() {
   return (
     <div className="flex flex-col gap-8">

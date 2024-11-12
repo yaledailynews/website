@@ -1,29 +1,9 @@
-import configPromise from '@payload-config'
-import { getPayloadHMR } from '@payloadcms/next/utilities'
 import { getDocBySlug } from '@/utilities/cache'
 import { Metadata } from 'next'
 import PageComponent from '@/collections/Pages/Component'
 import { notFound } from 'next/navigation'
 
-export async function generateStaticParams() {
-  const payload = await getPayloadHMR({ config: configPromise })
-  const pages = await payload.find({
-    collection: 'pages',
-    draft: false,
-    limit: 100,
-    overrideAccess: false,
-  })
-
-  const params = pages.docs
-    ?.filter((doc) => {
-      return doc.slug !== 'home'
-    })
-    .map(({ slug }) => {
-      return { slug }
-    })
-
-  return params
-}
+export const dynamic = 'force-dynamic'
 
 type Args = {
   params: Promise<{
@@ -33,7 +13,6 @@ type Args = {
 
 export default async function Page({ params: paramsPromise }: Args) {
   const { slug = 'home' } = await paramsPromise
-  const url = '/' + slug
 
   const page = await getDocBySlug('pages', slug)()
   if (!page) {

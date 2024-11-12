@@ -7,6 +7,8 @@ import { LayoutComponent } from '@/collections/Layouts/Component'
 import { queryLayout } from '@/collections/Layouts/query'
 import { notFound } from 'next/navigation'
 
+export const dynamic = 'force-dynamic'
+
 type Args = {
   params: Promise<{
     collection: string
