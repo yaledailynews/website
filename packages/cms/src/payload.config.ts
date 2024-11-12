@@ -123,7 +123,7 @@ export default buildConfig({
     pool: {
       connectionString: env.DATABASE_URL,
     },
-    
+    migrationDir: path.resolve(dirname, 'migrations'),
     push: false,
   }),
   collections: [Pages, Posts, Media, Categories, Users, Authors, Layouts, Tags],
