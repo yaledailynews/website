@@ -9,6 +9,7 @@ import { Footer } from '@/globals/Footer/Component'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
 import './globals.css'
+import { format } from 'date-fns'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -17,6 +18,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
         <link rel="stylesheet" href="https://use.typekit.net/wkm0djp.css" />
+        <meta
+          httpEquiv="last-modified"
+          content={format(new Date(), "EEE, dd MMM yyyy HH:mm:ss 'GMT'")}
+        />
       </head>
       <body>
         <LivePreviewListener />
