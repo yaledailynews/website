@@ -33,6 +33,9 @@ ARG NEXT_PUBLIC_MEILI_SEARCH_INDEX
 
 RUN bun run build
 
+RUN chown -R bun:bun /usr/src/app/packages/cms
+RUN chmod -R 755 /usr/src/app/packages/cms
+
 # run the app
 USER bun
 EXPOSE 8080/tcp
