@@ -35,12 +35,3 @@ const addOpenAIEmbedderRes = await fetch(
 )
 
 console.log(await addOpenAIEmbedderRes.json())
-
-// const checkIndexRes = await fetch(
-//   `${env.MEILI_URL}/indexes/${env.NEXT_PUBLIC_MEILI_SEARCH_INDEX}/settings`,
-//   {
-//     headers,
-//   },
-// )
-
-// console.log(await checkIndexRes.json())
