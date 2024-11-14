@@ -1,6 +1,6 @@
 import { TemplateProps } from '.'
-import { PostItem } from '@/components/PostItem'
-import { MediaFigure } from '@/components/MediaFigure'
+import { PostItem } from '@cms/components/PostItem'
+import { MediaFigure } from '@cms/components/MediaFigure'
 
 export async function TwoColumnQuad({ posts }: TemplateProps) {
   const [mainPost, secondaryPost, ...otherPosts] = posts

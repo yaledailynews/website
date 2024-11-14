@@ -1,10 +1,9 @@
-import { BannerBlock } from '@/blocks/Banner/Component'
-import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
-import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { BannerBlock } from '@cms/blocks/Banner/Component'
+import { MediaBlock } from '@cms/blocks/MediaBlock/Component'
 import React, { Fragment, JSX } from 'react'
-import { CMSLink } from '@/components/Link'
+import { CMSLink } from '@cms/components/Link'
 import { DefaultNodeTypes, SerializedBlockNode } from '@payloadcms/richtext-lexical'
-import type { BannerBlock as BannerBlockProps, EmbedBlock as EmbedBlockProps, MediaBlock as MediaBlockProps } from '@payload-types'
+import type { BannerBlock as BannerBlockProps, EmbedBlock as EmbedBlockProps, MediaBlock as MediaBlockProps } from '@cms/payload-types'
 
 import {
   IS_BOLD,
@@ -15,12 +14,12 @@ import {
   IS_SUPERSCRIPT,
   IS_UNDERLINE,
 } from './nodeFormat'
-import { EmbedBlock } from '@/blocks/Embed/Component'
-// import { FormBlock } from '@/blocks/Form/Component'
+import { EmbedBlock } from '@cms/blocks/Embed/Component'
+// import { FormBlock } from '@cms/blocks/Form/Component'
 
 export type NodeTypes =
   | DefaultNodeTypes
-  | SerializedBlockNode<MediaBlockProps | BannerBlockProps | CodeBlockProps | EmbedBlockProps>
+  | SerializedBlockNode<MediaBlockProps | BannerBlockProps | EmbedBlockProps>
 
 type Props = {
   nodes: NodeTypes[]
@@ -116,8 +115,6 @@ export function serializeLexical({ nodes }: Props): JSX.Element {
               )
             case 'banner':
               return <BannerBlock className="col-start-2 mb-4" key={index} {...block} />
-            case 'code':
-              return <CodeBlock className="col-start-2" key={index} {...block} />
             case 'embed':
               return <EmbedBlock className="col-start-2" key={index} {...block} />
             default:

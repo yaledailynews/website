@@ -1,6 +1,6 @@
 'use client'
 
-import { cn } from '@/utilities/cn'
+import { cn } from '@cms/utilities/cn'
 import { IconCheck, IconLink } from '@tabler/icons-react'
 import React from 'react'
 import { useState } from 'react'

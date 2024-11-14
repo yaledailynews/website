@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import React from 'react'
-import type { Post } from '@payload-types'
-import { getDocById, getDocBySlug } from '@/utilities/cache'
-import { env } from '@/env'
-import PostComponent from '@/collections/Posts/Component'
+import type { Post } from '@cms/payload-types'
+import { getDocById, getDocBySlug } from '@cms/utilities/cache'
+import { env } from '@cms/env'
+import PostComponent from '@cms/collections/Posts/Component'
 import { notFound } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'

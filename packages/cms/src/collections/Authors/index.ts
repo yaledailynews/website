@@ -1,10 +1,8 @@
-import { anyone } from '@/access/anyone'
-import { authenticated } from '@/access/authenticated'
-import { Banner } from '@/blocks/Banner'
-import { Code } from '@/blocks/Code'
-import { MediaBlock } from '@/blocks/MediaBlock'
-import { env } from '@/env'
-import { slugField } from '@/fields/slug'
+import { anyone } from '@cms/access/anyone'
+import { authenticated } from '@cms/access/authenticated'
+import { Banner } from '@cms/blocks/Banner'
+import { MediaBlock } from '@cms/blocks/MediaBlock'
+import { slugField } from '@cms/fields/slug'
 import {
   BlocksFeature,
   FixedToolbarFeature,
@@ -15,6 +13,7 @@ import {
 } from '@payloadcms/richtext-lexical'
 import { CollectionConfig } from 'payload'
 import { revalidateAuthor } from './hooks/revalidateAuthor'
+import { Embed } from '@cms/blocks/Embed'
 
 export const Authors: CollectionConfig = {
   slug: 'authors',
@@ -48,7 +47,7 @@ export const Authors: CollectionConfig = {
           return [
             ...rootFeatures,
             HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-            BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+            BlocksFeature({ blocks: [Banner, Embed, MediaBlock] }),
             FixedToolbarFeature(),
             InlineToolbarFeature(),
             HorizontalRuleFeature(),

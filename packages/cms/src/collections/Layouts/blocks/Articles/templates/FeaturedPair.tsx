@@ -1,6 +1,6 @@
-import { MediaFigure } from '@/components/MediaFigure'
+import { MediaFigure } from '@cms/components/MediaFigure'
 import { TemplateProps } from '.'
-import { PostItem } from '@/components/PostItem'
+import { PostItem } from '@cms/components/PostItem'
 
 export async function FeaturedPair({ posts }: TemplateProps) {
   const [mainPost, secondaryPost] = posts

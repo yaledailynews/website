@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { TemplateProps } from '.'
-import { MediaFigure } from '@/components/MediaFigure'
-import { ResolvedAuthors } from '@/components/ResolvedAuthors'
+import { MediaFigure } from '@cms/components/MediaFigure'
+import { ResolvedAuthors } from '@cms/components/ResolvedAuthors'
 
 export async function SidebarTrio({ posts }: TemplateProps) {
   const [mainPost, secondaryPost, tertiaryPost] = posts

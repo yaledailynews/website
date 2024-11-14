@@ -3,7 +3,7 @@ import type { NextConfig } from 'next'
 import { withPayload } from '@payloadcms/next/withPayload'
 import redirects from './redirects'
 
-import { env } from '@/env'
+import { env } from '@cms/env'
 
 function assertValidProtocol(protocol: string): protocol is 'https' | 'http' {
   return protocol === 'https' || protocol === 'http'

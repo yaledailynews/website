@@ -1,7 +1,7 @@
-import { Post } from '@payload-types'
+import { Post } from '@cms/payload-types'
 import Link from 'next/link'
 import { Tag } from './Tag'
-import { cn } from '@/utilities/cn'
+import { cn } from '@cms/utilities/cn'
 import { ResolvedAuthors } from './ResolvedAuthors'
 
 export function PostItem({

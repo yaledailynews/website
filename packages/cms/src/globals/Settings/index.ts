@@ -1,6 +1,6 @@
 import type { GlobalConfig } from 'payload'
 
-// import { link } from '@/fields/link'
+// import { link } from '@cms/fields/link'
 import { revalidateSettings } from './hooks/revalidateSettings'
 
 export const Settings: GlobalConfig = {

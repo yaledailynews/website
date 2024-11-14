@@ -1,6 +1,6 @@
 import type { AccessArgs } from 'payload'
 
-import type { User } from '@payload-types'
+import type { User } from '@cms/payload-types'
 
 type isAuthenticated = (args: AccessArgs<User>) => boolean
 

@@ -1,9 +1,9 @@
-import { cn } from '@/utilities/cn'
-import { Layout as LayoutType, Post } from '@payload-types'
+import { cn } from '@cms/utilities/cn'
+import { Layout as LayoutType, Post } from '@cms/payload-types'
 import Link from 'next/link'
 import { LayoutQuery } from './query'
 import { LayoutBlock, LayoutBlockType } from './blocks/Component'
-import { getDocById } from '@/utilities/cache'
+import { getDocById } from '@cms/utilities/cache'
 
 export async function LayoutComponent({ layout, resolvedPosts }: LayoutQuery) {
   if (!layout.blocks) return <div>Layout has no blocks</div>

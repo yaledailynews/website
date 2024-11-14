@@ -1,6 +1,5 @@
 import React from 'react'
-import logo from '@/assets/logo.webp'
-import type { Header } from '@payload-types'
+import logo from '@cms/assets/logo.webp'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
@@ -12,8 +11,8 @@ import {
   IconSearch,
   IconX,
 } from '@tabler/icons-react'
-import { CMSLink } from '@/components/Link'
-import { getGlobal } from '@/utilities/cache'
+import { CMSLink } from '@cms/components/Link'
+import { getGlobal } from '@cms/utilities/cache'
 
 function celciusToFarenheit(celcius: number) {
   return (celcius * 9) / 5 + 32

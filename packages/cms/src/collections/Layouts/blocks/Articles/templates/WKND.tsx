@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import React from 'react'
-import { Post } from '@payload-types'
-import { MediaFigure } from '@/components/MediaFigure'
+import { Post } from '@cms/payload-types'
+import { MediaFigure } from '@cms/components/MediaFigure'
 import { TemplateProps } from '.'
-import { ResolvedAuthors } from '@/components/ResolvedAuthors'
+import { ResolvedAuthors } from '@cms/components/ResolvedAuthors'
 
 function WKNDPost({ post }: { post: Post }) {
   return (

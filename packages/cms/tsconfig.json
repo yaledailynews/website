@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "rootDir": "src",
     "esModuleInterop": true,
     "target": "ES2022",
     "lib": [
@@ -27,18 +28,15 @@
       }
     ],
     "paths": {
-      "@payload-config": [
-        "./src/payload.config.ts"
-      ],
-      "@payload-types": [
-        "./src/payload-types.ts"
-      ],
       "react": [
         "./node_modules/@types/react"
       ],
-      "@/*": [
+      "@cms/*": [
         "./src/*"
       ],
+      "@frontend/*": [
+        "../../packages/frontend/src/*"
+      ]
     }
   },
   "include": [

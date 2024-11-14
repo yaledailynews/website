@@ -1,10 +1,10 @@
-// import { Button, type ButtonProps } from '@/components/ui/button'
-import { cn } from 'src/utilities/cn'
+// import { Button, type ButtonProps } from '@cms/components/ui/button'
+import { cn } from '@cms/utilities/cn'
 import Link from 'next/link'
 import React from 'react'
 
-import type { Author, Category, Page, Post } from '@payload-types'
-import { getDocById } from '@/utilities/cache'
+import type { Author, Category, Page, Post } from '@cms/payload-types'
+import { getDocById } from '@cms/utilities/cache'
 
 type CMSLinkType = {
   appearance?: 'inline' // | 'button'

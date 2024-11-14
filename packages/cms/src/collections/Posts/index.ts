@@ -12,18 +12,17 @@ import {
   UnorderedListFeature,
 } from '@payloadcms/richtext-lexical'
 
-import { authenticated } from '@/access/authenticated'
-import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
-import { Banner } from '@/blocks/Banner'
-import { Code } from '@/blocks/Code'
-import { MediaBlock } from '@/blocks/MediaBlock'
-import { generatePreviewPath } from '@/utilities/generatePreviewPath'
+import { authenticated } from '@cms/access/authenticated'
+import { authenticatedOrPublished } from '@cms/access/authenticatedOrPublished'
+import { Banner } from '@cms/blocks/Banner'
+import { MediaBlock } from '@cms/blocks/MediaBlock'
+import { generatePreviewPath } from '@cms/utilities/generatePreviewPath'
 import { revalidatePost } from './hooks/revalidatePost'
 
-import { slugField } from '@/fields/slug'
-import { addToMeili } from '@/hooks/addToMeili'
-import { Embed } from '@/blocks/Embed'
-import { env } from '@/env'
+import { slugField } from '@cms/fields/slug'
+import { addToMeili } from '@cms/hooks/addToMeili'
+import { Embed } from '@cms/blocks/Embed'
+import { env } from '@cms/env'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -77,7 +76,7 @@ export const Posts: CollectionConfig = {
           return [
             ...rootFeatures,
             HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-            BlocksFeature({ blocks: [Banner, Code, MediaBlock, Embed] }),
+            BlocksFeature({ blocks: [Banner, MediaBlock, Embed] }),
             FixedToolbarFeature(),
             InlineToolbarFeature(),
             HorizontalRuleFeature(),

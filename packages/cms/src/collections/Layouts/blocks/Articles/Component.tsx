@@ -1,4 +1,4 @@
-import { ArticlesBlock as ArticlesBlockProps, Layout, Post } from '@payload-types'
+import { ArticlesBlock as ArticlesBlockProps, Layout, Post } from '@cms/payload-types'
 import { templates } from './templates'
 
 export async function ArticlesBlock({

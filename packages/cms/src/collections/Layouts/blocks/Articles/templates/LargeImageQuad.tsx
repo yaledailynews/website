@@ -1,6 +1,6 @@
-import { PostItem } from '@/components/PostItem'
+import { PostItem } from '@cms/components/PostItem'
 import { TemplateProps } from '.'
-import { MediaFigure } from '@/components/MediaFigure'
+import { MediaFigure } from '@cms/components/MediaFigure'
 
 export async function LargeImageQuad({ posts }: TemplateProps) {
   const [mainPost, secondaryPost, ...otherPosts] = posts

@@ -1,8 +1,8 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-import type { User } from '@payload-types'
-import { env } from '@/env'
+import type { User } from '@cms/payload-types'
+import { env } from '@cms/env'
 
 export const getMeUser = async (args?: {
   nullUserRedirect?: string

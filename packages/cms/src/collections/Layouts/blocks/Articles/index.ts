@@ -1,4 +1,4 @@
-import { ArticlesBlock } from '@payload-types'
+import { ArticlesBlock } from '@cms/payload-types'
 import { Block } from 'payload'
 
 export type TemplateName = Exclude<ArticlesBlock['template'], number>
@@ -62,7 +62,7 @@ export const Articles: Block = {
         readOnly: true,
         components: {
           Field: {
-            path: '@/collections/Layouts/blocks/Articles/AutomaticPosition.tsx#AutomaticPositionComponent',
+            path: '@cms/collections/Layouts/blocks/Articles/AutomaticPosition.tsx#AutomaticPositionComponent',
           },
         },
       },

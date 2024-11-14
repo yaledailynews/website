@@ -1,5 +1,5 @@
-import { getDocById } from '@/utilities/cache'
-import { Post } from '@payload-types'
+import { getDocById } from '@cms/utilities/cache'
+import { Post } from '@cms/payload-types'
 
 export async function ResolvedAuthors({ post }: { post: Post }) {
   if (!post.authors) return null

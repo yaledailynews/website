@@ -1,8 +1,8 @@
 // TODO: invalidation
 
 import type { CollectionConfig } from 'payload'
-import { anyone } from '@/access/anyone'
-import { authenticated } from '@/access/authenticated'
+import { anyone } from '@cms/access/anyone'
+import { authenticated } from '@cms/access/authenticated'
 import { revalidateMedia } from './hooks/revalidateMedia'
 
 export const Media: CollectionConfig = {

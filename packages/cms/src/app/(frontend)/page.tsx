@@ -1,8 +1,8 @@
-import { LayoutComponent } from '@/collections/Layouts/Component'
-import { queryLayout } from '@/collections/Layouts/query'
-import { StandardContainer } from '@/components/StandardContainer'
-import { HomeHeader } from '@/globals/Header/Component'
-import { getGlobal } from '@/utilities/cache'
+import { LayoutComponent } from '@cms/collections/Layouts/Component'
+import { queryLayout } from '@cms/collections/Layouts/query'
+import { StandardContainer } from '@cms/components/StandardContainer'
+import { HomeHeader } from '@cms/globals/Header/Component'
+import { getGlobal } from '@cms/utilities/cache'
 import { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'

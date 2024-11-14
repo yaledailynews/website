@@ -1,6 +1,6 @@
-import { getDocBySlug } from '@/utilities/cache'
+import { getDocBySlug } from '@cms/utilities/cache'
 import { Metadata } from 'next'
-import PageComponent from '@/collections/Pages/Component'
+import PageComponent from '@cms/collections/Pages/Component'
 import { notFound } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'

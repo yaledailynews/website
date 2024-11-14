@@ -1,10 +1,10 @@
 import { Fragment } from 'react'
 import Link from 'next/link'
-import { Post } from '@payload-types'
+import { Post } from '@cms/payload-types'
 import { TemplateProps } from '.'
-import { MediaFigure } from '@/components/MediaFigure'
-import { getDocById } from '@/utilities/cache'
-import { ResolvedAuthors } from '@/components/ResolvedAuthors'
+import { MediaFigure } from '@cms/components/MediaFigure'
+import { getDocById } from '@cms/utilities/cache'
+import { ResolvedAuthors } from '@cms/components/ResolvedAuthors'
 
 const seeMoreLink = '/categories/magazine'
 

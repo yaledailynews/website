@@ -1,11 +1,11 @@
 'use server'
 
 import Link from 'next/link'
-import type { Media as MediaType } from '@payload-types'
-import { getDocById } from '@/utilities/cache'
+import type { Media as MediaType } from '@cms/payload-types'
+import { getDocById } from '@cms/utilities/cache'
 import { ImgHTMLAttributes } from 'react'
-import { env } from '@/env'
-import { cn } from '@/utilities/cn'
+import { env } from '@cms/env'
+import { cn } from '@cms/utilities/cn'
 import { IconArticle, IconFile, IconFileFilled, IconPdf, IconPhoto } from '@tabler/icons-react'
 
 function generateSrcSet(

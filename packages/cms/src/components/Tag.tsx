@@ -1,5 +1,5 @@
-import { getDocById } from '@/utilities/cache'
-import { type Tag } from '@payload-types'
+import { getDocById } from '@cms/utilities/cache'
+import { type Tag } from '@cms/payload-types'
 import colors from 'tailwindcss/colors'
 
 export async function Tag({ tag }: { tag: Tag | number }) {

@@ -1,6 +1,6 @@
 'use client'
 
-import { env } from '@/env'
+import { env } from '@cms/env'
 import { IconSearch, IconX } from '@tabler/icons-react'
 import Link from 'next/link'
 import { SearchBox, Hits, Highlight, Pagination, useStats } from 'react-instantsearch'

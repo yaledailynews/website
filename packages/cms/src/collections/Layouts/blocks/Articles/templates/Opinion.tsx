@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { TemplateProps } from '.'
-import { getDocById } from '@/utilities/cache'
-import { ResolvedAuthors } from '@/components/ResolvedAuthors'
+import { getDocById } from '@cms/utilities/cache'
+import { ResolvedAuthors } from '@cms/components/ResolvedAuthors'
 
 export async function Opinion({ posts }: TemplateProps) {
 

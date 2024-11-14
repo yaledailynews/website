@@ -1,8 +1,8 @@
-import { cn } from 'src/utilities/cn'
+import { cn } from '@cms/utilities/cn'
 import React from 'react'
 
-import type { MediaBlock as MediaBlockProps } from '@payload-types'
-import { MediaFigure } from '@/components/MediaFigure'
+import type { MediaBlock as MediaBlockProps } from '@cms/payload-types'
+import { MediaFigure } from '@cms/components/MediaFigure'
 
 type Props = MediaBlockProps & {
   breakout?: boolean

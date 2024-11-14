@@ -1,8 +1,8 @@
 import type { CollectionConfig } from 'payload'
 
-import { anyone } from '@/access/anyone'
-import { authenticated } from '@/access/authenticated'
-import { slugField } from '@/fields/slug'
+import { anyone } from '@cms/access/anyone'
+import { authenticated } from '@cms/access/authenticated'
+import { slugField } from '@cms/fields/slug'
 import { revalidateTagHook } from './hooks/revalidateTag'
 
 export const Tags: CollectionConfig = {

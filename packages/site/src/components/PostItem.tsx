@@ -1,0 +1,61 @@
+import type { Post } from "@cms/payload-types";
+import { Tag } from "./Tag";
+import { ResolvedAuthors } from "./ResolvedAuthors";
+import { cn } from "@site/lib/utils";
+
+export function PostItem({
+  post,
+  size = "lg",
+  hideSummary = false,
+}: {
+  post: Post;
+  hideSummary?: boolean;
+  size?: "xl" | "lg" | "md" | "sm";
+}) {
+  return (
+    <a
+      href={`/posts/${post.slug}`}
+      class="hover:opacity-70 transition-opacity"
+    >
+      <article class="flex flex-col gap-3">
+        <div
+          class={cn("flex flex-col", {
+            "gap-2.5 sm:gap-2": size === "xl",
+            "gap-2 sm:gap-1.5": size === "lg",
+            "gap-1.5 sm:gap-1": size === "md" || size === "sm",
+          })}
+        >
+          <h1
+            class={cn("font-headline", {
+              "text-2xl": size === "xl",
+              "text-2xl md:text-xl": size === "lg",
+              "text-xl md:text-lg": size === "md",
+              "text-lg md:text-sm": size === "sm",
+            })}
+          >
+            {post.title}
+          </h1>
+
+          {post.subhead && !hideSummary && (
+            <p
+              class={cn("font-serif text-gray-600", {
+                "text-base": size === "xl",
+                "text-base md:text-sm": size === "lg",
+                "text-sm md:text-sm": size === "md",
+                "text-sm md:text-xs": size === "sm",
+              })}
+            >
+              {post.subhead}
+            </p>
+          )}
+        </div>
+        <div class="flex gap-3 items-center">
+          {post.tags && <Tag tag={post.tags[0]} />}
+          <p class="text-gray-500 text-xs">
+            By <ResolvedAuthors post={post} />
+          </p>
+        </div>
+      </article>
+    </a>
+  );
+}

@@ -1,6 +1,6 @@
-import RichText from '@/components/RichText'
-import { SmallHeader } from '@/globals/Header/Component'
-import { Page } from '@payload-types'
+import RichText from '@cms/components/RichText'
+import { SmallHeader } from '@cms/globals/Header/Component'
+import { Page } from '@cms/payload-types'
 
 export default function PageComponent({ page }: { page: Page }) {
   return (

@@ -1,4 +1,4 @@
-import { env } from '@/env'
+import { env } from '@cms/env'
 
 const headers = {
   'Content-Type': 'application/json',

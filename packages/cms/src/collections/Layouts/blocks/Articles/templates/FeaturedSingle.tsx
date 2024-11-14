@@ -1,6 +1,6 @@
 import { TemplateProps } from '.'
-import { MediaFigure } from '@/components/MediaFigure'
-import { PostItem } from '@/components/PostItem'
+import { MediaFigure } from '@cms/components/MediaFigure'
+import { PostItem } from '@cms/components/PostItem'
 
 export async function FeaturedSingle({ posts }: TemplateProps) {
   const [post] = posts

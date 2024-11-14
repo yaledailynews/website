@@ -2,7 +2,7 @@ import type { CollectionAfterChangeHook } from 'payload'
 
 import { revalidateTag } from 'next/cache'
 
-import type { Media } from '@payload-types'
+import type { Media } from '@cms/payload-types'
 
 export const revalidateMedia: CollectionAfterChangeHook<Media> = ({
   doc,

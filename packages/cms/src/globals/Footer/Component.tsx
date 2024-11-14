@@ -1,11 +1,11 @@
 import React from 'react'
-import type { Footer } from '@payload-types'
-import logo from '@/assets/logo.webp'
+import type { Footer } from '@cms/payload-types'
+import logo from '@cms/assets/logo.webp'
 import Image from 'next/image'
-import { getGlobal } from '@/utilities/cache'
-import { StandardContainer } from '@/components/StandardContainer'
-import RichText from '@/components/RichText'
-import { CMSLink } from '@/components/Link'
+import { getGlobal } from '@cms/utilities/cache'
+import { StandardContainer } from '@cms/components/StandardContainer'
+import RichText from '@cms/components/RichText'
+import { CMSLink } from '@cms/components/Link'
 
 export async function Footer() {
   const footer: Footer = await getGlobal('footer')()

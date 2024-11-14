@@ -1,6 +1,6 @@
-import { MeiliSearch } from '@/components/MeiliSearch'
-import { StandardContainer } from '@/components/StandardContainer'
-import { SmallHeader } from '@/globals/Header/Component'
+import { MeiliSearch } from '@cms/components/MeiliSearch'
+import { StandardContainer } from '@cms/components/StandardContainer'
+import { SmallHeader } from '@cms/globals/Header/Component'
 import { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'

@@ -1,7 +1,7 @@
-import type { Media as MediaType } from '@payload-types'
-import { getDocById } from '@/utilities/cache'
+import type { Media as MediaType } from '@cms/payload-types'
+import { getDocById } from '@cms/utilities/cache'
 import { ImgHTMLAttributes } from 'react'
-import { env } from '@/env'
+import { env } from '@cms/env'
 
 export async function AvatarImage({
   media,

@@ -1,5 +1,5 @@
-import { cn } from '@/utilities/cn'
-import { EmbedBlock as EmbedBlockType } from '@payload-types'
+import { cn } from '@cms/utilities/cn'
+import { EmbedBlock as EmbedBlockType } from '@cms/payload-types'
 import React from 'react'
 
 type Props = EmbedBlockType & {

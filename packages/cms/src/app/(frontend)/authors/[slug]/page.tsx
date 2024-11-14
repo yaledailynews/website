@@ -1,14 +1,14 @@
 // TODO: pagination
 
-import RichText from '@/components/RichText'
+import RichText from '@cms/components/RichText'
 import { IconBrandInstagram, IconBrandX, IconMail } from '@tabler/icons-react'
-import { PostItem } from '@/components/PostItem'
-import { getDocBySlug, getMediaByAuthor, getPostsByAuthor } from '@/utilities/cache'
-import { MediaFigure } from '@/components/MediaFigure'
-import { AvatarImage } from '@/components/AvatarImage'
+import { PostItem } from '@cms/components/PostItem'
+import { getDocBySlug, getMediaByAuthor, getPostsByAuthor } from '@cms/utilities/cache'
+import { MediaFigure } from '@cms/components/MediaFigure'
+import { AvatarImage } from '@cms/components/AvatarImage'
 import { Metadata } from 'next'
-import { SmallHeader } from '@/globals/Header/Component'
-import { StandardContainer } from '@/components/StandardContainer'
+import { SmallHeader } from '@cms/globals/Header/Component'
+import { StandardContainer } from '@cms/components/StandardContainer'
 import { notFound } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'

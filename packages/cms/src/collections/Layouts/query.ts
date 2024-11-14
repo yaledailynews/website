@@ -1,7 +1,7 @@
-import { Layout, Post } from '@payload-types'
-import { getId } from '@/utilities/getId'
+import { Layout, Post } from '@cms/payload-types'
+import { getId } from '@cms/utilities/getId'
 import { templateConstraints } from './blocks/Articles'
-import { getDoc, getDocById, getPostsByCategory } from '@/utilities/cache'
+import { getDoc, getDocById, getPostsByCategory } from '@cms/utilities/cache'
 
 export const queryLayout = async (entry: string | number | Layout | undefined) => {
   if (!entry) return null
