@@ -1,5 +1,5 @@
 import type { FC } from "hono/jsx";
-import { StandardContainer } from "./StandardContainer";
+import { StandardContainer } from "@site/components/universal/StandardContainer";
 import { getGlobal } from "@site/lib/cache";
 import { CMSLink } from "./CMSLink";
 

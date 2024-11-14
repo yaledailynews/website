@@ -8,7 +8,7 @@ import {
   IconMenu2,
   IconSearch,
   IconX,
-} from "@site/universal/Icons";
+} from "@site/components/universal/Icons";
 import { CMSLink } from "./CMSLink";
 
 function celciusToFarenheit(celcius: number) {

@@ -3,7 +3,7 @@ import { env } from "@cms/env";
 import type { JSX } from "hono/jsx";
 import { cn } from "@site/lib/utils";
 import { getDocById } from "@site/lib/cache";
-import { IconFileFilled, IconPhoto } from "@site/universal/Icons";
+import { IconFileFilled, IconPhoto } from "@site/components/universal/Icons";
 
 function generateSrcSet(
   filename: string,

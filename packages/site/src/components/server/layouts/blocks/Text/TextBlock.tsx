@@ -1,5 +1,5 @@
 import type { TextBlock as TextBlockProps, Layout } from "@cms/payload-types";
-import RichText from "@site/components/richText/RichText";
+import RichText from "@site/components/server/richText/RichText";
 
 export async function TextBlock({
   block,

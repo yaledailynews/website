@@ -1,15 +1,15 @@
 import { Hono } from "hono";
-import { BaseHtml } from "@site/components/BaseHtml";
-import { getDocBySlug, getGlobal } from "./lib/cache";
-import { queryLayout } from "./lib/layoutQuery";
-import { HomeHeader } from "./components/HomeHeader";
-import { StandardContainer } from "./components/StandardContainer";
-import { PageComponent } from "./components/PageComponent";
-import { PostComponent } from "./components/PostComponent";
+import { BaseHtml } from "@site/components/server/BaseHtml";
+import { getDocBySlug, getGlobal } from "@site/lib/cache";
+import { queryLayout } from "@site/lib/layoutQuery";
+import { HomeHeader } from "@site/components/server/HomeHeader";
+import { StandardContainer } from "@site/components/universal/StandardContainer";
+import { PageComponent } from "@site/components/server/PageComponent";
+import { PostComponent } from "@site/components/server/PostComponent";
 import { HTTPException } from "hono/http-exception";
 import { staticFileHandler } from "../builder/staticFileHandler";
-import { CopyLinkIsland } from "./client/CopyLink";
-import { renderWithCache } from "./lib/renderWithCache";
+import { CopyLinkIsland } from "@site/components/client/CopyLink";
+import { renderWithCache } from "@site/lib/renderWithCache";
 
 const app = new Hono();
 

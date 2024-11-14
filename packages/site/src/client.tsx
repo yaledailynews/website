@@ -1,4 +1,4 @@
 import "./style.css";
 
-import { renderCopyLink } from "./client/CopyLink";
-renderCopyLink();
+import { hydrateCopyLink } from "./components/client/CopyLink";
+hydrateCopyLink();

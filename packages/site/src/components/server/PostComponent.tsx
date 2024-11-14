@@ -1,6 +1,6 @@
 import type { FC } from "hono/jsx";
 import type { Author, Post } from "@cms/payload-types";
-import { IconMail } from "@site/universal/Icons";
+import { IconMail } from "@site/components/universal/Icons";
 import RichText from "./richText/RichText";
 import { getDocById } from "@site/lib/cache";
 import { format } from "date-fns";
@@ -10,7 +10,7 @@ import { SmallHeader } from "./SmallHeader";
 import { MediaFigure } from "./MediaFigure";
 import { CMSLink } from "./CMSLink";
 import { AvatarImage } from "./AvatarImage";
-import { CopyLinkIsland } from "@site/client/CopyLink";
+import { CopyLinkIsland } from "@site/components/client/CopyLink";
 
 const AuthorCard: FC<{ author: Author }> = async ({ author }) => {
   return (

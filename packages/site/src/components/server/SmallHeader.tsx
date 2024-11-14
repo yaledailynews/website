@@ -1,5 +1,5 @@
 import { getGlobal } from "@site/lib/cache";
-import { IconMenu2, IconSearch, IconX } from "@site/universal/Icons";
+import { IconMenu2, IconSearch, IconX } from "@site/components/universal/Icons";
 import { CMSLink } from "./CMSLink";
 
 export async function SmallHeader() {

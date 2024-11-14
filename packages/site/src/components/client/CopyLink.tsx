@@ -1,7 +1,7 @@
-import { IconCheck, IconLink } from "@site/universal/Icons";
+import { IconCheck, IconLink } from "@site/components/universal/Icons";
 import { cn } from "@site/lib/utils";
 import { useState } from "hono/jsx";
-import { makeIsland } from "./Island";
+import { makeIsland } from "@site/lib/makeIsland";
 
 export function CopyLink() {
   const [copied, setCopied] = useState(false);
@@ -33,7 +33,7 @@ export function CopyLink() {
   );
 }
 
-export const [CopyLinkIsland, renderCopyLink] = makeIsland(
+export const [CopyLinkIsland, hydrateCopyLink] = makeIsland(
   "copy-link",
   <CopyLink />,
 );

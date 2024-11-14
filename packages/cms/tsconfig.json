@@ -34,8 +34,8 @@
       "@cms/*": [
         "./src/*"
       ],
-      "@frontend/*": [
-        "../../packages/frontend/src/*"
+      "@site/*": [
+        "../../packages/site/src/*"
       ]
     }
   },
