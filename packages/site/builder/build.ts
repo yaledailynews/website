@@ -1,12 +1,11 @@
 import { clientEnv } from "./clientEnv";
 
-const deploymentId = process.env["RAILWAY_SNAPSHOT_ID"];
-
-if (!deploymentId) {
-  throw new Error("Missing RAILWAY_SNAPSHOT_ID");
+const DEPLOYMENT_ID = import.meta.env["DEPLOYMENT_ID"];
+if (!DEPLOYMENT_ID) {
+  throw new Error("Missing DEPLOYMENT_ID");
 }
 
-console.log("Building for deployment ID:", deploymentId);
+console.log("Building for deployment ID:", DEPLOYMENT_ID);
 
 const client = await Bun.build({
   entrypoints: ["./src/client.tsx"],
@@ -14,7 +13,7 @@ const client = await Bun.build({
   target: "browser",
   packages: "bundle",
   minify: true,
-  naming: `[dir]/${deploymentId}/[name].[ext]`,
+  naming: `[dir]/${DEPLOYMENT_ID}/[name].[ext]`,
   experimentalCss: true,
   define: {
     "import.meta.env": JSON.stringify(clientEnv),
@@ -25,6 +24,6 @@ console.log("Running PostCSS...");
 
 await Bun.$`pwd`;
 
-await Bun.$`bun run postcss ./static/${deploymentId}/client.css -o ./static/${deploymentId}/client.css`;
+await Bun.$`bun run postcss ./static/${DEPLOYMENT_ID}/client.css -o ./static/${DEPLOYMENT_ID}/client.css`;
 
 console.log("Done!");
