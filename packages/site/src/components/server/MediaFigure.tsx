@@ -5,9 +5,9 @@ import { getDocById } from "@site/lib/cache";
 import { IconFileFilled, IconPhoto } from "@site/components/universal/Icons";
 import type { JSXElement } from "@site/lib/types";
 
-const s3Url = process.env["NEXT_PUBLIC_S3_URL"];
-if (!s3Url) {
-  throw new Error("Missing NEXT_PUBLIC_S3_URL");
+const S3_URL = process.env["VITE_S3_URL"];
+if (!S3_URL) {
+  throw new Error("Missing VITE_S3_URL");
 }
 
 function generateSrcSet(
@@ -16,15 +16,12 @@ function generateSrcSet(
   sizes: NonNullable<Media["sizes"]>,
 ): string {
   return (
-    `${s3Url}/${filename} ${width}w, ` +
+    `${S3_URL}/${filename} ${width}w, ` +
     Object.entries(sizes)
       .filter(
         ([key, size]) => size.width && size.filename && !key.match("avatar"),
       )
-      .map(
-        ([, size]) =>
-          `${s3Url}/${size.filename} ${size.width}w`,
-      )
+      .map(([, size]) => `${S3_URL}/${size.filename} ${size.width}w`)
       .join(", ")
   );
 }
@@ -78,7 +75,7 @@ export async function MediaFigure({
     }
     const srcSet = generateSrcSet(filename, width, sizes);
 
-    const url = `${s3Url}/${filename}`;
+    const url = `${S3_URL}/${filename}`;
 
     ImageComponent = (
       <img
@@ -94,7 +91,7 @@ export async function MediaFigure({
   } else if (mimeType?.startsWith("video")) {
     ImageComponent = (
       <video controls class="w-full bg-gray-800" preload="metadata">
-        <source src={`${s3Url}/${filename}`} type={mimeType} />
+        <source src={`${S3_URL}/${filename}`} type={mimeType} />
         Your browser does not support the video tag.
       </video>
     );
@@ -102,10 +99,7 @@ export async function MediaFigure({
     ImageComponent = (
       <div class="flex flex-col bg-gray-800 w-full font-sans font-medium p-3">
         <audio controls preload="metadata" class="w-full rounded-none">
-          <source
-            src={`${s3Url}/${filename}`}
-            type={mimeType}
-          />
+          <source src={`${S3_URL}/${filename}`} type={mimeType} />
           Your browser does not support the audio tag.
         </audio>
       </div>
@@ -118,11 +112,11 @@ export async function MediaFigure({
           {filename}
         </p>
         <object
-          data={`${s3Url}/${filename}`}
+          data={`${S3_URL}/${filename}`}
           type={mimeType}
           class="w-full h-full border-b min-h-[calc(60vh+3rem)]"
         >
-          <a href={`${s3Url}/${filename}`}>Download PDF</a>
+          <a href={`${S3_URL}/${filename}`}>Download PDF</a>
         </object>
       </div>
     );
