@@ -1,6 +1,11 @@
 import { Hono } from "hono";
 import { BaseHtml } from "@site/components/server/BaseHtml";
-import { getDocBySlug, getGlobal, purgeKeys } from "@site/lib/cache";
+import {
+  getDocBySlug,
+  getGlobal,
+  purgeCache,
+  purgeKeys,
+} from "@site/lib/cache";
 import { HomeHeader } from "@site/components/server/HomeHeader";
 import { StandardContainer } from "@site/components/universal/StandardContainer";
 import { PageComponent } from "@site/components/server/PageComponent";
@@ -227,6 +232,9 @@ app.post("/purge", async (c) => {
 });
 
 // fetch("http://localhost:3000/purge", { method: "POST", body: JSON.stringify({ keys: [""] }) });
+if (import.meta.env["PROD"]) {
+  purgeCache();
+}
 
 app.notFound((c) => {
   return c.html(
