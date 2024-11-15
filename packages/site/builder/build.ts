@@ -22,8 +22,6 @@ const client = await Bun.build({
 console.log(client);
 console.log("Running PostCSS...");
 
-await Bun.$`pwd`;
-
 await Bun.$`bun run postcss ./static/${DEPLOYMENT_ID}/client.css -o ./static/${DEPLOYMENT_ID}/client.css`;
 
 console.log("Done!");
