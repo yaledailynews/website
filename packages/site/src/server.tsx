@@ -76,6 +76,7 @@ app.get(
   }),
 );
 
+// TODO: implement this for post metadata
 // export async function generateMetadata({ params }: Args): Promise<Metadata> {
 //   const { slug } = await params
 //   if (!slug) return { title: 'Not Found' }
@@ -217,7 +218,7 @@ app.post("/purge", async (c) => {
     return c.json({ error: "Invalid request" }, 400);
   }
   try {
-    purgeKeys(input.data.keys);
+    await purgeKeys(input.data.keys);
   } catch (e) {
     return c.json({ error: "Failed to purge keys" }, 500);
   }
