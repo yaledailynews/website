@@ -31,6 +31,13 @@ const nextConfig: NextConfig = {
       }),
     ],
   },
+  experimental: {
+    turbo: {
+      resolveAlias: {
+        '@lexical/react/LexicalComposer': '@lexical/react/LexicalComposer.mjs',
+      },
+    }
+  },
   reactStrictMode: true,
   redirects,
 }
