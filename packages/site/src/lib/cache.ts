@@ -5,7 +5,6 @@ import configPromise from "@cms/payload.config";
 import { useContext } from "hono/jsx";
 import { CacheContext } from "./renderWithCache";
 import { z } from "zod";
-import Cloudflare from "cloudflare";
 
 export const payload = await getPayload({ config: configPromise });
 
@@ -13,51 +12,41 @@ const env = z
   .object({
     CLOUDFLARE_ZONE_ID: z.string().min(1),
     CLOUDFLARE_API_KEY: z.string().min(1),
-    CLOUDFLARE_EMAIL: z.string().min(1),
     SITE_HOST: z.string().min(1),
   })
   .parse(process.env);
 
-const client = new Cloudflare({
-  apiEmail: env.CLOUDFLARE_EMAIL,
-  apiKey: env.CLOUDFLARE_API_KEY,
-});
-
+// TODO: implement a real cache
+// TODO: purge all on build
 const store = new Map<string, any>();
 export async function purgeKeys(keys: string[]) {
+  // TODO: keep track of which urls have which tags (up to 300 urls per tag, then just mark as purge all)
   for (const key of keys) {
     console.log(`Purging key ${key}`);
     store.delete(key);
   }
-  // const options = {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     Authorization: `Bearer ${env.CLOUDFLARE_API_KEY}`,
-  //   },
-  //   body: JSON.stringify({
-  //     // hosts: [env.SITE_HOST],
-  //     tags: keys,
-  //   }),
-  // };
-
-  // const res = await fetch(
-  //   `https://api.cloudflare.com/client/v4/zones/${env.CLOUDFLARE_ZONE_ID}/purge_cache`,
-  //   options,
-  // );
-  // const data = await res.json();
-  // console.log(data);
-  // if (data.success) {
-  //   console.log("Successfully purged cache");
-  // } else {
-  //   throw new Error("Failed to purge Cloudflare cache");
-  // }
-
-  const response = await client.cache.purge({
-    zone_id: env.CLOUDFLARE_ZONE_ID,
-    tags: keys,
-  });
-  console.log(response);
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${env.CLOUDFLARE_API_KEY}`,
+    },
+    body: JSON.stringify({
+      hosts: [env.SITE_HOST],
+      files: [],
+    }),
+  };
+  const res = await fetch(
+    `https://api.cloudflare.com/client/v4/zones/${env.CLOUDFLARE_ZONE_ID}/purge_cache`,
+    options,
+  );
+  const data = await res.json();
+  console.log(data);
+  if (data.success) {
+    console.log("Successfully purged cache");
+  } else {
+    throw new Error("Failed to purge Cloudflare cache");
+  }
 }
 
 function cache<T>(key: string, fn: () => Promise<T>) {
