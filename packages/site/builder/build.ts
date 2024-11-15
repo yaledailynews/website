@@ -1,11 +1,11 @@
 import { clientEnv } from "./clientEnv";
 
-const DEPLOYMENT_ID = import.meta.env["DEPLOYMENT_ID"];
-if (!DEPLOYMENT_ID) {
-  throw new Error("Missing DEPLOYMENT_ID");
+const GIT_COMMIT_SHA = process.env["RAILWAY_GIT_COMMIT_SHA"];
+if (!GIT_COMMIT_SHA) {
+  throw new Error("Missing GIT_COMMIT_SHA");
 }
 
-console.log("Building for deployment ID:", DEPLOYMENT_ID);
+console.log("Building for deployment ID:", GIT_COMMIT_SHA);
 
 const client = await Bun.build({
   entrypoints: ["./src/client.tsx"],
@@ -13,7 +13,7 @@ const client = await Bun.build({
   target: "browser",
   packages: "bundle",
   minify: true,
-  naming: `[dir]/${DEPLOYMENT_ID}/[name].[ext]`,
+  naming: `[dir]/${GIT_COMMIT_SHA}/[name].[ext]`,
   experimentalCss: true,
   define: {
     "import.meta.env": JSON.stringify(clientEnv),
@@ -22,6 +22,6 @@ const client = await Bun.build({
 console.log(client);
 console.log("Running PostCSS...");
 
-await Bun.$`bun run postcss ./static/${DEPLOYMENT_ID}/client.css -o ./static/${DEPLOYMENT_ID}/client.css`;
+await Bun.$`bun run postcss ./static/${GIT_COMMIT_SHA}/client.css -o ./static/${GIT_COMMIT_SHA}/client.css`;
 
 console.log("Done!");

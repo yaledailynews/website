@@ -25,7 +25,7 @@ ARG SERVER_URL
 ARG VITE_S3_URL
 ARG VITE_MEILI_URL
 ARG MEILI_URL
-ARG DEPLOYMENT_ID
+ARG RAILWAY_GIT_COMMIT_SHA
 
 RUN bun run build
 
@@ -34,5 +34,4 @@ RUN chown -R bun:bun /usr/src/app/packages/site
 # run the app
 USER bun
 EXPOSE 8080/tcp
-# ENTRYPOINT [ "bun", "run", "start" ]
-ENTRYPOINT [ "/bin/sh", "-c", "bun run start" ]
+ENTRYPOINT [ "bun", "run", "start" ]
