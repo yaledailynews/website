@@ -4,15 +4,60 @@ import { getId } from "./utils";
 import configPromise from "@cms/payload.config";
 import { useContext } from "hono/jsx";
 import { CacheContext } from "./renderWithCache";
+import { z } from "zod";
+import Cloudflare from "cloudflare";
 
 export const payload = await getPayload({ config: configPromise });
 
+const env = z
+  .object({
+    CLOUDFLARE_ZONE_ID: z.string().min(1),
+    CLOUDFLARE_API_KEY: z.string().min(1),
+    CLOUDFLARE_EMAIL: z.string().min(1),
+    SITE_HOST: z.string().min(1),
+  })
+  .parse(process.env);
+
+const client = new Cloudflare({
+  apiEmail: env.CLOUDFLARE_EMAIL,
+  apiKey: env.CLOUDFLARE_API_KEY,
+});
+
 const store = new Map<string, any>();
-export function purgeKeys(keys: string[]) {
+export async function purgeKeys(keys: string[]) {
   for (const key of keys) {
     console.log(`Purging key ${key}`);
     store.delete(key);
   }
+  // const options = {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authorization: `Bearer ${env.CLOUDFLARE_API_KEY}`,
+  //   },
+  //   body: JSON.stringify({
+  //     // hosts: [env.SITE_HOST],
+  //     tags: keys,
+  //   }),
+  // };
+
+  // const res = await fetch(
+  //   `https://api.cloudflare.com/client/v4/zones/${env.CLOUDFLARE_ZONE_ID}/purge_cache`,
+  //   options,
+  // );
+  // const data = await res.json();
+  // console.log(data);
+  // if (data.success) {
+  //   console.log("Successfully purged cache");
+  // } else {
+  //   throw new Error("Failed to purge Cloudflare cache");
+  // }
+
+  const response = await client.cache.purge({
+    zone_id: env.CLOUDFLARE_ZONE_ID,
+    tags: keys,
+  });
+  console.log(response);
 }
 
 function cache<T>(key: string, fn: () => Promise<T>) {

@@ -23,6 +23,7 @@ export const BaseHtml: SC<PropsWithChildren<{ title?: string }>> = ({
           <>
             <script
               type="module"
+              defer
               src={`/static/${GIT_COMMIT_SHA}/client.js`}
             ></script>
             <link
