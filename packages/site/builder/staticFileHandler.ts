@@ -8,6 +8,7 @@ export async function staticFileHandler(app: Hono) {
     for (const filePath of await fs.readdir(publicDir, {
       recursive: true,
     })) {
+      // TODO: on build call cloudflare to clear these routes on cache
       app.get(`/${filePath}`, (c) => {
         const file = Bun.file(`${publicDir}/${filePath}`);
         return c.body(file.stream());
@@ -20,7 +21,10 @@ export async function staticFileHandler(app: Hono) {
     })) {
       app.get(`/static/${filePath}`, (c) => {
         const file = Bun.file(`${staticDir}/${filePath}`);
-        return c.body(file.stream());
+        return c.body(file.stream(), 200, {
+          "Content-Type": file.type,
+          "Cache-Control": "public, max-age=31536000, immutable",
+        });
       });
     }
   }
