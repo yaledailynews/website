@@ -34,4 +34,5 @@ RUN chown -R bun:bun /usr/src/app/packages/site
 # run the app
 USER bun
 EXPOSE 8080/tcp
-ENTRYPOINT [ "bun", "run", "start" ]
+# ENTRYPOINT [ "bun", "run", "start" ]
+ENTRYPOINT [ "/bin/sh", "-c", "bun run start" ]
