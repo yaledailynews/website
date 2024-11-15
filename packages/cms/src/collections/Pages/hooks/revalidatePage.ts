@@ -1,34 +1,26 @@
 import type { CollectionAfterChangeHook } from 'payload'
 
-import { revalidatePath, revalidateTag } from 'next/cache'
-
 import type { Page } from '@cms/payload-types'
+import { purgeKeys } from '@cms/utilities/purgeKeys'
 
-export const revalidatePage: CollectionAfterChangeHook<Page> = ({
+export const revalidatePage: CollectionAfterChangeHook<Page> = async ({
   doc,
   previousDoc,
   req: { payload },
 }) => {
+  const keys: string[] = []
   if (doc._status === 'published') {
-    const path = `/${doc.slug}`
-
-    payload.logger.info(`Revalidating page at path: ${path}`)
-
-    revalidatePath(path)
-    revalidateTag(`pages_${doc.slug}`)
-    revalidateTag(`pages_id_${doc.id}`)
+    keys.push(`pages_${doc.slug}`)
+    keys.push(`pages_id_${doc.id}`)
   }
 
   // If the page was previously published, we need to revalidate the old path
-  if (previousDoc?._status === 'published' && doc._status !== 'published') {
-    const oldPath = `/${previousDoc.slug}`
-
-    payload.logger.info(`Revalidating old page at path: ${oldPath}`)
-
-    revalidatePath(oldPath)
-    revalidateTag(`pages_${doc.slug}`)
-    revalidateTag(`pages_id_${doc.id}`)
+  if (previousDoc?._status === 'published') {
+    keys.push(`pages_${previousDoc.slug}`)
+    keys.push(`pages_id_${previousDoc.id}`)
   }
+
+  await purgeKeys(keys)
 
   return doc
 }

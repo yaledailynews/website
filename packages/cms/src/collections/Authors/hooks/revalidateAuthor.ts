@@ -1,29 +1,19 @@
 import type { CollectionAfterChangeHook } from 'payload'
-
-import { revalidatePath, revalidateTag } from 'next/cache'
-
 import type { Author } from '@cms/payload-types'
+import { purgeKeys } from '@cms/utilities/purgeKeys'
 
-export const revalidateAuthor: CollectionAfterChangeHook<Author> = ({
+export const revalidateAuthor: CollectionAfterChangeHook<Author> = async ({
   doc,
   previousDoc,
   req: { payload },
 }) => {
-  const path = `/authors/${doc.slug}`
-
-  payload.logger.info(`Revalidating author at path: ${path}`)
-
-  revalidatePath(path)
-  revalidateTag(`authors_${doc.slug}`)
-  revalidateTag(`authors_id_${doc.id}`)
-
-  const prevPath = `/authors/${previousDoc.slug}`
+  const keys = [`authors_${doc.slug}`, `authors_id_${doc.id}`]
   if (previousDoc.slug !== doc.slug) {
-    payload.logger.info(`Revalidating previous author path: ${prevPath}`)
-    revalidatePath(prevPath)
-    revalidateTag(`authors_${previousDoc.slug}`)
-    revalidateTag(`authors_id_${previousDoc.id}`)
+    keys.push(`authors_${previousDoc.slug}`)
+    keys.push(`authors_id_${previousDoc.id}`)
   }
+
+  await purgeKeys(keys)
 
   return doc
 }
