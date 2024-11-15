@@ -1,8 +1,11 @@
 import colors from "tailwindcss/colors";
-import type { Tag } from "@cms/payload-types";
+import type { Tag as TagType } from "@cms/payload-types";
 import { getDocById } from "@site/lib/cache";
+import type { SC } from "@site/lib/types";
 
-export async function Tag({ tag }: { tag: Tag | number }) {
+type Props = { tag: TagType | number };
+
+export const Tag: SC<Props> = async ({ tag }) => {
   const resolvedTag = await getDocById("tags", tag);
   const color = resolvedTag.color ? colors[resolvedTag.color] : colors.gray;
   return (
@@ -18,4 +21,4 @@ export async function Tag({ tag }: { tag: Tag | number }) {
       {resolvedTag.title}
     </span>
   );
-}
+};

@@ -1,8 +1,9 @@
 import { getGlobal } from "@site/lib/cache";
 import { IconMenu2, IconSearch, IconX } from "@site/components/universal/Icons";
 import { CMSLink } from "./CMSLink";
+import type { SC } from "@site/lib/types";
 
-export async function SmallHeader() {
+export const SmallHeader: SC = async () => {
   const header = await getGlobal("header");
 
   return (
@@ -62,4 +63,4 @@ export async function SmallHeader() {
       </nav>
     </header>
   );
-}
+};

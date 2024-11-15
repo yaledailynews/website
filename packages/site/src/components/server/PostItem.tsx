@@ -2,21 +2,17 @@ import type { Post } from "@cms/payload-types";
 import { Tag } from "./Tag";
 import { ResolvedAuthors } from "./ResolvedAuthors";
 import { cn } from "@site/lib/utils";
+import type { SC } from "@site/lib/types";
 
-export function PostItem({
-  post,
-  size = "lg",
-  hideSummary = false,
-}: {
+type Props = {
   post: Post;
-  hideSummary?: boolean;
   size?: "xl" | "lg" | "md" | "sm";
-}) {
+  hideSummary?: boolean;
+};
+
+export const PostItem: SC<Props> = ({ post, size = "md", hideSummary }) => {
   return (
-    <a
-      href={`/posts/${post.slug}`}
-      class="hover:opacity-70 transition-opacity"
-    >
+    <a href={`/posts/${post.slug}`} class="hover:opacity-70 transition-opacity">
       <article class="flex flex-col gap-3">
         <div
           class={cn("flex flex-col", {
@@ -58,4 +54,4 @@ export function PostItem({
       </article>
     </a>
   );
-}
+};

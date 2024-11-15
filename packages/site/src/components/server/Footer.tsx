@@ -1,9 +1,9 @@
-import type { FC } from "hono/jsx";
 import { StandardContainer } from "@site/components/universal/StandardContainer";
 import { getGlobal } from "@site/lib/cache";
 import { CMSLink } from "./CMSLink";
+import type { SC } from "@site/lib/types";
 
-export const Footer: FC = async () => {
+export const Footer: SC = async () => {
   const footer = await getGlobal("footer");
 
   return (

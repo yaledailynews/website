@@ -3,7 +3,7 @@ import { getId } from "./utils";
 import { templateConstraints } from "@cms/collections/Layouts/blocks/Articles";
 import { getDoc, getDocById, getPostsByCategory } from "./cache";
 
-export const queryLayout = async (
+export const resolveLayout = async (
   entry: string | number | Layout | undefined,
 ) => {
   if (!entry) return null;
@@ -61,4 +61,4 @@ export const queryLayout = async (
   return { layout, resolvedPosts };
 };
 
-export type LayoutQuery = NonNullable<Awaited<ReturnType<typeof queryLayout>>>;
+export type ResolvedLayout = NonNullable<Awaited<ReturnType<typeof resolveLayout>>>;

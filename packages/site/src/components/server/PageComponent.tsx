@@ -1,8 +1,13 @@
 import type { Page } from "@cms/payload-types";
 import RichText from "./richText/RichText";
 import { SmallHeader } from "./SmallHeader";
+import type { SC } from "@site/lib/types";
 
-export function PageComponent({ page }: { page: Page }) {
+type Props = {
+  page: Page;
+};
+
+export const PageComponent: SC<Props> = ({ page }) => {
   return (
     <div class="flex flex-col gap-8">
       <SmallHeader />
@@ -22,4 +27,4 @@ export function PageComponent({ page }: { page: Page }) {
       </article>
     </div>
   );
-}
+};

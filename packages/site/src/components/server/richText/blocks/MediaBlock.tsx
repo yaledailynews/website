@@ -1,5 +1,5 @@
 import type { MediaBlock as MediaBlockProps } from "@cms/payload-types";
-import { MediaFigure } from "@site/components/MediaFigure";
+import { MediaFigure } from "@site/components/server/MediaFigure";
 import { cn } from "@site/lib/utils";
 import type { FC } from "hono/jsx";
 

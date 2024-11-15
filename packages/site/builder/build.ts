@@ -1,3 +1,5 @@
+import { clientEnv } from "./clientEnv";
+
 const deploymentId = process.env["RAILWAY_DEPLOYMENT_ID"];
 
 console.log("Building for deployment ID:", deploymentId);
@@ -10,6 +12,9 @@ const client = await Bun.build({
   minify: true,
   naming: `[dir]/${deploymentId}/[name].[ext]`,
   experimentalCss: true,
+  define: {
+    "import.meta.env": JSON.stringify(clientEnv),
+  },
 });
 console.log(client);
 

@@ -1,5 +1,4 @@
 import { getGlobal } from "@site/lib/cache";
-import type { FC } from "hono/jsx";
 import {
   IconBrandInstagram,
   IconBrandSpotifyFilled,
@@ -10,6 +9,7 @@ import {
   IconX,
 } from "@site/components/universal/Icons";
 import { CMSLink } from "./CMSLink";
+import type { SC } from "@site/lib/types";
 
 function celciusToFarenheit(celcius: number) {
   return (celcius * 9) / 5 + 32;
@@ -58,7 +58,7 @@ async function getWeather() {
   return weather;
 }
 
-export const HomeHeader: FC = async () => {
+export const HomeHeader: SC = async () => {
   const currentDate = new Date().toLocaleDateString("en-US", {
     weekday: "long",
     year: "numeric",

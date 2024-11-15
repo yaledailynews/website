@@ -3,19 +3,18 @@ import { TextBlock } from "./Text/TextBlock";
 import { ArticlesBlock } from "./Articles/ArticlesBlock";
 import { PodcastsBlock } from "./Podcasts/PodcastsBlock";
 import { NewsletterBlock } from "./Newsletter/NewsletterBlock";
+import type { SC } from "@site/lib/types";
 
 export type LayoutBlocks = NonNullable<Layout["blocks"]>;
 export type LayoutBlockType = LayoutBlocks[0];
 
-export function LayoutBlock({
-  block,
-  layout,
-  posts,
-}: {
+type Props = {
   block: LayoutBlockType;
   layout: Layout;
   posts?: Post[];
-}) {
+};
+
+export const LayoutBlock: SC<Props> = ({ block, layout, posts }) => {
   if (block.blockType === "layoutsText") {
     return <TextBlock block={block} layout={layout} />;
   }
@@ -29,4 +28,4 @@ export function LayoutBlock({
     return <NewsletterBlock block={block} layout={layout} />;
   }
   return <div>Unknown block type</div>;
-}
+};

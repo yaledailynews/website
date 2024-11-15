@@ -2,6 +2,12 @@ import type {
   PodcastsBlock as PodcastsBlockProps,
   Layout,
 } from "@cms/payload-types";
+import type { SC } from "@site/lib/types";
+
+type Props = {
+  block: PodcastsBlockProps;
+  layout: Layout;
+};
 
 // function PodcastEpisodeItem({
 // 	title,
@@ -43,9 +49,6 @@ import type {
 // 	);
 // }
 
-export async function PodcastsBlock({}: {
-  block: PodcastsBlockProps;
-  layout: Layout;
-}) {
+export const PodcastsBlock: SC<Props> = ({}) => {
   return <div>Podcasts block will go here</div>;
-}
+};

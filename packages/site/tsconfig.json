@@ -4,11 +4,15 @@
     "jsxImportSource": "hono/jsx",
     "baseUrl": ".",
     "paths": {
+      // If you modify this, make sure to update teh aliases vite.config.ts
       "@site/*": [
         "./src/*"
       ],
       "@cms/*": [
         "../../packages/cms/src/*"
+      ],
+      "@builder/*": [
+        "./builder/*"
       ]
     },
     "lib": [
@@ -16,7 +20,7 @@
       "DOM"
     ],
     "types": [
-      "bun"
+      "bun-types"
     ],
     "target": "ESNext",
     "module": "ESNext",

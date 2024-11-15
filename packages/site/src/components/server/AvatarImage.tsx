@@ -1,7 +1,7 @@
-import { env } from "@cms/env";
 import type { Media } from "@cms/payload-types";
 import { getDocById } from "@site/lib/cache";
-import type { CSSProperties, FC } from "hono/jsx";
+import type { SC } from "@site/lib/types";
+import type { CSSProperties } from "hono/jsx";
 
 type Props = {
   media?: Media | string | number | null;
@@ -10,7 +10,7 @@ type Props = {
   style?: CSSProperties;
 };
 
-export const AvatarImage: FC<Props> = async ({ media, size, ...props }) => {
+export const AvatarImage: SC<Props> = async ({ media, size, ...props }) => {
   if (!media) return <></>;
   if (typeof media === "string") return <></>;
 
@@ -22,7 +22,7 @@ export const AvatarImage: FC<Props> = async ({ media, size, ...props }) => {
   if (!avatar || !avatar.filename || !avatar.width || !avatar.height) {
     return <div class="text-red-500">Missing avatar</div>;
   }
-  const url = `${env.NEXT_PUBLIC_S3_URL}/${avatar.filename}`;
+  const url = `${process.env["NEXT_PUBLIC_S3_URL"]}/${avatar.filename}`;
 
   return (
     <img

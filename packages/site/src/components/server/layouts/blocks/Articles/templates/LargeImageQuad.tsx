@@ -1,8 +1,9 @@
-import { MediaFigure } from "@site/components/MediaFigure";
+import { MediaFigure } from "@site/components/server/MediaFigure";
 import type { TemplateProps } from ".";
-import { PostItem } from "@site/components/PostItem";
+import { PostItem } from "@site/components/server/PostItem";
+import type { SC } from "@site/lib/types";
 
-export function LargeImageQuad({ posts }: TemplateProps) {
+export const LargeImageQuad: SC<TemplateProps> = ({ posts }) => {
   const [mainPost, secondaryPost, ...otherPosts] = posts;
 
   return (
@@ -37,4 +38,4 @@ export function LargeImageQuad({ posts }: TemplateProps) {
       </div>
     </>
   );
-}
+};

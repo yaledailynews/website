@@ -1,8 +1,9 @@
-import { MediaFigure } from "@site/components/MediaFigure";
+import { MediaFigure } from "@site/components/server/MediaFigure";
 import type { TemplateProps } from ".";
-import { ResolvedAuthors } from "@site/components/ResolvedAuthors";
+import { ResolvedAuthors } from "@site/components/server/ResolvedAuthors";
+import type { SC } from "@site/lib/types";
 
-export function SidebarTrio({ posts }: TemplateProps) {
+export const SidebarTrio: SC<TemplateProps> = ({ posts }) => {
   const [mainPost, secondaryPost, tertiaryPost] = posts;
 
   return (
@@ -20,9 +21,7 @@ export function SidebarTrio({ posts }: TemplateProps) {
         >
           <div class="flex flex-col gap-3">
             <div class="flex flex-col gap-1.5">
-              <h1 class="text-xl md:text-lg font-headline">
-                {mainPost.title}
-              </h1>
+              <h1 class="text-xl md:text-lg font-headline">{mainPost.title}</h1>
               <p class="text-gray-600 md:text-sm font-serif">
                 {mainPost.subhead}
               </p>
@@ -83,4 +82,4 @@ export function SidebarTrio({ posts }: TemplateProps) {
       </article>
     </>
   );
-}
+};

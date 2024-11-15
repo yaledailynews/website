@@ -17,10 +17,10 @@ import {
   IS_UNDERLINE,
 } from "./nodeFormat";
 import { CMSLink } from "../CMSLink";
-import type { FC } from "hono/jsx";
 import { BannerBlock } from "./blocks/BannerBlock";
 import { MediaBlock } from "./blocks/MediaBlock";
 import { EmbedBlock } from "./blocks/EmbedBlock";
+import type { SC } from "@site/lib/types";
 
 export type NodeTypes =
   | DefaultNodeTypes
@@ -30,9 +30,9 @@ type Props = {
   nodes: NodeTypes[];
 };
 
-const SerializeChildren: FC<{ node?: NodeTypes | null }> = ({ node }) => {
+const SerializeChildren: SC<{ node?: NodeTypes | null }> = ({ node }) => {
   if (!node?.children) {
-    return null;
+    return <></>;
   } else {
     // NOTE: Hacky fix for
     // https://github.com/facebook/lexical/blob/d10c4e6e55261b2fdd7d1845aed46151d0f06a8c/packages/lexical-list/src/LexicalListItemNode.ts#L133
@@ -50,12 +50,12 @@ const SerializeChildren: FC<{ node?: NodeTypes | null }> = ({ node }) => {
   }
 };
 
-export function SerializeLexical({ nodes }: Props) {
+export const SerializeLexical: SC<Props> = ({ nodes }) => {
   return (
     <>
       {nodes?.map((node) => {
         if (node == null) {
-          return null;
+          return <></>;
         }
 
         if (node.type === "text") {
@@ -184,10 +184,10 @@ export function SerializeLexical({ nodes }: Props) {
             }
 
             default:
-              return null;
+              return <></>;
           }
         }
       })}
     </>
   );
-}
+};

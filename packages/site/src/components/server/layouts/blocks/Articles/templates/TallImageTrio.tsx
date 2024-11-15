@@ -1,8 +1,9 @@
-import { MediaFigure } from "@site/components/MediaFigure";
+import { MediaFigure } from "@site/components/server/MediaFigure";
 import type { TemplateProps } from ".";
-import { PostItem } from "@site/components/PostItem";
+import { PostItem } from "@site/components/server/PostItem";
+import type { SC } from "@site/lib/types";
 
-export function TallImageTrio({ posts }: TemplateProps) {
+export const TallImageTrio: SC<TemplateProps> = ({ posts }) => {
   const [mainPost, ...otherPosts] = posts;
 
   return (
@@ -24,4 +25,4 @@ export function TallImageTrio({ posts }: TemplateProps) {
       />
     </div>
   );
-}
+};

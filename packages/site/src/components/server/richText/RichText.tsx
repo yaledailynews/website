@@ -1,6 +1,6 @@
-import type { FC } from "hono/jsx";
 import { cn } from "@site/lib/utils";
 import { SerializeLexical } from "./SerializeLexical";
+import type { SC } from "@site/lib/types";
 
 type Props = {
   class?: string;
@@ -10,7 +10,7 @@ type Props = {
   black?: boolean;
 };
 
-const RichText: FC<Props> = ({
+const RichText: SC<Props> = ({
   class: className,
   content,
   font,
@@ -18,7 +18,7 @@ const RichText: FC<Props> = ({
   black,
 }) => {
   if (!content) {
-    return null;
+    return <></>;
   }
   return (
     <div

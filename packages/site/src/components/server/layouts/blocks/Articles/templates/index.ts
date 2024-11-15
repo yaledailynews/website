@@ -11,7 +11,7 @@ import { SmallImageTrio } from "./SmallImageTrio";
 import { TallImageTrio } from "./TallImageTrio";
 import { TwoColumnQuad } from "./TwoColumnQuad";
 import { WKND } from "./WKND";
-import type { FC } from "hono/jsx";
+import type { SC } from "@site/lib/types";
 
 type TemplateName = ArticlesBlock["template"];
 
@@ -20,7 +20,7 @@ export type TemplateProps = {
   posts: Post[];
 };
 
-export const templates: Record<TemplateName, FC<TemplateProps>> = {
+export const templates: Record<TemplateName, SC<TemplateProps>> = {
   FeaturedPair,
   FeaturedSingle,
   LargeImageQuad,

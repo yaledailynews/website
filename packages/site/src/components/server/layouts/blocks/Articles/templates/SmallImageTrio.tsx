@@ -1,8 +1,9 @@
-import { PostItem } from "@site/components/PostItem";
+import { PostItem } from "@site/components/server/PostItem";
 import type { TemplateProps } from ".";
-import { MediaFigure } from "@site/components/MediaFigure";
+import { MediaFigure } from "@site/components/server/MediaFigure";
+import type { SC } from "@site/lib/types";
 
-export function SmallImageTrio({ posts }: TemplateProps) {
+export const SmallImageTrio: SC<TemplateProps> = ({ posts }) => {
   const [mainPost, ...otherPpsts] = posts;
 
   return (
@@ -23,4 +24,4 @@ export function SmallImageTrio({ posts }: TemplateProps) {
       />
     </div>
   );
-}
+};

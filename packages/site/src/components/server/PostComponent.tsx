@@ -1,4 +1,3 @@
-import type { FC } from "hono/jsx";
 import type { Author, Post } from "@cms/payload-types";
 import { IconMail } from "@site/components/universal/Icons";
 import RichText from "./richText/RichText";
@@ -11,8 +10,9 @@ import { MediaFigure } from "./MediaFigure";
 import { CMSLink } from "./CMSLink";
 import { AvatarImage } from "./AvatarImage";
 import { CopyLinkIsland } from "@site/components/client/CopyLink";
+import type { SC } from "@site/lib/types";
 
-const AuthorCard: FC<{ author: Author }> = async ({ author }) => {
+const AuthorCard: SC<{ author: Author }> = async ({ author }) => {
   return (
     <div class="flex flex-col gap-2">
       <div class="flex items-center gap-2">
@@ -31,13 +31,13 @@ const AuthorCard: FC<{ author: Author }> = async ({ author }) => {
   );
 };
 
-export async function PostComponent({
-  post,
-  draft,
-}: {
+type Props = {
   post: Post;
   draft?: boolean;
-}) {
+};
+
+export const PostComponent: SC<Props> = async ({ post, draft }) => {
+
   if (!post.authors && !draft) return <div>Post has no authors</div>;
   if (!post.publishedAt && !draft) return <div>Post is unpublished</div>;
 
@@ -215,4 +215,4 @@ export async function PostComponent({
       </article>
     </div>
   );
-}
+};

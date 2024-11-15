@@ -1,10 +1,11 @@
 import type { TemplateProps } from ".";
-import { MediaFigure } from "@site/components/MediaFigure";
-import { ResolvedAuthors } from "@site/components/ResolvedAuthors";
+import { MediaFigure } from "@site/components/server/MediaFigure";
+import { ResolvedAuthors } from "@site/components/server/ResolvedAuthors";
+import type { SC } from "@site/lib/types";
 
 const seeMoreLink = "/categories/magazine";
 
-export function Magazine({ posts }: TemplateProps) {
+export const Magazine: SC<TemplateProps> = ({ posts }) => {
   return (
     <>
       <div class="grid grid-cols-[1fr_1px_1fr] md:grid-cols-[1fr_1px_1fr_1px_1fr_1px_1fr] gap-x-4 gap-y-6">
@@ -58,4 +59,4 @@ export function Magazine({ posts }: TemplateProps) {
       </p>
     </>
   );
-}
+};

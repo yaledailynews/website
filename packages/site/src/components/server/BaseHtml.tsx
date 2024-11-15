@@ -1,9 +1,10 @@
-import type { FC, PropsWithChildren } from "hono/jsx";
+import type { PropsWithChildren } from "hono/jsx";
 import { Footer } from "./Footer";
+import type { SC } from "@site/lib/types";
 
 const deploymentId = process.env["RAILWAY_DEPLOYMENT_ID"];
 
-export const BaseHtml: FC<PropsWithChildren<{ title?: string }>> = ({
+export const BaseHtml: SC<PropsWithChildren<{ title?: string }>> = ({
   children,
   title,
 }) => {

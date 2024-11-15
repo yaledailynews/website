@@ -1,6 +1,7 @@
 import type { Author, Category, Page, Post } from "@cms/payload-types";
 import { getDocById } from "@site/lib/cache";
-import type { FC, PropsWithChildren } from "hono/jsx";
+import type { SC } from "@site/lib/types";
+import type { PropsWithChildren } from "hono/jsx";
 
 type CMSLinkType = PropsWithChildren<{
   class?: string;
@@ -14,7 +15,7 @@ type CMSLinkType = PropsWithChildren<{
   url?: string | null;
 }>;
 
-export const CMSLink: FC<CMSLinkType> = async ({
+export const CMSLink: SC<CMSLinkType> = async ({
   type,
   children,
   class: className,

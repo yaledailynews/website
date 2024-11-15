@@ -1,7 +1,8 @@
-import { ResolvedAuthors } from "@site/components/ResolvedAuthors";
+import { ResolvedAuthors } from "@site/components/server/ResolvedAuthors";
 import type { TemplateProps } from ".";
+import type { SC } from "@site/lib/types";
 
-export function Opinion({ posts }: TemplateProps) {
+export const Opinion: SC<TemplateProps> = ({ posts }) => {
   return (
     <>
       {posts.map((post, index) => (
@@ -21,4 +22,4 @@ export function Opinion({ posts }: TemplateProps) {
       ))}
     </>
   );
-}
+};

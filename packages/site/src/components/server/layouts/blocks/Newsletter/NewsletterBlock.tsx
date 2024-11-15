@@ -2,11 +2,14 @@ import type {
   NewsletterBlock as NewsletterBlockProps,
   Layout,
 } from "@cms/payload-types";
+import type { SC } from "@site/lib/types";
 
-export function NewsletterBlock({}: {
+type Props = {
   block: NewsletterBlockProps;
   layout: Layout;
-}) {
+};
+
+export const NewsletterBlock: SC<Props> = ({}) => {
   return (
     <div class="flex flex-col gap-4">
       <p class="text-gray-500 text-sm">
@@ -24,4 +27,4 @@ export function NewsletterBlock({}: {
       </form>
     </div>
   );
-}
+};

@@ -1,8 +1,9 @@
-import { MediaFigure } from "@site/components/MediaFigure";
+import { MediaFigure } from "@site/components/server/MediaFigure";
 import type { TemplateProps } from ".";
-import { PostItem } from "@site/components/PostItem";
+import { PostItem } from "@site/components/server/PostItem";
+import type { SC } from "@site/lib/types";
 
-export async function FeaturedSingle({ posts }: TemplateProps) {
+export const FeaturedSingle: SC<TemplateProps> = ({ posts }) => {
   const [post] = posts;
 
   return (
@@ -17,4 +18,4 @@ export async function FeaturedSingle({ posts }: TemplateProps) {
       />
     </article>
   );
-}
+};

@@ -1,8 +1,9 @@
-import { ResolvedAuthors } from "@site/components/ResolvedAuthors";
+import { ResolvedAuthors } from "@site/components/server/ResolvedAuthors";
 import type { TemplateProps } from ".";
-import { MediaFigure } from "@site/components/MediaFigure";
+import { MediaFigure } from "@site/components/server/MediaFigure";
+import type { SC } from "@site/lib/types";
 
-export function SimpleList({ posts }: TemplateProps) {
+export const SimpleList: SC<TemplateProps> = ({ posts }) => {
   return (
     <>
       {posts.map((post, i) => (
@@ -35,4 +36,4 @@ export function SimpleList({ posts }: TemplateProps) {
       ))}
     </>
   );
-}
+};
