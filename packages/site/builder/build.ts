@@ -1,6 +1,10 @@
 import { clientEnv } from "./clientEnv";
 
-const deploymentId = process.env["RAILWAY_DEPLOYMENT_ID"];
+const deploymentId = process.env["RAILWAY_SNAPSHOT_ID"];
+
+if (!deploymentId) {
+  throw new Error("Missing RAILWAY_SNAPSHOT_ID");
+}
 
 console.log("Building for deployment ID:", deploymentId);
 
@@ -17,7 +21,6 @@ const client = await Bun.build({
   },
 });
 console.log(client);
-
 console.log("Running PostCSS...");
 
 await Bun.$`pwd`;
