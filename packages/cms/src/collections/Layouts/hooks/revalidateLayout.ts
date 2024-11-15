@@ -2,7 +2,7 @@ import type { CollectionAfterChangeHook } from 'payload'
 
 import { revalidatePath, revalidateTag } from 'next/cache'
 
-import type { Layout } from '@payload-types'
+import type { Layout } from '@cms/payload-types'
 
 export const revalidateLayout: CollectionAfterChangeHook<Layout> = ({
   doc,

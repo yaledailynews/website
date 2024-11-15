@@ -2,7 +2,7 @@ import type { CollectionAfterChangeHook } from 'payload'
 
 import { revalidatePath, revalidateTag } from 'next/cache'
 
-import type { Author } from '@payload-types'
+import type { Author } from '@cms/payload-types'
 
 export const revalidateAuthor: CollectionAfterChangeHook<Author> = ({
   doc,

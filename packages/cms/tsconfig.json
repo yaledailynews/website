@@ -27,18 +27,15 @@
       }
     ],
     "paths": {
-      "@payload-config": [
-        "./src/payload.config.ts"
-      ],
-      "@payload-types": [
-        "./src/payload-types.ts"
-      ],
       "react": [
         "./node_modules/@types/react"
       ],
-      "@/*": [
+      "@cms/*": [
         "./src/*"
       ],
+      "@site/*": [
+        "../../packages/site/src/*"
+      ]
     }
   },
   "include": [

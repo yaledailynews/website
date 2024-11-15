@@ -1,5 +1,5 @@
 // import type { CollectionBeforeChangeHook } from 'payload'
-// import { Media } from '@payload-types'
+// import { Media } from '@cms/payload-types'
 // import { encode } from 'blurhash'
 // import sharp from 'sharp'
 

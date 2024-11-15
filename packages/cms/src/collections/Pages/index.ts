@@ -1,10 +1,10 @@
 import type { CollectionConfig } from 'payload'
 
-import { authenticated } from '@/access/authenticated'
-import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
-import { slugField } from '@/fields/slug'
-import { populatePublishedAt } from '@/hooks/populatePublishedAt'
-import { generatePreviewPath } from '@/utilities/generatePreviewPath'
+import { authenticated } from '@cms/access/authenticated'
+import { authenticatedOrPublished } from '@cms/access/authenticatedOrPublished'
+import { slugField } from '@cms/fields/slug'
+import { populatePublishedAt } from '@cms/hooks/populatePublishedAt'
+import { generatePreviewPath } from '@cms/utilities/generatePreviewPath'
 import { revalidatePage } from './hooks/revalidatePage'
 
 import {
@@ -19,11 +19,10 @@ import {
   UnorderedListFeature,
 } from '@payloadcms/richtext-lexical'
 
-import { Banner } from '@/blocks/Banner'
-import { Code } from '@/blocks/Code'
-import { MediaBlock } from '@/blocks/MediaBlock'
-import { Embed } from '@/blocks/Embed'
-import { env } from '@/env'
+import { Banner } from '@cms/blocks/Banner'
+import { MediaBlock } from '@cms/blocks/Media'
+import { Embed } from '@cms/blocks/Embed'
+// import { env } from '@cms/env'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -35,24 +34,24 @@ export const Pages: CollectionConfig = {
   },
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
-    livePreview: {
-      url: ({ data }) => {
-        const path = generatePreviewPath({
-          id: data.id as number,
-          collection: 'pages',
-        })
+    // livePreview: {
+    //   url: ({ data }) => {
+    //     const path = generatePreviewPath({
+    //       id: data.id as number,
+    //       collection: 'pages',
+    //     })
 
-        return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
-      },
-    },
-    preview: (data) => {
-      const path = generatePreviewPath({
-        id: data.id as number,
-        collection: 'pages',
-      })
+    //     return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
+    //   },
+    // },
+    // preview: (data) => {
+    //   const path = generatePreviewPath({
+    //     id: data.id as number,
+    //     collection: 'pages',
+    //   })
 
-      return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
-    },
+    //   return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
+    // },
     useAsTitle: 'title',
   },
   fields: [
@@ -69,7 +68,7 @@ export const Pages: CollectionConfig = {
           return [
             ...rootFeatures,
             HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-            BlocksFeature({ blocks: [Banner, Code, MediaBlock, Embed] }),
+            BlocksFeature({ blocks: [Banner, MediaBlock, Embed] }),
             FixedToolbarFeature(),
             InlineToolbarFeature(),
             HorizontalRuleFeature(),

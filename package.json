@@ -3,5 +3,10 @@
   "private": true,
   "workspaces": [
     "packages/*"
+  ],
+  "trustedDependencies": [
+    "es5-ext",
+    "esbuild",
+    "sharp"
   ]
 }

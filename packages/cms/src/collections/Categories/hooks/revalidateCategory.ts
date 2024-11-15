@@ -2,7 +2,7 @@ import type { CollectionAfterChangeHook } from 'payload'
 
 import { revalidatePath, revalidateTag } from 'next/cache'
 
-import type { Category } from '@payload-types'
+import type { Category } from '@cms/payload-types'
 
 export const revalidateCategory: CollectionAfterChangeHook<Category> = ({
   doc,

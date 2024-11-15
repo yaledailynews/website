@@ -29,11 +29,26 @@ import { Footer } from './globals/Footer'
 import { Header } from './globals/Header'
 import { Settings } from './globals/Settings'
 
-import { env } from './env'
 import { Tags } from './collections/Tags'
+
+import { z } from 'zod'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+const env = z
+  .object({
+    DATABASE_URL: z.string().url(),
+    SERVER_URL: z.string().url(),
+    PAYLOAD_SECRET: z.string().min(1),
+    RESEND_API_KEY: z.string().min(1),
+    S3_ACCESS_KEY_ID: z.string().min(1),
+    S3_BUCKET: z.string().min(1),
+    S3_ENDPOINT: z.string().url(),
+    S3_REGION: z.string().min(1),
+    S3_SECRET_ACCESS_KEY: z.string().min(1),
+  })
+  .parse(process.env)
 
 export default buildConfig({
   admin: {
@@ -54,9 +69,9 @@ export default buildConfig({
     },
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
-      beforeLogin: ['@/components/BeforeLogin'],
+      beforeLogin: ['@cms/components/BeforeLogin'],
       // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
-      beforeDashboard: ['@/components/BeforeDashboard'],
+      beforeDashboard: ['@cms/components/BeforeDashboard'],
     },
     importMap: {
       baseDir: path.resolve(dirname),
@@ -127,8 +142,8 @@ export default buildConfig({
     push: false,
   }),
   collections: [Pages, Posts, Media, Categories, Users, Authors, Layouts, Tags],
-  cors: [env.NEXT_PUBLIC_SERVER_URL].filter(Boolean),
-  csrf: [env.NEXT_PUBLIC_SERVER_URL].filter(Boolean),
+  cors: [env.SERVER_URL],
+  csrf: [env.SERVER_URL],
   globals: [Settings, Header, Footer],
   plugins: [
     nestedDocsPlugin({
@@ -151,7 +166,6 @@ export default buildConfig({
       },
       bucket: env.S3_BUCKET,
     }),
-    
   ],
   secret: env.PAYLOAD_SECRET,
   sharp,

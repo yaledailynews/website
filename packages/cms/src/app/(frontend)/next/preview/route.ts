@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 import { draftMode } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
-import configPromise from '@payload-config'
+import configPromise from '@cms/payload.config'
 import { CollectionSlug } from 'payload'
 
 const payloadToken = 'payload-token'

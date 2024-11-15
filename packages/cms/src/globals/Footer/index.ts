@@ -1,6 +1,6 @@
 import type { GlobalConfig } from 'payload'
 
-import { link } from '@/fields/link'
+import { link } from '@cms/fields/link'
 import { revalidateFooter } from './hooks/revalidateFooter'
 import { FixedToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 

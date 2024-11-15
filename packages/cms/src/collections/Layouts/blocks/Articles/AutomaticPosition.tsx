@@ -1,13 +1,6 @@
 'use client'
 
-import {
-  useFieldProps,
-  useField,
-  useForm,
-  useFormFields,
-  TextInput,
-  FieldLabel,
-} from '@payloadcms/ui'
+import { useField, useFormFields, TextInput, FieldLabel } from '@payloadcms/ui'
 import { FormState, SelectFieldClientProps } from 'payload'
 import { useEffect } from 'react'
 
@@ -30,9 +23,9 @@ function getPosition(state: FormState, path: string) {
   return 'main'
 }
 
-export const AutomaticPositionComponent: React.FC<SelectFieldClientProps> = ({ field }) => {
+export const AutomaticPositionComponent: React.FC<SelectFieldClientProps> = ({ field, path }) => {
+  if (!path) return null
   const { label, options } = field
-  const { path } = useFieldProps()
   const { value, setValue } = useField<string>({ path })
 
   const targetFieldValue = useFormFields(([fields]) => {
@@ -49,7 +42,7 @@ export const AutomaticPositionComponent: React.FC<SelectFieldClientProps> = ({ f
 
   return (
     <div className="field-type">
-      <FieldLabel field={field} htmlFor={`field-${path}`} label={label} />
+      <FieldLabel htmlFor={`field-${path}`} label={label} />
       <TextInput
         // @ts-expect-error
         value={options.find((option) => option.value === value)?.label}

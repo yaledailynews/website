@@ -1,4 +1,4 @@
-import { Config } from '@payload-types'
+import { Config } from '@cms/payload-types'
 
 export type CollectionItem = Config['collections'][keyof Config['collections']];
 
