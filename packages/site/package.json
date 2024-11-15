@@ -10,7 +10,6 @@
     "@hono/vite-build": "^1.1.0",
     "@meilisearch/instant-meilisearch": "^0.22.0",
     "@rollup/plugin-node-resolve": "^15.3.0",
-    "cloudflare": "^3.5.0",
     "date-fns": "^4.1.0",
     "esbuild": "^0.24.0",
     "hono": "^4.6.10",
