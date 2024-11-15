@@ -16,25 +16,16 @@ const env = z
   })
   .parse(process.env);
 
-// TODO: implement a real cache
-// TODO: purge all on build
-const store = new Map<string, any>();
-export async function purgeKeys(keys: string[]) {
-  // TODO: keep track of which urls have which tags (up to 300 urls per tag, then just mark as purge all)
-  for (const key of keys) {
-    console.log(`Purging key ${key}`);
-    store.delete(key);
-  }
+export async function purgeCache() {
+  console.log("Purging Cloudflare cache");
+
   const options = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${env.CLOUDFLARE_API_KEY}`,
     },
-    body: JSON.stringify({
-      hosts: [env.SITE_HOST],
-      files: [],
-    }),
+    body: JSON.stringify({ purge_everything: true }),
   };
   const res = await fetch(
     `https://api.cloudflare.com/client/v4/zones/${env.CLOUDFLARE_ZONE_ID}/purge_cache`,
@@ -47,6 +38,18 @@ export async function purgeKeys(keys: string[]) {
   } else {
     throw new Error("Failed to purge Cloudflare cache");
   }
+}
+
+// TODO: implement a real cache (find a lib?)
+const store = new Map<string, any>();
+
+export async function purgeKeys(keys: string[]) {
+  // TODO: keep track of which urls have which tags (up to 300 urls per tag, then just mark as purge all)
+  for (const key of keys) {
+    console.log(`Purging key ${key}`);
+    store.delete(key);
+  }
+  purgeCache();
 }
 
 function cache<T>(key: string, fn: () => Promise<T>) {

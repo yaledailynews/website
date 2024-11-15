@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "bunx --bun vite",
     "build": "bun run builder/build.ts",
-    "start": "PROD=true bun run src/server.tsx"
+    "start": "bun run builder/purgeCache.ts && PROD=true bun run src/server.tsx"
   },
   "type": "module",
   "dependencies": {

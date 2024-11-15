@@ -10,7 +10,6 @@ export async function staticFileHandler(app: Hono) {
     for (const filePath of await fs.readdir(publicDir, {
       recursive: true,
     })) {
-      // TODO: on build call cloudflare to clear these routes on cache
       app.get(`/${filePath}`, (c) => {
         const file = Bun.file(`${publicDir}/${filePath}`);
         return c.body(file.stream(), 200, {
