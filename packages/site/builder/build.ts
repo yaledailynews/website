@@ -13,7 +13,7 @@ const client = await Bun.build({
   target: "browser",
   packages: "bundle",
   minify: true,
-  naming: `[dir]/${GIT_COMMIT_SHA}/[name].[ext]`,
+  naming: `[dir]/[name].[ext]`,
   experimentalCss: true,
   define: {
     "import.meta.env": JSON.stringify(clientEnv),
@@ -22,6 +22,6 @@ const client = await Bun.build({
 console.log(client);
 console.log("Running PostCSS...");
 
-await Bun.$`bun run postcss ./static/${GIT_COMMIT_SHA}/client.css -o ./static/${GIT_COMMIT_SHA}/client.css`;
+await Bun.$`bun run postcss ./static/client.css -o ./static/client.css`;
 
 console.log("Done!");
