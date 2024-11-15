@@ -1,4 +1,6 @@
 import { clientEnv } from "./clientEnv";
+import esbuild from "esbuild";
+import postcss from "esbuild-postcss";
 
 const GIT_COMMIT_SHA = process.env["RAILWAY_GIT_COMMIT_SHA"];
 if (!GIT_COMMIT_SHA) {
@@ -7,21 +9,18 @@ if (!GIT_COMMIT_SHA) {
 
 console.log("Building for deployment ID:", GIT_COMMIT_SHA);
 
-const client = await Bun.build({
-  entrypoints: ["./src/client.tsx"],
-  outdir: "./static",
-  target: "browser",
-  packages: "bundle",
-  minify: false, // TODO: use esbuild or something
-  naming: `[dir]/${GIT_COMMIT_SHA}/[name].[ext]`,
-  experimentalCss: true,
+await esbuild.build({
+  entryPoints: ["./src/client.tsx"],
+  outdir: `./static/${GIT_COMMIT_SHA}`,
+  target: ["esnext"],
+  bundle: true,
+  minify: true,
+  loader: {
+    ".css": "css",
+  },
   define: {
     "import.meta.env": JSON.stringify(clientEnv),
   },
+  plugins: [postcss()],
+  logLevel: "info",
 });
-console.log(client);
-console.log("Running PostCSS...");
-
-await Bun.$`bun run postcss ./static/${GIT_COMMIT_SHA}/client.css -o ./static/${GIT_COMMIT_SHA}/client.css`;
-
-console.log("Done!");
