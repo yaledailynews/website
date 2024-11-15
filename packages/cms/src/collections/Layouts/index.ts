@@ -7,7 +7,6 @@ import { Text } from '@cms/collections/Layouts/blocks/Text'
 import { Articles } from '@cms/collections/Layouts/blocks/Articles'
 import { Podcasts } from '@cms/collections/Layouts/blocks/Podcasts'
 import { Newsletter } from '@cms/collections/Layouts/blocks/Newsletter'
-import { env } from '@cms/env'
 import { revalidateLayout } from './hooks/revalidateLayout'
 
 export const Layouts: CollectionConfig = {
@@ -20,24 +19,24 @@ export const Layouts: CollectionConfig = {
   },
   admin: {
     defaultColumns: ['title', 'slug', 'publishedAt'],
-    livePreview: {
-      url: ({ data }) => {
-        const path = generatePreviewPath({
-          id: data.id as number,
-          collection: 'layouts',
-        })
+    // livePreview: {
+    //   url: ({ data }) => {
+    //     const path = generatePreviewPath({
+    //       id: data.id as number,
+    //       collection: 'layouts',
+    //     })
 
-        return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
-      },
-    },
-    preview: (data) => {
-      const path = generatePreviewPath({
-        id: data.id as number,
-        collection: 'layouts',
-      })
+    //     return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
+    //   },
+    // },
+    // preview: (data) => {
+    //   const path = generatePreviewPath({
+    //     id: data.id as number,
+    //     collection: 'layouts',
+    //   })
 
-      return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
-    },
+    //   return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
+    // },
     useAsTitle: 'title',
   },
   fields: [

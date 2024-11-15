@@ -2,7 +2,11 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import type { User } from '@cms/payload-types'
-import { env } from '@cms/env'
+
+const SERVER_URL = process.env.SERVER_URL
+if (!SERVER_URL) {
+  throw new Error('Missing SERVER_URL')
+}
 
 export const getMeUser = async (args?: {
   nullUserRedirect?: string
@@ -15,7 +19,7 @@ export const getMeUser = async (args?: {
   const cookieStore = await cookies()
   const token = cookieStore.get('payload-token')?.value
 
-  const meUserReq = await fetch(`${env.NEXT_PUBLIC_SERVER_URL}/api/users/me`, {
+  const meUserReq = await fetch(`${SERVER_URL}/api/users/me`, {
     headers: {
       Authorization: `JWT ${token}`,
     },

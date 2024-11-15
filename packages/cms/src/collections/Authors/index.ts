@@ -1,7 +1,7 @@
 import { anyone } from '@cms/access/anyone'
 import { authenticated } from '@cms/access/authenticated'
 import { Banner } from '@cms/blocks/Banner'
-import { MediaBlock } from '@cms/blocks/MediaBlock'
+import { MediaBlock } from '@cms/blocks/Media'
 import { slugField } from '@cms/fields/slug'
 import {
   BlocksFeature,

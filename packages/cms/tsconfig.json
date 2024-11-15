@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "rootDir": "src",
     "esModuleInterop": true,
     "target": "ES2022",
     "lib": [

@@ -20,9 +20,9 @@ import {
 } from '@payloadcms/richtext-lexical'
 
 import { Banner } from '@cms/blocks/Banner'
-import { MediaBlock } from '@cms/blocks/MediaBlock'
+import { MediaBlock } from '@cms/blocks/Media'
 import { Embed } from '@cms/blocks/Embed'
-import { env } from '@cms/env'
+// import { env } from '@cms/env'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -34,24 +34,24 @@ export const Pages: CollectionConfig = {
   },
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
-    livePreview: {
-      url: ({ data }) => {
-        const path = generatePreviewPath({
-          id: data.id as number,
-          collection: 'pages',
-        })
+    // livePreview: {
+    //   url: ({ data }) => {
+    //     const path = generatePreviewPath({
+    //       id: data.id as number,
+    //       collection: 'pages',
+    //     })
 
-        return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
-      },
-    },
-    preview: (data) => {
-      const path = generatePreviewPath({
-        id: data.id as number,
-        collection: 'pages',
-      })
+    //     return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
+    //   },
+    // },
+    // preview: (data) => {
+    //   const path = generatePreviewPath({
+    //     id: data.id as number,
+    //     collection: 'pages',
+    //   })
 
-      return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
-    },
+    //   return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
+    // },
     useAsTitle: 'title',
   },
   fields: [

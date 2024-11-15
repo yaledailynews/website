@@ -15,14 +15,13 @@ import {
 import { authenticated } from '@cms/access/authenticated'
 import { authenticatedOrPublished } from '@cms/access/authenticatedOrPublished'
 import { Banner } from '@cms/blocks/Banner'
-import { MediaBlock } from '@cms/blocks/MediaBlock'
+import { MediaBlock } from '@cms/blocks/Media'
 import { generatePreviewPath } from '@cms/utilities/generatePreviewPath'
 import { revalidatePost } from './hooks/revalidatePost'
 
 import { slugField } from '@cms/fields/slug'
 import { addToMeili } from '@cms/hooks/addToMeili'
 import { Embed } from '@cms/blocks/Embed'
-import { env } from '@cms/env'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -34,22 +33,22 @@ export const Posts: CollectionConfig = {
   },
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
-    livePreview: {
-      url: ({ data }) => {
-        const path = generatePreviewPath({
-          id: data.id as number,
-          collection: 'posts',
-        })
-        return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
-      },
-    },
-    preview: (data) => {
-      const path = generatePreviewPath({
-        id: data.id as number,
-        collection: 'posts',
-      })
-      return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
-    },
+    // livePreview: {
+    //   url: ({ data }) => {
+    //     const path = generatePreviewPath({
+    //       id: data.id as number,
+    //       collection: 'posts',
+    //     })
+    //     return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
+    //   },
+    // },
+    // preview: (data) => {
+    //   const path = generatePreviewPath({
+    //     id: data.id as number,
+    //     collection: 'posts',
+    //   })
+    //   return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
+    // },
     useAsTitle: 'title',
   },
   fields: [

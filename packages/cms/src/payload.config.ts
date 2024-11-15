@@ -36,19 +36,19 @@ import { z } from 'zod'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const envSchema = z.object({
-  DATABASE_URL: z.string().url(),
-  NEXT_PUBLIC_SERVER_URL: z.string().url(),
-  PAYLOAD_SECRET: z.string().min(1),
-  RESEND_API_KEY: z.string().min(1),
-  S3_ACCESS_KEY_ID: z.string().min(1),
-  S3_BUCKET: z.string().min(1),
-  S3_ENDPOINT: z.string().url(),
-  S3_REGION: z.string().min(1),
-  S3_SECRET_ACCESS_KEY: z.string().min(1),
-})
-
-const env = envSchema.parse(process.env)
+const env = z
+  .object({
+    DATABASE_URL: z.string().url(),
+    SERVER_URL: z.string().url(),
+    PAYLOAD_SECRET: z.string().min(1),
+    RESEND_API_KEY: z.string().min(1),
+    S3_ACCESS_KEY_ID: z.string().min(1),
+    S3_BUCKET: z.string().min(1),
+    S3_ENDPOINT: z.string().url(),
+    S3_REGION: z.string().min(1),
+    S3_SECRET_ACCESS_KEY: z.string().min(1),
+  })
+  .parse(process.env)
 
 export default buildConfig({
   admin: {
@@ -142,8 +142,8 @@ export default buildConfig({
     push: false,
   }),
   collections: [Pages, Posts, Media, Categories, Users, Authors, Layouts, Tags],
-  cors: [env.NEXT_PUBLIC_SERVER_URL],
-  csrf: [env.NEXT_PUBLIC_SERVER_URL],
+  cors: [env.SERVER_URL],
+  csrf: [env.SERVER_URL],
   globals: [Settings, Header, Footer],
   plugins: [
     nestedDocsPlugin({

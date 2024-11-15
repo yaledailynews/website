@@ -7,16 +7,21 @@ import { CacheContext } from "./renderWithCache";
 
 export const payload = await getPayload({ config: configPromise });
 
-// TODO: add the Cache-Tag and Cache-Control header to the response, and create a cache invalidation endpoint
-export const store = new Map<string, any>();
+const store = new Map<string, any>();
+export function purgeKeys(keys: string[]) {
+  for (const key of keys) {
+    console.log(`Purging key ${key}`);
+    store.delete(key);
+  }
+}
 
 function cache<T>(key: string, fn: () => Promise<T>) {
   const keys = useContext(CacheContext);
   keys.add(key);
   if (store.has(key)) {
-    console.log(`Cache hit for ${key}`);
     return store.get(key) as T;
   }
+  console.log(`Cache miss for key ${key}`);
   const result = fn();
   result.then((result) => store.set(key, result));
   return result;
