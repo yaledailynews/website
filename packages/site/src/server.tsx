@@ -14,6 +14,7 @@ import { CategoryPage } from "./components/server/CategoryPage";
 import { resolveLayout } from "./lib/resolveLayout";
 import { SmallHeader } from "./components/server/SmallHeader";
 import { MeiliSearchIsland } from "./components/client/MeiliSearch";
+import { AuthorPage } from "./components/server/AuthorPage";
 
 const app = new Hono();
 
@@ -101,6 +102,22 @@ app.get("/layouts/:slug", async (c, next) => {
           <LayoutComponent {...resolvedLayout} />
         </StandardContainer>
       </div>
+    </BaseHtml>,
+  );
+});
+
+app.get("/authors/:slug", async (c, next) => {
+  const slug = c.req.param("slug");
+  const author = await getDocBySlug("authors", slug);
+
+  if (!author) {
+    return next();
+  }
+
+  return renderWithCache(
+    c,
+    <BaseHtml title={author.name}>
+      <AuthorPage author={author} />
     </BaseHtml>,
   );
 });

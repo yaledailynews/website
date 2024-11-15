@@ -46,7 +46,13 @@ export const PostItem: SC<Props> = ({ post, size = "md", hideSummary }) => {
           )}
         </div>
         <div class="flex gap-3 items-center">
-          {post.tags && <Tag tag={post.tags[0]} />}
+          {post.tags && post.tags.length > 0 && (
+            <div class="flex gap-2">
+              {post.tags.map((tag) => (
+                <Tag tag={tag} />
+              ))}
+            </div>
+          )}
           <p class="text-gray-500 text-xs">
             By <ResolvedAuthors post={post} />
           </p>

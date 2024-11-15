@@ -8,6 +8,7 @@ type Props = {
   size: "sm" | "lg";
   class?: string;
   style?: CSSProperties;
+  width?: number;
 };
 
 export const AvatarImage: SC<Props> = async ({ media, size, ...props }) => {

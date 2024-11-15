@@ -167,8 +167,6 @@ function MeiliSearch() {
     ]);
 
     search.start();
-
-    console.log("MeiliSearch client:", searchClient);
   });
 
   return (
