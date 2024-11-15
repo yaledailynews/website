@@ -12,7 +12,7 @@ const client = await Bun.build({
   outdir: "./static",
   target: "browser",
   packages: "bundle",
-  minify: true,
+  minify: false, // TODO: use esbuild or something
   naming: `[dir]/${GIT_COMMIT_SHA}/[name].[ext]`,
   experimentalCss: true,
   define: {
