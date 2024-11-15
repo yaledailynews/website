@@ -2,11 +2,6 @@ import type { PropsWithChildren } from "hono/jsx";
 import { Footer } from "./Footer";
 import type { SC } from "@site/lib/types";
 
-const GIT_COMMIT_SHA = process.env["RAILWAY_GIT_COMMIT_SHA"];
-if (!GIT_COMMIT_SHA) {
-  throw new Error("Missing RAILWAY_GIT_COMMIT_SHA");
-}
-
 export const BaseHtml: SC<PropsWithChildren<{ title?: string }>> = ({
   children,
   title,
@@ -23,11 +18,11 @@ export const BaseHtml: SC<PropsWithChildren<{ title?: string }>> = ({
           <>
             <script
               type="module"
-              src={`/static/${GIT_COMMIT_SHA}/client.js`}
+              src={`/static/client.js`}
             ></script>
             <link
               rel="stylesheet"
-              href={`/static/${GIT_COMMIT_SHA}/client.css`}
+              href={`/static/client.css`}
             />
           </>
         ) : (
