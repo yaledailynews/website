@@ -20,6 +20,8 @@ console.log(client);
 
 console.log("Running PostCSS...");
 
+await Bun.$`pwd`;
+
 await Bun.$`bun run postcss ./static/${deploymentId}/client.css -o ./static/${deploymentId}/client.css`;
 
 console.log("Done!");
