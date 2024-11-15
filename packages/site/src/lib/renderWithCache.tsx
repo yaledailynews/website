@@ -14,7 +14,7 @@ export function renderWithCache(Component: SC<{ c: Context }>) {
           <Component c={c} />
         </CacheContext.Provider>,
       );
-      html.headers.set("Cache-Control", "public, max-age=7776000"); // three month expiry
+      html.headers.set("CDN-Cache-Control", "public, max-age=7776000"); // three month expiry
       html.headers.set("Cache-Tag", Array.from(keys).join(",")); // cache tags for purging
       return html;
     } catch (e) {

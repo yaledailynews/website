@@ -1,3 +1,5 @@
+// TODO: compression
+
 import fs from "node:fs/promises";
 import type { Hono } from "hono";
 
