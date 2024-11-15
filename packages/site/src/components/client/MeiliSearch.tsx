@@ -8,7 +8,7 @@ import { IconLoader2 } from "../universal/Icons";
 
 function MeiliSearch() {
   useEffect(() => {
-    let isEmpty = true;
+    let isEmpty = !window.location.search;
 
     const { searchClient } = instantMeiliSearch(
       clientEnv.VITE_MEILI_URL,
@@ -26,6 +26,7 @@ function MeiliSearch() {
     const search = instantsearch({
       indexName: clientEnv.VITE_MEILI_SEARCH_INDEX,
       searchClient,
+      routing: true,
     });
 
     search.on("render", () => {
