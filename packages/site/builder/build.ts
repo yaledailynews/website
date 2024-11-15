@@ -7,6 +7,8 @@ if (!GIT_COMMIT_SHA) {
   throw new Error("Missing GIT_COMMIT_SHA");
 }
 
+// TODO: purge everything cloudflare on rebuild
+
 console.log("Building for deployment ID:", GIT_COMMIT_SHA);
 
 await esbuild.build({

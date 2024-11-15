@@ -13,7 +13,7 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "payload": "payload",
-    "start": "bun run ./scripts/enableVectorSearch.ts && next start",
+    "start": "bun run ./scripts/enableVectorSearch.ts && bun run ./scripts/purgeCache.ts && next start",
     "migrate:create": "payload migrate:create",
     "migrate": "payload migrate",
     "sync": "cross-env-shell PAYLOAD_CONFIG_PATH=src/payload.config.ts \" bun run payload migrate:create && bun run migrate && bun run generate:types && bun run generate:importmap\""
