@@ -1,29 +1,19 @@
 import type { CollectionAfterChangeHook } from 'payload'
-
-import { revalidatePath, revalidateTag } from 'next/cache'
-
 import type { Category } from '@cms/payload-types'
+import { purgeKeys } from '@cms/utilities/purgeKeys'
 
-export const revalidateCategory: CollectionAfterChangeHook<Category> = ({
+export const revalidateCategory: CollectionAfterChangeHook<Category> = async ({
   doc,
   previousDoc,
   req: { payload },
 }) => {
-  const path = `/categories/${doc.slug}`
-
-  payload.logger.info(`Revalidating category at path: ${path}`)
-
-  revalidatePath(path)
-  revalidateTag(`categories_${doc.slug}`)
-  revalidateTag(`categories_id_${doc.id}`)
-
-  const prevPath = `/categories/${previousDoc.slug}`
+  const keys = [`categories_${doc.slug}`, `categories_id_${doc.id}`]
   if (previousDoc.slug !== doc.slug) {
-    payload.logger.info(`Revalidating previous category path: ${prevPath}`)
-    revalidatePath(prevPath)
-    revalidateTag(`categories_${previousDoc.slug}`)
-    revalidateTag(`categories_id_${previousDoc.id}`)
+    keys.push(`categories_${previousDoc.slug}`)
+    keys.push(`categories_id_${previousDoc.id}`)
   }
+
+  await purgeKeys(keys)
 
   return doc
 }

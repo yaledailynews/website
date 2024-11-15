@@ -49,7 +49,9 @@ export async function purgeKeys(keys: string[]) {
     console.log(`Purging key ${key}`);
     store.delete(key);
   }
-  purgeCache();
+  if (import.meta.env["PROD"]) {
+    await purgeCache();
+  }
 }
 
 function cache<T>(key: string, fn: () => Promise<T>) {

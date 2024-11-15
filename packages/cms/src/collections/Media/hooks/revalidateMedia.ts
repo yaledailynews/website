@@ -1,25 +1,26 @@
 import type { CollectionAfterChangeHook } from 'payload'
 
-import { revalidateTag } from 'next/cache'
-
 import type { Media } from '@cms/payload-types'
+import { purgeKeys } from '@cms/utilities/purgeKeys'
 
-export const revalidateMedia: CollectionAfterChangeHook<Media> = ({
+export const revalidateMedia: CollectionAfterChangeHook<Media> = async ({
   doc,
   previousDoc,
   req: { payload },
 }) => {
-  revalidateTag(`media_id_${doc.id}`)
+  const keys = [`media_id_${doc.id}`]
   if (doc.author) {
-    revalidateTag(`media_author_${doc.author}`)
+    keys.push(`media_author_${doc.author}`)
   }
 
   if (previousDoc) {
-    revalidateTag(`media_id_${previousDoc.id}`)
+    keys.push(`media_id_${previousDoc.id}`)
     if (previousDoc.author) {
-      revalidateTag(`media_author_${previousDoc.author}`)
+      keys.push(`media_author_${previousDoc.author}`)
     }
   }
+
+  await purgeKeys(keys)
 
   return doc
 }
