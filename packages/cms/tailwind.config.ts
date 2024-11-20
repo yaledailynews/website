@@ -1,15 +1,15 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
-  darkMode: ['selector', '[data-theme="dark"]'],
-  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
-  prefix: '',
+  darkMode: ["selector", '[data-theme="dark"]'],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+  prefix: "",
   theme: {
     extend: {
       fontFamily: {
@@ -55,18 +55,18 @@ const config: Config = {
       typography: ({ theme }) => ({
         DEFAULT: {
           css: {
-            '--tw-prose-body': 'var(--text)',
-            '--tw-prose-headings': 'var(--text)',
+            "--tw-prose-body": "var(--text)",
+            "--tw-prose-headings": "var(--text)",
             h1: {
-              fontSize: '4rem',
-              fontWeight: 'normal',
-              marginBottom: '0.25em',
+              fontSize: "4rem",
+              fontWeight: "normal",
+              marginBottom: "0.25em",
             },
           },
         },
       }),
     },
   },
-}
+};
 
-export default config
+export default config;

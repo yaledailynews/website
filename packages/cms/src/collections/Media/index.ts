@@ -1,12 +1,12 @@
 // TODO: invalidation
 
-import type { CollectionConfig } from 'payload'
-import { anyone } from '@cms/access/anyone'
-import { authenticated } from '@cms/access/authenticated'
-import { revalidateMedia } from './hooks/revalidateMedia'
+import type { CollectionConfig } from "payload";
+import { anyone } from "@cms/access/anyone";
+import { authenticated } from "@cms/access/authenticated";
+import { revalidateMedia } from "./hooks/revalidateMedia";
 
 export const Media: CollectionConfig = {
-  slug: 'media',
+  slug: "media",
   access: {
     create: authenticated,
     delete: authenticated,
@@ -16,54 +16,54 @@ export const Media: CollectionConfig = {
   upload: {
     imageSizes: [
       {
-        name: 'sm',
+        name: "sm",
         width: 320,
       },
       {
-        name: 'md',
+        name: "md",
         width: 640,
       },
       {
-        name: 'lg',
+        name: "lg",
         width: 1024,
       },
       {
-        name: 'xl',
+        name: "xl",
         width: 1280,
       },
       {
-        name: 'avatar-sm',
+        name: "avatar-sm",
         width: 96,
         height: 96,
       },
       {
-        name: 'avatar-lg',
+        name: "avatar-lg",
         width: 140,
         height: 140,
       },
     ],
-    adminThumbnail: 'sm',
+    adminThumbnail: "sm",
   },
   fields: [
     {
-      name: 'alt',
-      type: 'text',
+      name: "alt",
+      type: "text",
       required: true,
     },
     {
-      name: 'author',
-      type: 'relationship',
-      relationTo: 'authors',
+      name: "author",
+      type: "relationship",
+      relationTo: "authors",
       hasMany: false,
     },
     {
-      name: 'credit',
-      type: 'text',
+      name: "credit",
+      type: "text",
       admin: {
-        description: 'This will only be displayed if there is no author',
-        placeholder: 'Courtesy of ...',
+        description: "This will only be displayed if there is no author",
+        placeholder: "Courtesy of ...",
         condition(data, siblingData) {
-          return !siblingData.author
+          return !siblingData.author;
         },
       },
     },
@@ -72,4 +72,4 @@ export const Media: CollectionConfig = {
     afterChange: [revalidateMedia],
     // beforeChange: [generateBlur],
   },
-}
+};

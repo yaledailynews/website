@@ -1,12 +1,12 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from "payload";
 
-import { anyone } from '@cms/access/anyone'
-import { authenticated } from '@cms/access/authenticated'
-import { slugField } from '@cms/fields/slug'
-import { revalidateTagHook } from './hooks/revalidateTag'
+import { anyone } from "@cms/access/anyone";
+import { authenticated } from "@cms/access/authenticated";
+import { slugField } from "@cms/fields/slug";
+import { revalidateTagHook } from "./hooks/revalidateTag";
 
 export const Tags: CollectionConfig = {
-  slug: 'tags',
+  slug: "tags",
   access: {
     create: authenticated,
     delete: authenticated,
@@ -14,93 +14,93 @@ export const Tags: CollectionConfig = {
     update: authenticated,
   },
   admin: {
-    useAsTitle: 'title',
-    defaultColumns: ['title', 'color'],
+    useAsTitle: "title",
+    defaultColumns: ["title", "color"],
   },
   fields: [
     {
-      name: 'title',
-      type: 'text',
+      name: "title",
+      type: "text",
       required: true,
     },
     {
-      name: 'color',
-      type: 'select',
+      name: "color",
+      type: "select",
       options: [
         {
-          label: 'Gray',
-          value: 'gray',
+          label: "Gray",
+          value: "gray",
         },
         {
-          label: 'Red',
-          value: 'red',
+          label: "Red",
+          value: "red",
         },
         {
-          label: 'Orange',
-          value: 'orange',
+          label: "Orange",
+          value: "orange",
         },
         {
-          label: 'Amber',
-          value: 'amber',
+          label: "Amber",
+          value: "amber",
         },
         {
-          label: 'Yellow',
-          value: 'yellow',
+          label: "Yellow",
+          value: "yellow",
         },
         {
-          label: 'Lime',
-          value: 'lime',
+          label: "Lime",
+          value: "lime",
         },
         {
-          label: 'Green',
-          value: 'green',
+          label: "Green",
+          value: "green",
         },
         {
-          label: 'Emerald',
-          value: 'emerald',
+          label: "Emerald",
+          value: "emerald",
         },
         {
-          label: 'Teal',
-          value: 'teal',
+          label: "Teal",
+          value: "teal",
         },
         {
-          label: 'Cyan',
-          value: 'cyan',
+          label: "Cyan",
+          value: "cyan",
         },
         {
-          label: 'Sky',
-          value: 'sky',
+          label: "Sky",
+          value: "sky",
         },
         {
-          label: 'Blue',
-          value: 'blue',
+          label: "Blue",
+          value: "blue",
         },
         {
-          label: 'Indigo',
-          value: 'indigo',
+          label: "Indigo",
+          value: "indigo",
         },
         {
-          label: 'Violet',
-          value: 'violet',
+          label: "Violet",
+          value: "violet",
         },
         {
-          label: 'Purple',
-          value: 'purple',
+          label: "Purple",
+          value: "purple",
         },
         {
-          label: 'Fuchsia',
-          value: 'fuchsia',
+          label: "Fuchsia",
+          value: "fuchsia",
         },
         {
-          label: 'Pink',
-          value: 'pink',
+          label: "Pink",
+          value: "pink",
         },
         {
-          label: 'Rose',
-          value: 'rose',
-        }
+          label: "Rose",
+          value: "rose",
+        },
       ],
-      defaultValue: 'gray',
+      defaultValue: "gray",
       required: true,
     },
     {
@@ -124,4 +124,4 @@ export const Tags: CollectionConfig = {
   hooks: {
     afterChange: [revalidateTagHook],
   },
-}
+};

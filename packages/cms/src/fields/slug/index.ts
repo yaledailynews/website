@@ -1,25 +1,26 @@
-import type { TextField } from 'payload'
+import type { TextField } from "payload";
 
-import { formatSlugHook } from './formatSlug'
+import { formatSlugHook } from "./formatSlug";
 
-type Slug = (fieldToUse?: string) => [TextField]
+type Slug = (fieldToUse?: string) => [TextField];
 
-export const slugField: Slug = (fieldToUse = 'title') => {
+export const slugField: Slug = (fieldToUse = "title") => {
   const slugField: TextField = {
-    name: 'slug',
-    type: 'text',
+    name: "slug",
+    type: "text",
     index: true,
-    label: 'Slug',
+    label: "Slug",
     required: true,
     hooks: {
       // Kept this in for hook or API based updates
       beforeValidate: [formatSlugHook(fieldToUse)],
     },
     admin: {
-      position: 'sidebar',
-      description: 'Warning: Modifying the slug will change the URL of this page and may break links.',
+      position: "sidebar",
+      description:
+        "Warning: Modifying the slug will change the URL of this page and may break links.",
     },
-  }
+  };
 
-  return [slugField]
-}
+  return [slugField];
+};

@@ -1,6 +1,6 @@
-import { s3Storage } from '@payloadcms/storage-s3'
-import { postgresAdapter } from '@payloadcms/db-postgres'
-import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
+import { s3Storage } from "@payloadcms/storage-s3";
+import { postgresAdapter } from "@payloadcms/db-postgres";
+import { nestedDocsPlugin } from "@payloadcms/plugin-nested-docs";
 import {
   BoldFeature,
   ItalicFeature,
@@ -8,33 +8,33 @@ import {
   lexicalEditor,
   SuperscriptFeature,
   SubscriptFeature,
-} from '@payloadcms/richtext-lexical'
-import { UnderlineFeature } from '@payloadcms/richtext-lexical'
-import { resendAdapter } from '@payloadcms/email-resend'
+} from "@payloadcms/richtext-lexical";
+import { UnderlineFeature } from "@payloadcms/richtext-lexical";
+import { resendAdapter } from "@payloadcms/email-resend";
 
-import path from 'path'
-import sharp from 'sharp' // editor-import
-import { buildConfig } from 'payload'
-import { fileURLToPath } from 'url'
+import path from "path";
+import sharp from "sharp"; // editor-import
+import { buildConfig } from "payload";
+import { fileURLToPath } from "url";
 
-import { Categories } from './collections/Categories'
-import { Media } from './collections/Media'
-import { Pages } from './collections/Pages'
-import { Posts } from './collections/Posts'
-import { Users } from './collections/Users'
-import { Authors } from './collections/Authors'
-import { Layouts } from './collections/Layouts'
+import { Categories } from "./collections/Categories";
+import { Media } from "./collections/Media";
+import { Pages } from "./collections/Pages";
+import { Posts } from "./collections/Posts";
+import { Users } from "./collections/Users";
+import { Authors } from "./collections/Authors";
+import { Layouts } from "./collections/Layouts";
 
-import { Footer } from './globals/Footer'
-import { Header } from './globals/Header'
-import { Settings } from './globals/Settings'
+import { Footer } from "./globals/Footer";
+import { Header } from "./globals/Header";
+import { Settings } from "./globals/Settings";
 
-import { Tags } from './collections/Tags'
+import { Tags } from "./collections/Tags";
 
-import { z } from 'zod'
+import { z } from "zod";
 
-const filename = fileURLToPath(import.meta.url)
-const dirname = path.dirname(filename)
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 
 const env = z
   .object({
@@ -48,30 +48,31 @@ const env = z
     S3_REGION: z.string().min(1),
     S3_SECRET_ACCESS_KEY: z.string().min(1),
   })
-  .parse(process.env)
+  .parse(process.env);
 
 export default buildConfig({
   admin: {
     meta: {
-      titleSuffix: ' - YDN',
-      title: 'Yale Daily News CMS',
-      description: 'The content management system for the Yale Daily News website.',
+      titleSuffix: " - YDN",
+      title: "Yale Daily News CMS",
+      description:
+        "The content management system for the Yale Daily News website.",
       icons: [
         {
-          url: '/favicon.ico',
-          type: 'image/x-icon',
+          url: "/favicon.ico",
+          type: "image/x-icon",
         },
         {
-          url: '/icon.png',
-          type: 'image/png',
+          url: "/icon.png",
+          type: "image/png",
         },
       ],
     },
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
-      beforeLogin: ['@cms/components/BeforeLogin'],
+      beforeLogin: ["@cms/components/BeforeLogin"],
       // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
-      beforeDashboard: ['@cms/components/BeforeDashboard'],
+      beforeDashboard: ["@cms/components/BeforeDashboard"],
     },
     importMap: {
       baseDir: path.resolve(dirname),
@@ -80,20 +81,20 @@ export default buildConfig({
     livePreview: {
       breakpoints: [
         {
-          label: 'Mobile',
-          name: 'mobile',
+          label: "Mobile",
+          name: "mobile",
           width: 375,
           height: 667,
         },
         {
-          label: 'Tablet',
-          name: 'tablet',
+          label: "Tablet",
+          name: "tablet",
           width: 768,
           height: 1024,
         },
         {
-          label: 'Desktop',
-          name: 'desktop',
+          label: "Desktop",
+          name: "desktop",
           width: 1440,
           height: 900,
         },
@@ -110,35 +111,35 @@ export default buildConfig({
         SuperscriptFeature(),
         SubscriptFeature(),
         LinkFeature({
-          enabledCollections: ['pages', 'posts'],
+          enabledCollections: ["pages", "posts"],
           fields: ({ defaultFields }) => {
             const defaultFieldsWithoutUrl = defaultFields.filter((field) => {
-              if ('name' in field && field.name === 'url') return false
-              return true
-            })
+              if ("name" in field && field.name === "url") return false;
+              return true;
+            });
 
             return [
               ...defaultFieldsWithoutUrl,
               {
-                name: 'url',
-                type: 'text',
+                name: "url",
+                type: "text",
                 admin: {
-                  condition: ({ linkType }) => linkType !== 'internal',
+                  condition: ({ linkType }) => linkType !== "internal",
                 },
-                label: ({ t }) => t('fields:enterURL'),
+                label: ({ t }) => t("fields:enterURL"),
                 required: true,
               },
-            ]
+            ];
           },
         }),
-      ]
+      ];
     },
   }),
   db: postgresAdapter({
     pool: {
       connectionString: env.DATABASE_URL,
     },
-    migrationDir: path.resolve(dirname, 'migrations'),
+    migrationDir: path.resolve(dirname, "migrations"),
     push: false,
   }),
   collections: [Pages, Posts, Media, Categories, Users, Authors, Layouts, Tags],
@@ -147,7 +148,7 @@ export default buildConfig({
   globals: [Settings, Header, Footer],
   plugins: [
     nestedDocsPlugin({
-      collections: ['categories'],
+      collections: ["categories"],
     }),
     s3Storage({
       collections: {
@@ -170,11 +171,11 @@ export default buildConfig({
   secret: env.PAYLOAD_SECRET,
   sharp,
   typescript: {
-    outputFile: path.resolve(dirname, 'payload-types.ts'),
+    outputFile: path.resolve(dirname, "payload-types.ts"),
   },
   email: resendAdapter({
-    defaultFromAddress: 'noreply@admin.yaledailynews2.com',
-    defaultFromName: 'Yale Daily News Admin',
+    defaultFromAddress: "noreply@admin.yaledailynews2.com",
+    defaultFromName: "Yale Daily News Admin",
     apiKey: env.RESEND_API_KEY,
   }),
-})
+});
