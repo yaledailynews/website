@@ -1,16 +1,16 @@
-import { authenticated } from '@cms/access/authenticated'
-import { authenticatedOrPublished } from '@cms/access/authenticatedOrPublished'
-import { slugField } from '@cms/fields/slug'
-import { generatePreviewPath } from '@cms/utilities/generatePreviewPath'
-import { CollectionConfig } from 'payload'
-import { Text } from '@cms/collections/Layouts/blocks/Text'
-import { Articles } from '@cms/collections/Layouts/blocks/Articles'
-import { Podcasts } from '@cms/collections/Layouts/blocks/Podcasts'
-import { Newsletter } from '@cms/collections/Layouts/blocks/Newsletter'
-import { revalidateLayout } from './hooks/revalidateLayout'
+import { authenticated } from "@cms/access/authenticated";
+import { authenticatedOrPublished } from "@cms/access/authenticatedOrPublished";
+import { slugField } from "@cms/fields/slug";
+import { generatePreviewPath } from "@cms/utilities/generatePreviewPath";
+import { CollectionConfig } from "payload";
+import { Text } from "@cms/collections/Layouts/blocks/Text";
+import { Articles } from "@cms/collections/Layouts/blocks/Articles";
+import { Podcasts } from "@cms/collections/Layouts/blocks/Podcasts";
+import { Newsletter } from "@cms/collections/Layouts/blocks/Newsletter";
+import { revalidateLayout } from "./hooks/revalidateLayout";
 
 export const Layouts: CollectionConfig = {
-  slug: 'layouts',
+  slug: "layouts",
   access: {
     create: authenticated,
     delete: authenticated,
@@ -18,7 +18,7 @@ export const Layouts: CollectionConfig = {
     update: authenticated,
   },
   admin: {
-    defaultColumns: ['title', 'slug', 'publishedAt'],
+    defaultColumns: ["title", "slug", "publishedAt"],
     // livePreview: {
     //   url: ({ data }) => {
     //     const path = generatePreviewPath({
@@ -37,57 +37,57 @@ export const Layouts: CollectionConfig = {
 
     //   return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
     // },
-    useAsTitle: 'title',
+    useAsTitle: "title",
   },
   fields: [
     {
-      name: 'title',
-      type: 'text',
+      name: "title",
+      type: "text",
       required: true,
       admin: {
-        position: 'sidebar',
+        position: "sidebar",
       },
     },
     {
-      name: 'publishedAt',
-      type: 'date',
+      name: "publishedAt",
+      type: "date",
       admin: {
         date: {
-          pickerAppearance: 'dayAndTime',
+          pickerAppearance: "dayAndTime",
         },
-        position: 'sidebar',
+        position: "sidebar",
       },
       hooks: {
         beforeChange: [
           ({ siblingData, value }) => {
-            if (siblingData._status === 'published' && !value) {
-              return new Date()
+            if (siblingData._status === "published" && !value) {
+              return new Date();
             }
-            return value
+            return value;
           },
         ],
       },
     },
     ...slugField(),
     {
-      name: 'template',
-      type: 'select',
+      name: "template",
+      type: "select",
       options: [
-        { label: 'Standard', value: 'standard' },
-        { label: 'Category', value: 'category' },
-        { label: 'Special Issue', value: 'special-issue' },
-        { label: 'Magazine', value: 'magazine' },
-        { label: 'Podcast', value: 'podcast' },
+        { label: "Standard", value: "standard" },
+        { label: "Category", value: "category" },
+        { label: "Special Issue", value: "special-issue" },
+        { label: "Magazine", value: "magazine" },
+        { label: "Podcast", value: "podcast" },
       ],
-      defaultValue: 'standard',
+      defaultValue: "standard",
       required: true,
       admin: {
-        position: 'sidebar',
+        position: "sidebar",
       },
     },
     {
-      name: 'blocks',
-      type: 'blocks',
+      name: "blocks",
+      type: "blocks",
       blocks: [Articles, Text, Podcasts, Newsletter],
     },
   ],
@@ -103,4 +103,4 @@ export const Layouts: CollectionConfig = {
     },
     maxPerDoc: 50,
   },
-}
+};

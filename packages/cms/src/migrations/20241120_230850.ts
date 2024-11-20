@@ -1,4 +1,4 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
+import { MigrateUpArgs, MigrateDownArgs, sql } from "@payloadcms/db-postgres";
 
 export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
   await payload.db.drizzle.execute(sql`
@@ -1007,7 +1007,7 @@ export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "footer_rels_pages_id_idx" ON "footer_rels" USING btree ("pages_id");
   CREATE INDEX IF NOT EXISTS "footer_rels_authors_id_idx" ON "footer_rels" USING btree ("authors_id");
   CREATE INDEX IF NOT EXISTS "footer_rels_posts_id_idx" ON "footer_rels" USING btree ("posts_id");
-  CREATE INDEX IF NOT EXISTS "footer_rels_categories_id_idx" ON "footer_rels" USING btree ("categories_id");`)
+  CREATE INDEX IF NOT EXISTS "footer_rels_categories_id_idx" ON "footer_rels" USING btree ("categories_id");`);
 }
 
 export async function down({ payload, req }: MigrateDownArgs): Promise<void> {
@@ -1084,5 +1084,5 @@ export async function down({ payload, req }: MigrateDownArgs): Promise<void> {
   DROP TYPE "public"."enum_header_nav_items_link_type";
   DROP TYPE "public"."enum_footer_nav_items_link_type";
   DROP TYPE "public"."enum_footer_primary_button_type";
-  DROP TYPE "public"."enum_footer_secondary_button_type";`)
+  DROP TYPE "public"."enum_footer_secondary_button_type";`);
 }

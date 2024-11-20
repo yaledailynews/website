@@ -1,7 +1,7 @@
-import { ArticlesBlock } from '@cms/payload-types'
-import { Block } from 'payload'
+import { ArticlesBlock } from "@cms/payload-types";
+import { Block } from "payload";
 
-export type TemplateName = Exclude<ArticlesBlock['template'], number>
+export type TemplateName = Exclude<ArticlesBlock["template"], number>;
 
 export const templateConstraints: Record<
   TemplateName,
@@ -18,118 +18,119 @@ export const templateConstraints: Record<
   TwoColumnQuad: { min: 4, auto: 4, max: 4 },
   SimpleList: { min: 1, auto: 3, max: 16 },
   WKND: { min: 2, auto: 8, max: 16 },
-}
+};
 
 export const Articles: Block = {
-  slug: 'layoutsArticles',
+  slug: "layoutsArticles",
   labels: {
-    singular: 'Articles',
-    plural: 'Articles',
+    singular: "Articles",
+    plural: "Articles",
   },
-  interfaceName: 'ArticlesBlock',
+  interfaceName: "ArticlesBlock",
   fields: [
     {
-      name: 'template',
-      type: 'select',
+      name: "template",
+      type: "select",
       options: [
-        { label: 'Simple List', value: 'SimpleList' },
-        { label: 'Featured Single', value: 'FeaturedSingle' },
-        { label: 'Featured Pair', value: 'FeaturedPair' },
-        { label: 'Small Image Trio', value: 'SmallImageTrio' },
-        { label: 'Tall Image Trio', value: 'TallImageTrio' },
-        { label: 'Two Column Quad', value: 'TwoColumnQuad' },
-        { label: 'Large Image Quad', value: 'LargeImageQuad' },
-        { label: 'Opinion', value: 'Opinion' },
-        { label: 'WKND', value: 'WKND' },
-        { label: 'Magazine', value: 'Magazine' },
-        { label: 'SidebarTrio', value: 'SidebarTrio' },
+        { label: "Simple List", value: "SimpleList" },
+        { label: "Featured Single", value: "FeaturedSingle" },
+        { label: "Featured Pair", value: "FeaturedPair" },
+        { label: "Small Image Trio", value: "SmallImageTrio" },
+        { label: "Tall Image Trio", value: "TallImageTrio" },
+        { label: "Two Column Quad", value: "TwoColumnQuad" },
+        { label: "Large Image Quad", value: "LargeImageQuad" },
+        { label: "Opinion", value: "Opinion" },
+        { label: "WKND", value: "WKND" },
+        { label: "Magazine", value: "Magazine" },
+        { label: "SidebarTrio", value: "SidebarTrio" },
       ],
       required: true,
     },
     {
-      name: 'desktopPosition',
-      label: 'Desktop Position',
-      type: 'select',
+      name: "desktopPosition",
+      label: "Desktop Position",
+      type: "select",
       // hidden: true,
       options: [
-        { label: 'Main', value: 'main' },
-        { label: 'Sidebar', value: 'sidebar' },
-        { label: 'Full Width at Top', value: 'fullTop' },
-        { label: 'Full Width at Bottom', value: 'fullBottom' },
+        { label: "Main", value: "main" },
+        { label: "Sidebar", value: "sidebar" },
+        { label: "Full Width at Top", value: "fullTop" },
+        { label: "Full Width at Bottom", value: "fullBottom" },
       ],
-      defaultValue: 'main',
+      defaultValue: "main",
       admin: {
         readOnly: true,
         components: {
           Field: {
-            path: '@cms/collections/Layouts/blocks/Articles/AutomaticPosition.tsx#AutomaticPositionComponent',
+            path: "@cms/collections/Layouts/blocks/Articles/AutomaticPosition.tsx#AutomaticPositionComponent",
           },
         },
       },
     },
     {
-      name: 'source',
-      type: 'select',
+      name: "source",
+      type: "select",
       options: [
-        { label: 'Manual', value: 'manual' },
-        { label: 'Latest from category', value: 'latestFromCategory' },
+        { label: "Manual", value: "manual" },
+        { label: "Latest from category", value: "latestFromCategory" },
       ],
       required: true,
-      defaultValue: 'manual',
+      defaultValue: "manual",
     },
     {
-      name: 'posts',
-      type: 'relationship',
-      relationTo: 'posts',
+      name: "posts",
+      type: "relationship",
+      relationTo: "posts",
       hasMany: true,
       minRows: 1,
       maxRows: 16,
-      label: 'Articles',
+      label: "Articles",
       admin: {
         isSortable: true,
         condition(data, siblingData) {
-          return siblingData.source === 'manual'
+          return siblingData.source === "manual";
         },
       },
       validate(value, { siblingData }) {
-        const typedSiblingData = siblingData as ArticlesBlock
-        if (typedSiblingData.source === 'manual') {
-          const numArticles = typedSiblingData.posts?.length || 0
-          const { min, max, multiple } = templateConstraints[typedSiblingData.template]
+        const typedSiblingData = siblingData as ArticlesBlock;
+        if (typedSiblingData.source === "manual") {
+          const numArticles = typedSiblingData.posts?.length || 0;
+          const { min, max, multiple } =
+            templateConstraints[typedSiblingData.template];
           if (numArticles < min) {
-            return `This template requires at least ${min} articles`
+            return `This template requires at least ${min} articles`;
           }
           if (numArticles > max) {
-            return `This template supports at most ${max} articles`
+            return `This template supports at most ${max} articles`;
           }
           if (multiple && numArticles % multiple !== 0) {
-            return `This template requires a multiple of ${multiple} articles`
+            return `This template requires a multiple of ${multiple} articles`;
           }
         }
-        return true
+        return true;
       },
     },
     {
-      name: 'category',
-      type: 'relationship',
-      relationTo: 'categories',
-      label: 'Category',
+      name: "category",
+      type: "relationship",
+      relationTo: "categories",
+      label: "Category",
       admin: {
         condition(data, siblingData) {
-          return siblingData.source === 'latestFromCategory'
+          return siblingData.source === "latestFromCategory";
         },
       },
     },
     {
-      name: 'topDivider',
-      label: 'Top Divider',
-      type: 'select',
+      name: "topDivider",
+      label: "Top Divider",
+      type: "select",
       options: [
-        { label: 'Dark', value: 'dark' },
-        { label: 'Light', value: 'light' },
+        { label: "Dark", value: "dark" },
+        { label: "Light", value: "light" },
       ],
-      defaultValue: 'dark',
+      defaultValue: "dark",
       required: true,
     },
   ],
-}
+};

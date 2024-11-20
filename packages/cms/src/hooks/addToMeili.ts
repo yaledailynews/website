@@ -1,9 +1,9 @@
 // import { NodeTypes, serializeLexical } from '@cms/components/RichText/serialize'
-import { Post } from '@cms/payload-types'
-import { CollectionAfterChangeHook } from 'payload'
+import { Post } from "@cms/payload-types";
+import { CollectionAfterChangeHook } from "payload";
 // import React from 'react'
-import { MeiliSearch } from 'meilisearch'
-import { z } from 'zod'
+import { MeiliSearch } from "meilisearch";
+import { z } from "zod";
 
 // function extractTextFromElement(element: React.ReactNode): string {
 //   if (typeof element === 'string') {
@@ -22,26 +22,36 @@ const envSchema = z.object({
   MEILI_URL: z.string().url(),
   MEILI_ADMIN_KEY: z.string().min(1),
   VITE_MEILI_SEARCH_INDEX: z.string().min(1),
-})
-const env = envSchema.parse(process.env)
+});
+const env = envSchema.parse(process.env);
 
 const client = new MeiliSearch({
   host: env.MEILI_URL,
   apiKey: env.MEILI_ADMIN_KEY,
-})
+});
 
 export const addToMeili: CollectionAfterChangeHook<Post> = async ({
   doc,
   req: { payload },
   collection,
 }) => {
-  const { content, title, id, authors, categories, slug, subhead, publishedAt, cover } = doc
+  const {
+    content,
+    title,
+    id,
+    authors,
+    categories,
+    slug,
+    subhead,
+    publishedAt,
+    cover,
+  } = doc;
 
-  if (collection.slug !== 'posts') {
-    throw new Error('This hook only supports the "posts" collection')
+  if (collection.slug !== "posts") {
+    throw new Error('This hook only supports the "posts" collection');
   }
 
-  if (doc._status === 'published') {
+  if (doc._status === "published") {
     // const serializedContent = extractTextFromElement(
     //   serializeLexical({ nodes: content.root.children as NodeTypes[] }),
     // ).slice(0, 5000)
@@ -51,47 +61,49 @@ export const addToMeili: CollectionAfterChangeHook<Post> = async ({
       authors
         ? await Promise.all(
             authors.map(async (author) => {
-              if (typeof author === 'number') {
+              if (typeof author === "number") {
                 const resolvedAuthor = await payload.findByID({
-                  collection: 'authors',
+                  collection: "authors",
                   id: author,
                   draft: false,
                   depth: 0,
-                })
-                return resolvedAuthor?.name
+                });
+                return resolvedAuthor?.name;
               } else {
-                return author.name
+                return author.name;
               }
             }),
           )
         : []
-    ).filter((name) => typeof name === 'string')
+    ).filter((name) => typeof name === "string");
 
     const categoriesArray = (
       categories
         ? await Promise.all(
             categories.map(async (category) => {
-              if (typeof category === 'number') {
+              if (typeof category === "number") {
                 const resolvedCategory = await payload.findByID({
-                  collection: 'categories',
+                  collection: "categories",
                   id: category,
                   draft: false,
                   depth: 0,
-                })
-                return resolvedCategory?.title
+                });
+                return resolvedCategory?.title;
               } else {
-                return category.title
+                return category.title;
               }
             }),
           )
         : []
-    ).filter((title) => typeof title === 'string')
+    ).filter((title) => typeof title === "string");
 
     const resolvedCover =
-      typeof cover === 'number' ? await payload.findByID({ collection: 'media', id: cover }) : cover
-    const coverUrl = resolvedCover?.sizes?.lg?.filename ?? undefined
+      typeof cover === "number"
+        ? await payload.findByID({ collection: "media", id: cover })
+        : cover;
+    const coverUrl = resolvedCover?.sizes?.lg?.filename ?? undefined;
 
-    const index = client.index(env.VITE_MEILI_SEARCH_INDEX)
+    const index = client.index(env.VITE_MEILI_SEARCH_INDEX);
 
     await index.addDocuments([
       {
@@ -105,8 +117,8 @@ export const addToMeili: CollectionAfterChangeHook<Post> = async ({
         publishedAt: publishedAt ? new Date(publishedAt).getTime() : undefined,
         coverUrl,
       },
-    ])
+    ]);
   }
 
-  return doc
-}
+  return doc;
+};

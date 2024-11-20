@@ -1,14 +1,14 @@
 // TODO: invalidation
 
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from "payload";
 
-import { anyone } from '@cms/access/anyone'
-import { authenticated } from '@cms/access/authenticated'
-import { slugField } from '@cms/fields/slug'
-import { revalidateCategory } from './hooks/revalidateCategory'
+import { anyone } from "@cms/access/anyone";
+import { authenticated } from "@cms/access/authenticated";
+import { slugField } from "@cms/fields/slug";
+import { revalidateCategory } from "./hooks/revalidateCategory";
 
 export const Categories: CollectionConfig = {
-  slug: 'categories',
+  slug: "categories",
   access: {
     create: authenticated,
     delete: authenticated,
@@ -16,23 +16,23 @@ export const Categories: CollectionConfig = {
     update: authenticated,
   },
   admin: {
-    useAsTitle: 'title',
-    defaultColumns: ['title', 'parent'],
+    useAsTitle: "title",
+    defaultColumns: ["title", "parent"],
   },
   fields: [
     {
-      name: 'title',
-      type: 'text',
+      name: "title",
+      type: "text",
       required: true,
     },
     {
-      name: 'layout',
-      type: 'relationship',
-      relationTo: 'layouts',
+      name: "layout",
+      type: "relationship",
+      relationTo: "layouts",
     },
     ...slugField(),
   ],
   hooks: {
     afterChange: [revalidateCategory],
   },
-}
+};

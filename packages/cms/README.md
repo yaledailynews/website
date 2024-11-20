@@ -63,7 +63,6 @@ See the [Collections](https://payloadcms.com/docs/beta/configuration/collections
 
 - #### Authors
 
-
 ### Globals
 
 See the [Globals](https://payloadcms.com/docs/configuration/globals) docs for details on how to extend this functionality.
@@ -128,5 +127,6 @@ To run Payload in production, you need to build and start the Admin panel. To do
 Set up your own database branch from main in Neon when you branch from main and save the environment variables. Then run `bun run payload migrate:create` and `bun run payload migrate` whenever you make a change to the Payload config. Also run `bun run generate:types` and `bun run generate:importmap` to regenerate the necessary types and import map.
 
 ## Quickstart
+
 - `vercel env pull .env.development.local`
 - `bun dev`

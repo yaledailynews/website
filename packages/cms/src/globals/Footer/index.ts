@@ -1,47 +1,50 @@
-import type { GlobalConfig } from 'payload'
+import type { GlobalConfig } from "payload";
 
-import { link } from '@cms/fields/link'
-import { revalidateFooter } from './hooks/revalidateFooter'
-import { FixedToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
+import { link } from "@cms/fields/link";
+import { revalidateFooter } from "./hooks/revalidateFooter";
+import {
+  FixedToolbarFeature,
+  lexicalEditor,
+} from "@payloadcms/richtext-lexical";
 
 export const Footer: GlobalConfig = {
-  slug: 'footer',
+  slug: "footer",
   access: {
     read: () => true,
   },
   fields: [
     {
-      name: 'description',
-      label: 'Description',
-      type: 'richText',
+      name: "description",
+      label: "Description",
+      type: "richText",
       required: true,
       editor: lexicalEditor({
         features: ({ rootFeatures }) => {
-          return [...rootFeatures, FixedToolbarFeature()]
+          return [...rootFeatures, FixedToolbarFeature()];
         },
       }),
     },
     {
-      name: 'companyName',
-      label: 'Company Name',
-      type: 'text',
+      name: "companyName",
+      label: "Company Name",
+      type: "text",
       required: true,
     },
     {
-      name: 'address',
-      label: 'Address',
-      type: 'text',
+      name: "address",
+      label: "Address",
+      type: "text",
       required: true,
     },
     {
-      name: 'phone',
-      label: 'Phone Number',
-      type: 'text',
+      name: "phone",
+      label: "Phone Number",
+      type: "text",
       required: true,
     },
     {
-      name: 'navItems',
-      type: 'array',
+      name: "navItems",
+      type: "array",
       fields: [
         link({
           appearances: false,
@@ -52,36 +55,36 @@ export const Footer: GlobalConfig = {
     link({
       appearances: false,
       overrides: {
-        name: 'primaryButton',
+        name: "primaryButton",
       },
     }),
     link({
       appearances: false,
       overrides: {
-        name: 'secondaryButton',
+        name: "secondaryButton",
       },
     }),
     {
-      name: 'contacts',
-      label: 'Contacts',
-      type: 'array',
+      name: "contacts",
+      label: "Contacts",
+      type: "array",
       fields: [
         {
-          name: 'name',
-          label: 'Name',
-          type: 'text',
+          name: "name",
+          label: "Name",
+          type: "text",
           required: true,
         },
         {
-          name: 'phone',
-          label: 'Phone',
-          type: 'text',
+          name: "phone",
+          label: "Phone",
+          type: "text",
           required: true,
         },
         {
-          name: 'email',
-          label: 'Email',
-          type: 'text',
+          name: "email",
+          label: "Email",
+          type: "text",
           required: true,
         },
       ],
@@ -90,4 +93,4 @@ export const Footer: GlobalConfig = {
   hooks: {
     afterChange: [revalidateFooter],
   },
-}
+};

@@ -1,11 +1,11 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from "payload";
 
-import { authenticated } from '@cms/access/authenticated'
-import { authenticatedOrPublished } from '@cms/access/authenticatedOrPublished'
-import { slugField } from '@cms/fields/slug'
-import { populatePublishedAt } from '@cms/hooks/populatePublishedAt'
-import { generatePreviewPath } from '@cms/utilities/generatePreviewPath'
-import { revalidatePage } from './hooks/revalidatePage'
+import { authenticated } from "@cms/access/authenticated";
+import { authenticatedOrPublished } from "@cms/access/authenticatedOrPublished";
+import { slugField } from "@cms/fields/slug";
+import { populatePublishedAt } from "@cms/hooks/populatePublishedAt";
+import { generatePreviewPath } from "@cms/utilities/generatePreviewPath";
+import { revalidatePage } from "./hooks/revalidatePage";
 
 import {
   BlockquoteFeature,
@@ -17,15 +17,15 @@ import {
   lexicalEditor,
   OrderedListFeature,
   UnorderedListFeature,
-} from '@payloadcms/richtext-lexical'
+} from "@payloadcms/richtext-lexical";
 
-import { Banner } from '@cms/blocks/Banner'
-import { MediaBlock } from '@cms/blocks/Media'
-import { Embed } from '@cms/blocks/Embed'
+import { Banner } from "@cms/blocks/Banner";
+import { MediaBlock } from "@cms/blocks/Media";
+import { Embed } from "@cms/blocks/Embed";
 // import { env } from '@cms/env'
 
 export const Pages: CollectionConfig = {
-  slug: 'pages',
+  slug: "pages",
   access: {
     create: authenticated,
     delete: authenticated,
@@ -33,7 +33,7 @@ export const Pages: CollectionConfig = {
     update: authenticated,
   },
   admin: {
-    defaultColumns: ['title', 'slug', 'updatedAt'],
+    defaultColumns: ["title", "slug", "updatedAt"],
     // livePreview: {
     //   url: ({ data }) => {
     //     const path = generatePreviewPath({
@@ -52,22 +52,22 @@ export const Pages: CollectionConfig = {
 
     //   return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
     // },
-    useAsTitle: 'title',
+    useAsTitle: "title",
   },
   fields: [
     {
-      name: 'title',
-      type: 'text',
+      name: "title",
+      type: "text",
       required: true,
     },
     {
-      name: 'content',
-      type: 'richText',
+      name: "content",
+      type: "richText",
       editor: lexicalEditor({
         features: ({ rootFeatures }) => {
           return [
             ...rootFeatures,
-            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+            HeadingFeature({ enabledHeadingSizes: ["h1", "h2", "h3", "h4"] }),
             BlocksFeature({ blocks: [Banner, MediaBlock, Embed] }),
             FixedToolbarFeature(),
             InlineToolbarFeature(),
@@ -75,36 +75,36 @@ export const Pages: CollectionConfig = {
             OrderedListFeature(),
             UnorderedListFeature(),
             BlockquoteFeature(),
-          ]
+          ];
         },
       }),
       required: true,
     },
     {
-      name: 'publishedAt',
-      type: 'date',
+      name: "publishedAt",
+      type: "date",
       admin: {
         date: {
-          pickerAppearance: 'dayAndTime',
+          pickerAppearance: "dayAndTime",
         },
-        position: 'sidebar',
+        position: "sidebar",
       },
       hooks: {
         beforeChange: [
           ({ siblingData, value }) => {
-            if (siblingData._status === 'published' && !value) {
-              return new Date()
+            if (siblingData._status === "published" && !value) {
+              return new Date();
             }
-            return value
+            return value;
           },
         ],
       },
       validate(date) {
         if (date && date > new Date()) {
-          return 'Scheduling a post is not yet supported, although we plan to add this feature.'
+          return "Scheduling a post is not yet supported, although we plan to add this feature.";
         }
-        return true
-      }
+        return true;
+      },
     },
     ...slugField(),
   ],
@@ -120,4 +120,4 @@ export const Pages: CollectionConfig = {
     },
     maxPerDoc: 50,
   },
-}
+};

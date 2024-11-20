@@ -1,9 +1,9 @@
-import { Banner } from '@payloadcms/ui/elements/Banner'
-import React from 'react'
+import { Banner } from "@payloadcms/ui/elements/Banner";
+import React from "react";
 
-import './index.scss'
+import "./index.scss";
 
-const baseClass = 'before-dashboard'
+const baseClass = "before-dashboard";
 
 const BeforeDashboard: React.FC = () => {
   return (
@@ -11,10 +11,10 @@ const BeforeDashboard: React.FC = () => {
       <Banner className={`${baseClass}__banner`} type="success">
         <h4>Welcome to the new Yale Daily News CMS!</h4>
       </Banner>
-      Please let us know if you have any questions or feedback.
-      You can reach Josh at <a href="mailto:josh.chang@yale.edu">josh.chang@yale.edu</a>.
+      Please let us know if you have any questions or feedback. You can reach
+      Josh at <a href="mailto:josh.chang@yale.edu">josh.chang@yale.edu</a>.
     </div>
-  )
-}
+  );
+};
 
-export default BeforeDashboard
+export default BeforeDashboard;
