@@ -67,10 +67,11 @@ export const HomeHeader: SC = async () => {
   });
   const volume = "CXLV";
 
-  const [header, weather] = await Promise.all([
-    getGlobal("header"),
-    getWeather(),
-  ]);
+  const headerP = getGlobal("header");
+  const weatherP = getWeather();
+  
+  const header = await headerP;
+  const weather = await weatherP;
 
   return (
     <header class="border-b md:border-b border-b-gray-300 sticky top-0 md:static">
