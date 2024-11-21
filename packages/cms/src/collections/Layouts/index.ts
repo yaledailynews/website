@@ -1,13 +1,13 @@
 import { authenticated } from "@cms/access/authenticated";
 import { authenticatedOrPublished } from "@cms/access/authenticatedOrPublished";
 import { slugField } from "@cms/fields/slug";
-import { generatePreviewPath } from "@cms/utilities/generatePreviewPath";
 import { CollectionConfig } from "payload";
 import { Text } from "@cms/collections/Layouts/blocks/Text";
 import { Articles } from "@cms/collections/Layouts/blocks/Articles";
 import { Podcasts } from "@cms/collections/Layouts/blocks/Podcasts";
 import { Newsletter } from "@cms/collections/Layouts/blocks/Newsletter";
 import { revalidateLayout } from "./hooks/revalidateLayout";
+import { generatePreviewUrl } from "@cms/utilities/generatePreviewUrl";
 
 export const Layouts: CollectionConfig = {
   slug: "layouts",
@@ -19,24 +19,7 @@ export const Layouts: CollectionConfig = {
   },
   admin: {
     defaultColumns: ["title", "slug", "publishedAt"],
-    // livePreview: {
-    //   url: ({ data }) => {
-    //     const path = generatePreviewPath({
-    //       id: data.id as number,
-    //       collection: 'layouts',
-    //     })
-
-    //     return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
-    //   },
-    // },
-    // preview: (data) => {
-    //   const path = generatePreviewPath({
-    //     id: data.id as number,
-    //     collection: 'layouts',
-    //   })
-
-    //   return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
-    // },
+    preview: (data) => generatePreviewUrl("layouts", data.id as number),
     useAsTitle: "title",
   },
   fields: [

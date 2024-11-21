@@ -3,11 +3,9 @@ import { getId } from "./utils";
 import { templateConstraints } from "@cms/collections/Layouts/blocks/Articles";
 import { getDoc, getDocById, getPostsByCategory } from "./cache";
 
-export const resolveLayout = async (
-  entry: string | number | Layout | undefined,
-) => {
+export const resolveLayout = async (entry: string | number | Layout | undefined) => {
   if (!entry) return null;
-  const layout = await getDoc("layouts", entry);
+  const layout = await getDoc("layouts", entry, 4);
   if (!layout) return null;
 
   // resolve posts
@@ -49,9 +47,7 @@ export const resolveLayout = async (
         block.posts
       ) {
         const posts = (
-          await Promise.all(
-            block.posts.map((post) => getDocById("posts", post)),
-          )
+          await Promise.all(block.posts.map((post) => getDocById("posts", post, 2)))
         ).filter((post): post is Post => post !== null);
         resolvedPosts.set(i, posts);
       }

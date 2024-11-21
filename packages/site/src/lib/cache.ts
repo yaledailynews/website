@@ -5,6 +5,8 @@ import configPromise from "@cms/payload.config";
 import { useContext } from "hono/jsx";
 import { CacheContext } from "./renderWithCache";
 import { z } from "zod";
+import { HTTPException } from "hono/http-exception";
+import { DraftContext } from "@site/components/server/Draft";
 
 export const payload = await getPayload({ config: configPromise });
 
@@ -16,9 +18,8 @@ const env = z
   })
   .parse(process.env);
 
-export async function purgeCache() {
+export async function purgeCloudflare() {
   console.log("Purging Cloudflare cache");
-
   const options = {
     method: "POST",
     headers: {
@@ -29,7 +30,7 @@ export async function purgeCache() {
   };
   const res = await fetch(
     `https://api.cloudflare.com/client/v4/zones/${env.CLOUDFLARE_ZONE_ID}/purge_cache`,
-    options,
+    options
   );
   const data = await res.json();
   console.log(data);
@@ -45,23 +46,27 @@ const store = new Map<string, any>();
 
 export async function purgeKeys(keys: string[]) {
   // TODO: keep track of which urls have which tags (up to 300 urls per tag, then just mark as purge all)
-  for (const key of keys) {
-    console.log(`Purging key ${key}`);
-    store.delete(key);
-  }
+  // for (const key of keys) {
+  //   console.log(`Purging key ${key}`);
+  //   store.delete(key);
+  // }
+  store.clear();
   if (import.meta.env["PROD"]) {
-    await purgeCache();
+    await purgeCloudflare();
   }
 }
 
-function cache<T>(key: string, fn: () => Promise<T>) {
+function cache<T>(key: string, fn: (draft: boolean) => Promise<T>) {
+  const draft = useContext(DraftContext);
+  if (draft) {
+    return fn(true);
+  }
   const keys = useContext(CacheContext);
   keys.add(key);
   if (store.has(key)) {
     return store.get(key) as T;
   }
-  console.log(`Cache miss for key ${key}`);
-  const result = fn();
+  const result = fn(false);
   result.then((result) => store.set(key, result));
   return result;
 }
@@ -69,83 +74,86 @@ function cache<T>(key: string, fn: () => Promise<T>) {
 export const getDocBySlug = <T extends Collection>(
   collection: T,
   slug: string,
-  depth = 2,
+  depth = 2
 ) =>
   cache(
     `${collection}_${slug}`,
-    async () =>
+    async (draft) =>
       (
         await payload.find({
           collection,
           depth,
-          draft: false,
-          overrideAccess: false,
+          draft,
+          overrideAccess: draft,
           where: {
             slug: {
               equals: slug,
             },
           },
         })
-      ).docs[0] as Collections[T] | null,
+      ).docs[0] as Collections[T] | null
   );
 
 export const getGlobal = <T extends Global>(slug: T, depth = 2) =>
-  cache(`global_${slug}`, () =>
+  cache(`global_${slug}`, (draft) =>
     payload.findGlobal({
       slug,
       depth,
-      draft: false,
-      overrideAccess: false,
-    }),
+      draft,
+      overrideAccess: draft,
+    })
   );
 
 export const getDocById = <T extends Collection>(
   collection: T,
   entry: number | Collections[T],
-  depth = 2,
+  depth = 2
 ) => {
   const id = getId(entry);
-  return cache(`${collection}_id_${id}`, async () => {
+
+  return cache(`${collection}_id_${id}`, async (draft) => {
     if (typeof entry === "object") {
       return entry;
     }
-    const result = await payload.findByID({
-      collection,
-      draft: false,
-      overrideAccess: false,
-      depth,
-      id,
-    });
-    if (!result) {
-      throw new Error(
-        `Document with id ${entry} not found in collection ${collection}`,
-      );
+    try {
+      const result = await payload.findByID({
+        collection,
+        draft,
+        overrideAccess: draft,
+        depth,
+        id,
+      });
+      if (!result) {
+        throw new HTTPException(404, {
+          message: `Document with id ${entry} not found in ${collection}`,
+        });
+      }
+      return result;
+    } catch (e) {
+      return;
     }
-    return result;
   });
 };
 
 export const getDoc = <T extends Collection>(
   collection: T,
   entry: Collections[T] | number | string,
+  depth = 2
 ) => {
   if (typeof entry === "string") {
-    return getDocBySlug(collection, entry);
+    return getDocBySlug(collection, entry, depth);
   }
-  return getDocById(collection, entry);
+  return getDocById(collection, entry, depth);
 };
 
-export const getPostsByCategory = (
-  id: number,
-  depth = 2,
-  limit = 100,
-  where?: Where,
-) =>
-  cache(`posts_category_${id}`, async () => {
+export const getPostsByCategory = (id: number, depth = 2, limit = 100, where?: Where) =>
+  cache(`posts_category_${id}`, async (draft) => {
     const { docs: posts } = await payload.find({
       collection: "posts",
       depth,
       limit,
+      draft,
+      overrideAccess: draft,
       where: {
         categories: {
           contains: id,
@@ -156,18 +164,20 @@ export const getPostsByCategory = (
 
     // tag each post for revalidation
     for (const post of posts) {
-      getDocById("posts", post.id);
+      getDocById("posts", post.id, depth);
     }
 
     return posts;
   });
 
 export const getPostsByAuthor = (id: number, depth = 2, limit = 100) =>
-  cache(`posts_author_${id}`, async () => {
+  cache(`posts_author_${id}`, async (draft) => {
     const { docs: posts } = await payload.find({
       collection: "posts",
       depth,
       limit,
+      draft,
+      overrideAccess: draft,
       where: {
         authors: {
           contains: id,
@@ -178,18 +188,20 @@ export const getPostsByAuthor = (id: number, depth = 2, limit = 100) =>
 
     // tag each post for revalidation
     for (const post of posts) {
-      getDocById("posts", post.id);
+      getDocById("posts", post.id, depth);
     }
 
     return posts;
   });
 
 export const getMediaByAuthor = (id: number, depth = 2, limit = 100) =>
-  cache(`media_author_${id}`, async () => {
+  cache(`media_author_${id}`, async (draft) => {
     const { docs: media } = await payload.find({
       collection: "media",
       depth,
       limit,
+      draft,
+      overrideAccess: draft,
       where: {
         author: {
           equals: id,
@@ -199,7 +211,7 @@ export const getMediaByAuthor = (id: number, depth = 2, limit = 100) =>
 
     // tag each media for revalidation
     for (const medium of media) {
-      getDocById("media", medium.id);
+      getDocById("media", medium.id, depth);
     }
 
     return media;
