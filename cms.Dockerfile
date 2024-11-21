@@ -1,7 +1,6 @@
-# use the official Bun image
-# see all versions at https://hub.docker.com/r/oven/bun/tags
-FROM oven/bun:1.1.34  AS bun-base
-FROM node:20.11.1 AS node-base
+FROM node:20.11.1
+
+RUN npm install -g bun@1.1.34
 
 WORKDIR /usr/src/app
 
@@ -33,7 +32,7 @@ ARG DRAFT_SECRET
 
 RUN bun run build
 
-RUN chown -R bun:bun /usr/src/app/packages/cms
+# RUN chown -R bun:bun /usr/src/app/packages/cms
 
 # run the app
 USER bun
