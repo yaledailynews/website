@@ -69,9 +69,7 @@ export default buildConfig({
       ],
     },
     components: {
-      // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
       beforeLogin: ["@cms/components/BeforeLogin"],
-      // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
       beforeDashboard: ["@cms/components/BeforeDashboard"],
     },
     importMap: {

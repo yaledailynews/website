@@ -1,6 +1,8 @@
 # use the official Bun image
 # see all versions at https://hub.docker.com/r/oven/bun/tags
-FROM oven/bun:1.1.34
+FROM oven/bun:1.1.34  AS bun-base
+FROM node:20.11.1 AS node-base
+
 WORKDIR /usr/src/app
 
 COPY . .

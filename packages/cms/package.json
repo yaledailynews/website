@@ -8,15 +8,15 @@
     "build": "next build",
     "dev": "next dev",
     "dev:prod": "rm -rf .next && bun run build && bun start",
-    "generate:importmap": "payload generate:importmap",
-    "generate:types": "payload generate:types",
+    "generate:importmap": "cross-env-shell PAYLOAD_CONFIG_PATH=src/payload.config.ts \"bun run payload generate:importmap\"",
+    "generate:types": "cross-env-shell PAYLOAD_CONFIG_PATH=src/payload.config.ts \"bun run payload generate:types\"",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "payload": "payload",
-    "start": "bun run ./scripts/enableVectorSearch.ts && bun run ./scripts/purgeCache.ts && payload migrate && next start",
-    "migrate:create": "payload migrate:create",
-    "migrate": "payload migrate",
-    "sync": "cross-env-shell PAYLOAD_CONFIG_PATH=src/payload.config.ts \" bun run payload migrate:create && bun run migrate && bun run generate:types && bun run generate:importmap\""
+    "start": "bun run ./scripts/enableVectorSearch.ts && bun run ./scripts/purgeCache.ts && bun run migrate && next start",
+    "migrate:create": "cross-env-shell PAYLOAD_CONFIG_PATH=src/payload.config.ts \"bun run payload migrate:create\"",
+    "migrate": "cross-env-shell PAYLOAD_CONFIG_PATH=src/payload.config.ts \"bun run payload migrate\"",
+    "sync": "bun run migrate:create && bun run migrate && bun run generate:types && bun run generate:importmap"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.0.2",
