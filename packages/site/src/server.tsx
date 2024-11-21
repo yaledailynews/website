@@ -233,7 +233,11 @@ app.get("/preview", async (c) => {
     .update(`${collection}${id}${time}`)
     .digest("hex");
 
-  if (hash !== hashCheck) {
+  try {
+    if (!crypto.timingSafeEqual(Buffer.from(hash), Buffer.from(hashCheck))) {
+      throw new HTTPException(403, { message: "Invalid signature" });
+    }
+  } catch (e) {
     throw new HTTPException(403, { message: "Invalid signature" });
   }
 

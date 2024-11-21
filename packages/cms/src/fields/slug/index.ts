@@ -11,6 +11,7 @@ export const slugField: Slug = (fieldToUse = "title") => {
     index: true,
     label: "Slug",
     required: true,
+    unique: true,
     hooks: {
       // Kept this in for hook or API based updates
       beforeValidate: [formatSlugHook(fieldToUse)],

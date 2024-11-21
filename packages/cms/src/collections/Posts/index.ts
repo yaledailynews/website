@@ -21,15 +21,7 @@ import { revalidatePost } from "./hooks/revalidatePost";
 import { slugField } from "@cms/fields/slug";
 import { addToMeili } from "@cms/hooks/addToMeili";
 import { Embed } from "@cms/blocks/Embed";
-import { z } from "zod";
-import crypto from "crypto";
-
-const env = z
-  .object({
-    SITE_URL: z.string().url(),
-    DRAFT_SECRET: z.string().min(1),
-  })
-  .parse(process.env);
+import { generatePreviewUrl } from "@cms/utilities/generatePreviewUrl";
 
 export const Posts: CollectionConfig = {
   slug: "posts",
@@ -41,24 +33,7 @@ export const Posts: CollectionConfig = {
   },
   admin: {
     defaultColumns: ["title", "slug", "updatedAt"],
-    preview: (data) => {
-      const id = data.id as number;
-      const collection = "posts";
-      const time = Date.now();
-      const hash = crypto
-        .createHmac("sha256", env.DRAFT_SECRET)
-        .update(`${collection}${id}${time}`)
-        .digest("hex");
-
-      const urlSearchParams = new URLSearchParams({
-        collection,
-        id: id.toString(),
-        time: time.toString(),
-        hash,
-      });
-
-      return `${env.SITE_URL}/preview?${urlSearchParams.toString()}`;
-    },
+    preview: (data) => generatePreviewUrl("posts", data.id as number),
     useAsTitle: "title",
   },
   fields: [
