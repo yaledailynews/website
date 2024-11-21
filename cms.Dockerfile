@@ -32,9 +32,9 @@ ARG DRAFT_SECRET
 
 RUN bun run build
 
-# RUN chown -R bun:bun /usr/src/app/packages/cms
+RUN chown -R node:node /usr/src/app/packages/cms
 
 # run the app
-USER bun
+USER node
 EXPOSE 8080/tcp
 ENTRYPOINT [ "bun", "run", "start" ]
