@@ -4,7 +4,7 @@ import {
   getDocById,
   getDocBySlug,
   getGlobal,
-  purgeCache,
+  purgeCloudflare,
   purgeKeys,
 } from "@site/lib/cache";
 import { HomeHeader } from "@site/components/server/HomeHeader";
@@ -22,12 +22,19 @@ import { SmallHeader } from "./components/server/SmallHeader";
 import { MeiliSearchIsland } from "./components/client/MeiliSearch";
 import { AuthorPage } from "./components/server/AuthorPage";
 import { z } from "zod";
+import crypto from "node:crypto";
+import { Draft } from "./components/server/Draft";
+import type { JSXElement, SC } from "./lib/types";
 
 const app = new Hono();
 
-const SITE_HOST = import.meta.env["SITE_HOST"];
+const SITE_HOST = process.env["SITE_HOST"];
 if (!SITE_HOST) {
   throw new Error("Missing SITE_HOST");
+}
+const DRAFT_SECRET = process.env["DRAFT_SECRET"];
+if (!DRAFT_SECRET) {
+  throw new Error("Missing DRAFT_SECRET");
 }
 
 staticFileHandler(app);
@@ -52,7 +59,7 @@ app.get(
         </StandardContainer>
       </BaseHtml>
     );
-  }),
+  })
 );
 
 app.get(
@@ -69,7 +76,7 @@ app.get(
         <PageComponent page={page} />
       </BaseHtml>
     );
-  }),
+  })
 );
 
 app.get(
@@ -82,21 +89,20 @@ app.get(
       throw new HTTPException(404);
     }
 
-    const cover =
-      (post.cover && (await getDocById("media", post.cover))) || undefined;
+    const cover = (post.cover && (await getDocById("media", post.cover))) || undefined;
 
     const authors = (
       post.authors
-        ? await Promise.all(
-            post.authors.map((author) => getDocById("authors", author)),
-          )
+        ? await Promise.all(post.authors.map((author) => getDocById("authors", author)))
         : []
-    ).map((author) => author.name);
+    )
+      .filter((author) => !!author)
+      .map((author) => author.name);
 
     const section =
       (post.categories &&
         post.categories.length > 0 &&
-        (await getDocById("categories", post.categories[0])).title) ||
+        (await getDocById("categories", post.categories[0]))?.title) ||
       undefined;
 
     return (
@@ -120,7 +126,7 @@ app.get(
         <PostComponent post={post} />
       </BaseHtml>
     );
-  }),
+  })
 );
 
 app.get(
@@ -138,7 +144,7 @@ app.get(
         <CategoryPage category={category} />
       </BaseHtml>
     );
-  }),
+  })
 );
 
 app.get(
@@ -161,7 +167,7 @@ app.get(
         </div>
       </BaseHtml>
     );
-  }),
+  })
 );
 
 app.get(
@@ -179,7 +185,7 @@ app.get(
         <AuthorPage author={author} />
       </BaseHtml>
     );
-  }),
+  })
 );
 
 app.get(
@@ -199,11 +205,82 @@ app.get(
         </StandardContainer>
       </div>
     </BaseHtml>
-  )),
+  ))
 );
 
 const purgeSchema = z.object({
   keys: z.array(z.string()),
+});
+
+app.get("/preview", async (c) => {
+  const { collection, id, time, hash } = z
+    .object({
+      collection: z.enum(["posts", "pages", "layouts"]),
+      id: z.string().transform(Number),
+      time: z.string().transform(Number),
+      hash: z.string(),
+    })
+    .parse(c.req.query());
+
+  // 60 minutes
+  if (time < Date.now() - 1000 * 60 * 60) {
+    throw new HTTPException(403, { message: "Preview link expired" });
+  }
+
+  // verify signature
+  const hashCheck = crypto
+    .createHmac("sha256", DRAFT_SECRET)
+    .update(`${collection}${id}${time}`)
+    .digest("hex");
+
+  if (hash !== hashCheck) {
+    throw new HTTPException(403, { message: "Invalid signature" });
+  }
+
+  const RenderDraft: SC =
+    collection === "layouts"
+      ? async () => {
+          const layout = await resolveLayout(id);
+          if (!layout) {
+            throw new HTTPException(404, { message: "Layout not found" });
+          }
+          return (
+            <div class="flex flex-col gap-16">
+              <SmallHeader />
+              <StandardContainer>
+                <LayoutComponent {...layout} />
+              </StandardContainer>
+            </div>
+          );
+        }
+      : collection === "posts"
+        ? async () => {
+            const post = await getDocById("posts", id, 4);
+            if (!post) {
+              throw new HTTPException(404, { message: "Post not found" });
+            }
+            return <PostComponent post={post} />;
+          }
+        : async () => {
+            const page = await getDocById("pages", id, 4);
+            if (!page) {
+              throw new HTTPException(404, { message: "Page not found" });
+            }
+            return <PageComponent page={page} />;
+          };
+
+  return c.html(
+    <Draft>
+      <BaseHtml title="Preview">
+        <RenderDraft />
+      </BaseHtml>
+    </Draft>,
+    200,
+    {
+      "Cache-Control": "no-cache",
+      Pragma: "no-cache",
+    }
+  );
 });
 
 app.post("/purge", async (c) => {
@@ -221,8 +298,9 @@ app.post("/purge", async (c) => {
   return c.json({ success: true });
 });
 
+// on server start, purge the cache
 if (import.meta.env["PROD"]) {
-  purgeCache();
+  purgeCloudflare();
 }
 
 app.notFound((c) => {
@@ -230,7 +308,7 @@ app.notFound((c) => {
     <BaseHtml title="404">
       <NotFound />
     </BaseHtml>,
-    404,
+    404
   );
 });
 

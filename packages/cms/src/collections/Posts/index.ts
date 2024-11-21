@@ -16,12 +16,20 @@ import { authenticated } from "@cms/access/authenticated";
 import { authenticatedOrPublished } from "@cms/access/authenticatedOrPublished";
 import { Banner } from "@cms/blocks/Banner";
 import { MediaBlock } from "@cms/blocks/Media";
-import { generatePreviewPath } from "@cms/utilities/generatePreviewPath";
 import { revalidatePost } from "./hooks/revalidatePost";
 
 import { slugField } from "@cms/fields/slug";
 import { addToMeili } from "@cms/hooks/addToMeili";
 import { Embed } from "@cms/blocks/Embed";
+import { z } from "zod";
+import crypto from "crypto";
+
+const env = z
+  .object({
+    SITE_URL: z.string().url(),
+    DRAFT_SECRET: z.string().min(1),
+  })
+  .parse(process.env);
 
 export const Posts: CollectionConfig = {
   slug: "posts",
@@ -33,22 +41,24 @@ export const Posts: CollectionConfig = {
   },
   admin: {
     defaultColumns: ["title", "slug", "updatedAt"],
-    // livePreview: {
-    //   url: ({ data }) => {
-    //     const path = generatePreviewPath({
-    //       id: data.id as number,
-    //       collection: 'posts',
-    //     })
-    //     return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
-    //   },
-    // },
-    // preview: (data) => {
-    //   const path = generatePreviewPath({
-    //     id: data.id as number,
-    //     collection: 'posts',
-    //   })
-    //   return `${env.NEXT_PUBLIC_SERVER_URL}${path}`
-    // },
+    preview: (data) => {
+      const id = data.id as number;
+      const collection = "posts";
+      const time = Date.now();
+      const hash = crypto
+        .createHmac("sha256", env.DRAFT_SECRET)
+        .update(`${collection}${id}${time}`)
+        .digest("hex");
+
+      const urlSearchParams = new URLSearchParams({
+        collection,
+        id: id.toString(),
+        time: time.toString(),
+        hash,
+      });
+
+      return `${env.SITE_URL}/preview?${urlSearchParams.toString()}`;
+    },
     useAsTitle: "title",
   },
   fields: [
